@@ -12,10 +12,19 @@ type Inputs = {
 export default function login() {
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data);
-    Signin({ data });
+    Signin({ data }).then((sucess) => {
+      console.log(sucess);
+      window.location.href = '/'
+    }).catch((err) => {
+      console.log(err)
+    });
   }
+
   // console.log(watch("example")) // watch input value by passing the name of it
+  // if (response.data.status ='200') {
+  //   //     roteador()
+  //   //     console.log('jacaré')
+  //   }
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */

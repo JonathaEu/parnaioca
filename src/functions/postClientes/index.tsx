@@ -1,10 +1,10 @@
 import api from '@/services/api'
 
-export default function Signin({ data }: any) {
+export default function cadastraCliente({ data }: any) {
 
     return new Promise((resolve, reject) => {
 
-        api.post('/login', data)
+        api.post('/cliente', data)
             .then((sucess) => {
                 resolve(sucess);
             })
