@@ -1,8 +1,8 @@
 'use client'
 import Signin from '@/functions/postUsers';
 import React from 'react'
-
 import { useForm, SubmitHandler } from "react-hook-form";
+import ImgLogo from '../../../../public/assets/logo.png'
 
 type Inputs = {
   name: string,
@@ -28,39 +28,43 @@ export default function login() {
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <div className='bg-sky-300'>
-      <form onSubmit={handleSubmit(onSubmit)} className='max-w-md mx-auto p-4 py-24
-     bg-neutral-700 shadow-lg rounded-md mt-10 px-10 border-blue-400 border
-     '>
-        <div className='space-y-4 mb-10'>
-          <div className='mb-4'>
-            <label htmlFor="name" className='block mb-2 text-sm text-white font-medium'>
-              Nome
-            </label>
-            {/* register your input into the hook by invoking the "register" function */}
-            <input  {...register("name", { required: true })}
-              className='border border-gray-300 text-gray-900 text-sm rounded-md
-            block w-full p-2 hover:border-slate-800'
-            />
+    <div className="bg-[url('/assets/home.jpg')] bg-cover w-full h-screen">
+      <section className="flex h-screen jutify-center items-center">
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col content-center items-center backdrop-blur-sm bg-white/30 w-96 h-4/5 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-24
+      mt-1 px-10'>
+          <div>
+            <img src={ImgLogo.src} alt="logotipo" className="w-40 h-auto justify-center items-center" />
+          </div><br />
+          <div className="space-y-4 mb-1">
+            <div className="4">
+              <label htmlFor="name" className='block mb-2 text-sm text-white font-medium'>
+                Login
+              </label>
+              {/* register your input into the hook by invoking the "register" function */}
+              <input  {...register("name", { required: true })} placeholder='Digite seu login'
+                className='border border-gray-300 text-gray-900 text-sm rounded-md
+            block p-2 hover:border-slate-800'
+              />
+            </div>
           </div>
-        </div>
 
-        <div className='space-y-4 mb-10'>
-          <div className='mb-4'>
-            <label htmlFor="password" className='block mb-2 text-sm text-white font-medium'>
-              Senha
-            </label>
-            {/* register your input into the hook by invoking the "register" function */}
-            <input  {...register("password", { required: true })}
-              className='border border-gray-300 text-gray-900 text-sm rounded-md
-            block w-full p-2 hover:border-slate-800'
-            />
+          <div className="space-y-4 mb-1">
+            <div className='mb-4'>
+              <label htmlFor="password" className='block mb-2 text-sm text-white font-medium'>
+                Senha
+              </label>
+              {/* register your input into the hook by invoking the "register" function */}
+              <input  {...register("password", { required: true })} placeholder='Digite sua senha'
+                className='border border-gray-300 text-black text-sm rounded-md
+            block p-2 hover:border-slate-800'
+              />
+            </div>
           </div>
-        </div>
 
-        <input type="submit" className='p-2 font-serif w-full mt-4 bg-teal-500 rounded-md
+          <input type="submit" className='p-2 font-medium w-full mt-4 bg-lime-500 rounded-md
       hover:cursor-pointer'/>
-      </form>
+        </form>
+      </section>
     </div>
   );
 }
