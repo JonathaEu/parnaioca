@@ -3,7 +3,7 @@ import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import cadastraCliente from '@/functions/postClientes'
 import Cadastro from '../../../../../public/assets/cadastro.png'
-
+import LogoTipo from '../../../../../public/assets/logo.png'
 
 type Inputs = {
     nome: string
@@ -30,8 +30,20 @@ export default function App() {
     return (
 
         <div className="bg-[url('/assets/ilha.jpg')] bg-cover h-screen">
-            <section className="flex flex-wrap content-between p-10">
-                <form onSubmit={handleSubmit(onSubmit)} className='content-center items-center rounded backdrop-blur-sm bg-white/40 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4
+            <section className="flex flex-wrap content-between ">
+
+                <header className=" bg-black/40 w-full h-20 bg-cover flex items-center justify-between">
+                    <div className="w-32 h-auto">
+                        <img src={LogoTipo.src} alt="Logotipo" className="w-20" />
+                    </div>
+
+                    <nav className="space-x-4 items-center text-xs text-white absolute right-12">
+                        <a href="#" className="text-white">Login</a> ·
+                        <a href="#" className="text-white">Cadastrar clientes</a> ·
+                    </nav>
+                </header>
+
+                <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4
     mt-1 px-5'>
 
                     <div>
@@ -104,8 +116,9 @@ export default function App() {
                         </div>
                     </div>
                     <div className='flex flex-col items-center p-2'>
-                        <input type='submit' className='p-1 bg-teal-600 shadow-lg border font-semibold tracking-wide transition ease-in-out duration-150 hover:bg-yellow-400 hover:shadow-xs hover:text-cyan-950 hover:no-underline hover:text-shadow text-sky-950  items-center flex right-16 rounded-md
-               hover:cursor-pointer '/>
+                    
+                            <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' />
+                     
                     </div>
                 </form>
             </section>

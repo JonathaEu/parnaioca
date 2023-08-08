@@ -37,12 +37,12 @@ export default function login() {
           </div><br />
           <div className="space-y-4 mb-1">
             <div className="4">
-              <label htmlFor="name" className='block mb-2 text-sm text-white font-medium'>
+              <label htmlFor="name" className='block mb-2 text-sm text-gray-950 font-medium'>
                 Login
               </label>
               {/* register your input into the hook by invoking the "register" function */}
               <input  {...register("name", { required: true })} placeholder='Digite seu login'
-                className='border border-gray-300 text-gray-900 text-sm rounded-md
+                className='border border-gray-300 text-sm rounded-md
             block p-2 hover:border-slate-800'
               />
             </div>
@@ -50,7 +50,7 @@ export default function login() {
 
           <div className="space-y-4 mb-1">
             <div className='mb-4'>
-              <label htmlFor="password" className='block mb-2 text-sm text-white font-medium'>
+              <label htmlFor="password" className='block mb-2 text-sm text-gray-950 font-medium'>
                 Senha
               </label>
               {/* register your input into the hook by invoking the "register" function */}

@@ -1,54 +1,54 @@
 import React from 'react'
-import LogoTipo from '../../../../public/assets/logo.png'
+import Contatos from '../../../../public/assets/contato.png'
+import Instagram from '../../../../public/assets/instagram.png'
+import Facebook from '../../../../public/assets/facebook.png'
+import Whatsapp from '../../../../public/assets/whatsapp.png'
 
 export default function Contato() {
     return (
-        <div>
-            <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full ">
+        <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen ">
 
-                <section className=" p-10">
-                    <form className='grid grid-cols-2 h-screen space-y-4 pl-40 items-center rounded backdrop-blur-sm bg-white/40 w-full rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4 mt-1 px-5'>
+            <div className="absolute font-roboto">
 
-                        <img src={LogoTipo.src} alt="logotipo" className="w-96 h-auto" />
-                        <h1 className="flex flex-col items-center pb-40 pl-0 content-center text-2xl text-stone-950 p-5"><b>ALGUMA DUVIDA?  <p> QUER SUGERIR SUA OPINIÃO? </p> ENTRE EM CONTATO CONOSCO:</b>
-                            <br /><br />
-                            <h2>
-                                <div className='space-y-4'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="nome" className='block mb-2 text-sm font-medium'>
-                                            Nome
-                                        </label>
-                                        <input placeholder='Digite o nome completo' id="nome" className='border text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800' />
-                                    </div>
-                                </div>
+                <div className="relative top-[30px] left-[3px] grid grid-cols-2 items-center rounded backdrop-blur-sm bg-white/60 rounded-x shadow-lg w-[90%] shadow-slate-600 mx-auto justify-center p-4 py-1 px-80">
+                    <div className="w-[20.3rem]">
+                        <img src={Contatos.src} alt="contatos" className="relative top-[10px] right-[130px] w-[30.3rem] h-auto" />
+                    </div>
 
-                                <div className='space-y-4'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="email" className='block mb-2 text-sm font-medium'>
-                                            Email
-                                        </label>
-                                        <input id="email" placeholder="Digite o email" className='border text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800' />
-                                    </div>
-                                </div>
+                    <form className="relative space-x-28 left-[-10px]">
+                        <div /*title*/ className="">
+                            <h1 className="relative left-[190px] font-bold text-[#0A1B30] text-[20px]">Alguma dúvida? <p> Quer deixar sua Opinião?</p>Entre em contato conosco</h1>
+                        </div><br />
 
-                                <div className='space-y-4'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="email" className='block mb-2 text-sm font-medium'>
-                                            Nos conte sua sugestão ou sua dúvida:
-                                        </label>
-                                        <input id="email" placeholder="Digite aqui" className='border text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800' />
-                                    </div>
-                                </div>
+                        <div className="space-y-0">
+                            <label className="font-semibold text-[#0A1B30]">Nome</label><br />
+                            <input type="text" name="name" placeholder='Digite seu nome completo' className="border-slate-950 block bg-[#1f4574] text-sm rounded-md order-neutral-950 text-white" required />
+                        </div>
+                        <br />
+                        <div className="space-y-0">
+                            <label className="font-semibold text-[#0A1B30]">E-mail</label><br />
+                            <input type="text" name="email" placeholder='Digite seu e-mail' className="bg-[#1f4574] text-sm rounded-md text-white border-slate-950 block" required />
+                        </div>
+                        <br />
+                        <div className="space-y-0">
+                            <label className="font-semibold text-[#0A1B30]">Seu comentário</label><br />
+                            <textarea name="postContent" rows={4} cols={30} placeholder='Digite aqui sua opinião ou dúvida' className="bg-[#1f4574] text-white text-sm rounded-md border-neutral-950 text-[15px]" required />
+                        </div>
+                        <br />
+                        <div>
+                            <input type='submit' className=' relative left-[130px] text-white button w-16 h-8 bg-[#52260A] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#2d1f16,0_15px_0_0_#1b70f841] border-b-[1px] border-[#8e7362]' />
+                        </div>
+                        <br /><br />
 
-
-                            </h2>
-
-                        </h1>
-
+                        <div className="grid grid-cols-3 content-center items-center w-[40%]">
+                            <a rel="stylesheet" href="#"> <img src={Facebook.src} alt="Facebook" className="w-6" /> </a>
+                            <a rel="stylesheet" href="#"> <img src={Instagram.src} alt="Instagram" className="w-6" /> </a>
+                            <a rel="stylesheet" href="#"> <img src={Whatsapp.src} alt="Whatsapp" className="w-6" /> </a>
+                        </div>
 
                     </form>
-                </section>
+                </div>
             </div>
-        </div>
+        </div >
     )
 }
