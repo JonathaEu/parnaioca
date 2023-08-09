@@ -1,12 +1,10 @@
-'use client'
-import LogoTipo from '../../public/assets/logo.png'
+import React from "react";
+import Sidebar from "./app/components/Sidebar";
 
 export default function Home() {
   return (
-    <div>
-      <h1>
-        Início
-      </h1>
-    </div>    
+    <> 
+    <Sidebar/>
+    </>
   )
 }
