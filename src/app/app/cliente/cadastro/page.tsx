@@ -32,19 +32,8 @@ export default function App() {
         <div className="bg-[url('/assets/ilha.jpg')] bg-cover h-screen">
             <section className="flex flex-wrap content-between ">
 
-                <header className=" bg-black/40 w-full h-20 bg-cover flex items-center justify-between">
-                    <div className="w-32 h-auto">
-                        <img src={LogoTipo.src} alt="Logotipo" className="w-20" />
-                    </div>
-
-                    <nav className="space-x-4 items-center text-xs text-white absolute right-12">
-                        <a href="#" className="text-white">Login</a> ·
-                        <a href="#" className="text-white">Cadastrar clientes</a> ·
-                    </nav>
-                </header>
-
                 <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4
-    mt-1 px-5'>
+    mt-24 px-5'>
 
                     <div>
                         <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center" />

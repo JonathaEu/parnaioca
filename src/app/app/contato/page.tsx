@@ -10,7 +10,7 @@ export default function Contato() {
 
             <div className="absolute font-roboto">
 
-                <div className="relative top-[30px] left-[3px] grid grid-cols-2 items-center rounded backdrop-blur-sm bg-white/60 rounded-x shadow-lg w-[90%] shadow-slate-600 mx-auto justify-center p-4 py-1 px-80">
+                <div className="relative top-[30px] left-[25px] grid grid-cols-2 items-center rounded backdrop-blur-sm bg-white/60 rounded-x shadow-lg w-[90%] shadow-slate-600 mx-auto justify-center p-4 py-1 px-80">
                     <div className="w-[20.3rem]">
                         <img src={Contatos.src} alt="contatos" className="relative top-[10px] right-[130px] w-[30.3rem] h-auto" />
                     </div>

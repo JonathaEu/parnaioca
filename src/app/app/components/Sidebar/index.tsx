@@ -1,20 +1,21 @@
 import React from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiHamburgerMenu, GiMoneyStack } from "react-icons/gi";
 import LogoTipo from '../../../../../public/assets/logo.png';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { BiUser, BiBed, BiDrink, BiMessageRounded } from 'react-icons/bi';
-import { AiFillCar, AiFillHeart } from 'react-icons/ai'
+import { AiFillCar, AiFillHeart } from 'react-icons/ai';
+
 import Link from "next/link";
 
 const Sidebar = () => {
     const menus = [
-        { name: "dashboard", link: '/', icon: MdOutlineDashboard },
-        { name: "login", link: "/", icon: BiUser },
-        { name: "acomodações", link: '/', icon: BiBed },
-        { name: "frigobar", link: '/', icon: BiDrink },
-        { name: "estacionamento", link: '/', icon: AiFillCar },
-        { name: "contato", link: '/', icon: BiMessageRounded },
-        { name: "sobre", link: '/', icon: AiFillHeart },
+        { name: "Login", link: "../../../../../funcionario/login", icon: BiUser },
+        { name: "Dashboard", link: '/', icon: MdOutlineDashboard },
+        { name: "A pousada", link: '/', icon: AiFillHeart },
+        { name: "Acomodações", link: '/', icon: BiBed },
+        { name: "Frigobar", link: '/', icon: BiDrink },
+        { name: "Estacionamento", link: '/', icon: AiFillCar },
+        { name: "Fale Conosco", link: '/', icon: BiMessageRounded },
     ];
     return (
         <section className="flex gap-6">
@@ -30,6 +31,7 @@ const Sidebar = () => {
                             <h2>{menu?.name}</h2>
                         </Link>
                     ))}
+                    <hr/>
                 </div>
             </div>
             <div className="m-3 text-x1 text-gray-900 font-semibold">
