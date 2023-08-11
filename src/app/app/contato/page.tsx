@@ -1,9 +1,7 @@
 import React from 'react'
 import Contatos from '../../../../public/assets/contato.png'
-import Instagram from '../../../../public/assets/instagram.png'
-import Facebook from '../../../../public/assets/facebook.png'
-import Whatsapp from '../../../../public/assets/whatsapp.png'
 import Sidebar from '../components/Sidebar'
+import Footer from '../components/Footer'
 
 
 export default function Contato() {
@@ -44,17 +42,12 @@ export default function Contato() {
                                 </div>
                                 <br /><br />
 
-                                <div className="grid grid-cols-3 content-center items-center w-[40%]">
-                                    <a rel="stylesheet" href="#"> <img src={Facebook.src} alt="Facebook" className="w-6" /> </a>
-                                    <a rel="stylesheet" href="#"> <img src={Instagram.src} alt="Instagram" className="w-6" /> </a>
-                                    <a rel="stylesheet" href="#"> <img src={Whatsapp.src} alt="Whatsapp" className="w-6" /> </a>
-                                </div>
-
                             </form>
                         </div>
                     </div>
                 </div >
             </Sidebar>
+            <Footer/>
         </>
     )
 }

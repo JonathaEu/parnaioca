@@ -5,6 +5,7 @@ import cadastraCliente from '@/functions/postClientes'
 import Cadastro from '../../../../../public/assets/cadastro.png'
 import LogoTipo from '../../../../../public/assets/logo.png'
 import Sidebar from '../../components/Sidebar'
+import Footer from '../../components/Footer'
 
 type Inputs = {
     nome: string
