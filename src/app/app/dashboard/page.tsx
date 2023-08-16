@@ -17,13 +17,13 @@ export default function dashboard() {
     const router = useRouter();
     const { user } = useStateContext();
 
-    const RouteCadastroCliente = () => { router.push('/cliente/cadastro') }
-    const RouteCadastroItens = () => { router.push('/cliente/cadastro') }
-    const RouteRealizarReserva = () => { router.push('/reservas') }
-    const RouteCadastroFrigobar = () => { router.push('/frigobar') }
-    const RouteCadastroQuarto = () => { router.push('/quarto') }
-    const RouteCadastroTipoQuarto = () => { router.push('/quartoCategory') }
-    const RouteCadastroEstacionamento = () => { router.push('/estacionamento') }
+    const RouteCadastroCliente = () => { router.push('/app/cliente/cadastro') }
+    const RouteCadastroItens = () => { router.push('/app/cliente/cadastro') }
+    const RouteRealizarReserva = () => { router.push('/app/reservas') }
+    const RouteCadastroFrigobar = () => { router.push('/app/frigobar') }
+    const RouteCadastroQuarto = () => { router.push('/app/quarto') }
+    const RouteCadastroTipoQuarto = () => { router.push('/app/quartoCategory') }
+    const RouteCadastroEstacionamento = () => { router.push('/app/estacionamento') }
     const CheckInButton = () => { router.push('/cliente/cadastro') }
     const CheckOutButton = () => { router.push('/cliente/cadastro') }
 

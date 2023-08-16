@@ -1,18 +1,18 @@
 export const APP_ROUTES = {
     private: {
         dashboard: {
-            name: '/dashboard',
+            name: '/app/dashboard',
         },
         quartoCategory: {
-            name: '/quartoCategory',
+            name: '/app/quartoCategory',
         },
         
         quarto: {
-            name: '/quarto',
+            name: '/app/quarto',
         },
         
         Cliente: {
-            name: '/cliente/cadastro',
+            name: '/app/cliente/cadastro',
         },
         unauthorized: {
             name: '/unauthorized',
@@ -20,8 +20,10 @@ export const APP_ROUTES = {
         
     },
     public: {
-        login: '/funcionario/login',
+        login: '/app/funcionario/login',
         home: '/',
+        pousada: '/app/pousada',
+        contato: '/app/contato',
         
     }
 };

@@ -21,6 +21,7 @@ export default function login() {
 
     console.error(data)
     Signin({ data })
+    console.log(data);
   }
 
   return (
