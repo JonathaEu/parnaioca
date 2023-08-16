@@ -1,6 +1,8 @@
 'use client'
-import Signin from '@/functions/postUsers';
-import React from 'react'
+import { AuthProvider, useStateContext } from '@/context/AuthProvider';
+// import AuthContext from '@/context/AuthProvider';
+// import Signin from '@/functions/postUsers';
+import { useContext, useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import ImgLogo from '../../../../../public/assets/logo.png'
 import Sidebar from '../../components/Sidebar';
@@ -11,21 +13,15 @@ type Inputs = {
 };
 
 export default function login() {
+
+  // const { setAuth }: any = useContext(AuthContext);
+  const { setToken, setUser, user, Signin } = useStateContext();
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = data => {
-    Signin({ data }).then((sucess) => {
-      console.log(sucess);
-      window.location.href = '/'
-    }).catch((err) => {
-      console.log(err)
-    });
-  }
 
-  // console.log(watch("example")) // watch input value by passing the name of it
-  // if (response.data.status ='200') {
-  //   //     roteador()
-  //   //     console.log('jacaré')
-  //   }
+    console.error(data)
+    Signin({ data })
+  }
 
   return (
     <>
