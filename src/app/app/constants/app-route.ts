@@ -21,7 +21,7 @@ export const APP_ROUTES = {
     },
     public: {
         login: '/app/funcionario/login',
-        home: '/',
+        home: '/app',
         pousada: '/app/pousada',
         contato: '/app/contato',
         
