@@ -29,7 +29,6 @@ export default function Itens() {
         reset();
     }
 
-
     return (
         <>
             <Sidebar>
