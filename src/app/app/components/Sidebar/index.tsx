@@ -9,10 +9,10 @@ import { BiUser, BiBed, BiDrink, BiMessageRounded } from 'react-icons/bi';
 import { AiFillCar, AiFillHeart } from 'react-icons/ai';
 import Link from "next/link";
 
-function Sidebar({ children }:any) {
+function Sidebar({ children }: any) {
     const menus = [
         { name: "Login", href: "../../../../app/funcionario/login", icon: BiUser },
-        { name: "Dashboard", url: '', href: '/', icon: MdOutlineDashboard },
+        { name: "Dashboard", url: '', href: '../../../../app/dashboard', icon: MdOutlineDashboard },
         { name: "A pousada", href: '../../../app/pousada', icon: AiFillHeart },
         { name: "Acomodações", url: '', href: '/', icon: BiBed },
         { name: "Frigobar", url: '', href: '/', icon: BiDrink },
