@@ -24,8 +24,8 @@ export default function dashboard() {
     const RouteCadastroQuarto = () => { router.push('/app/quarto') }
     const RouteCadastroTipoQuarto = () => { router.push('/app/quartoCategory') }
     const RouteCadastroEstacionamento = () => { router.push('/app/estacionamento') }
-    const CheckInButton = () => { router.push('/cliente/cadastro') }
-    const CheckOutButton = () => { router.push('/cliente/cadastro') }
+    const CheckInButton = () => { router.push('/app/cliente/cadastro') }
+    const CheckOutButton = () => { router.push('/app/cliente/cadastro') }
 
     // const [clientes, setClientes] = useState([]);
 
