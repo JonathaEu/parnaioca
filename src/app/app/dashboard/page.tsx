@@ -70,7 +70,8 @@ export default function dashboard() {
                         Cadastrar Quarto
                     </button>
 
-                    <button type="button" className="bg-cyan-600 rounded-md text-white ">
+                    <button type="button" onClick={RouteCadastroFrigobar}
+                        className="bg-cyan-600 rounded-md text-white ">
                         Cadastrar itens para o frigobar
                     </button>
 
