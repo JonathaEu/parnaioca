@@ -51,10 +51,6 @@ export default function dashboard() {
                         </li>
                     </ul>
                 </div>
-                <div className="flex justify-center items-center mt-2">
-                    <h2 className="">Bem-vindo {user?.name}, o que deseja fazer?</h2>
-                </div>
-
 
             <SideBarFuncionario>
                 <div className="">
