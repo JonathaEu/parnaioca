@@ -14,7 +14,6 @@ function Sidebar({ children }: any) {
         { name: "Login", href: "../../../../app/funcionario/login", icon: BiUser },
         { name: "Dashboard", url: '', href: '/', icon: MdOutlineDashboard },
         { name: "A pousada", href: '../../../app/pousada', icon: AiFillHeart },
-        {name: "Check in / CheckOut", href:"/", icon: AiFillCheckCircle},
         { name: "Acomodações", url: '', href: '/', icon: BiBed },
         { name: "Frigobar", url: '', href: '/', icon: BiDrink },
         { name: "Estacionamento", url: '', href: '/', icon: AiFillCar },

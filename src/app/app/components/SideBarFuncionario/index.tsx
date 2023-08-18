@@ -10,50 +10,65 @@ import { AiFillCar, AiOutlineLogin, AiFillCheckCircle } from 'react-icons/ai';
 import { RiReservedLine } from 'react-icons/ri';
 import { BsPersonBadge } from 'react-icons/bs';
 import Link from "next/link";
+import logout from "@/functions/logout";
 
 
 function Sidebar({ children }: any) {
+
   const menus = [
     { name: "Dashboard", href: '/', icon: MdOutlineDashboard },
     { name: "Clientes", href: "/", icon: BsPersonBadge },
     { name: "Reservas", href: '/', icon: RiReservedLine, margin: "" },
-    {name: "Check in / CheckOut", href:"/", icon: AiFillCheckCircle},
+    { name: "Check in / CheckOut", href: "/", icon: AiFillCheckCircle },
     { name: "Acomodações", href: '/', icon: BiBed },
     { name: "Frigobar", href: '/', icon: BiDrink },
     { name: "Estacionamento", href: '/', icon: AiFillCar },
-    { name: "LogOut", href: "/", icon: AiOutlineLogin },
+
   ];
 
   const [open, setOpen] = useState(true);
 
   return (
-    <section className="flex">
-      <div className={`bg-black min-h-screen w-100 ${open ? 'w-14' : 'w-52'} duration-500 text-gray-200 px-4`}>
-        <div className="py-3 flex justify-end">
-          <GiHamburgerMenu
-            size={26}
-            className="cursor-pointer"
-            onClick={() => setOpen(!open)} />
+    <>
+      <section className="flex">
+        <div className={`bg-black min-h-screen w-100 ${open ? 'w-14' : 'w-52'} duration-500 text-gray-200 px-4`}>
+          <div className="py-3 flex justify-end">
+            <GiHamburgerMenu
+              size={26}
+              className="cursor-pointer"
+              onClick={() => setOpen(!open)} />
+          </div>
+          <div> <img src={Administrador.src} alt="logotipo" className="w-36 h-auto" /></div><br /><hr /><br />
+          <div className="mt-4 flex flex-col gap-4 relative">
+            {menus?.map((menu, i) => (
+              <Link href={menu?.href} key={i} className={`${menu?.margin && "mt-5"} group flex items-center text-xs gap-2 p-1 font-medium hover:bg-slate-900 hover:rounded-full hover:p-1 hover:w-[100%]`}>
+                <div>{React.createElement(menu?.icon, { size: '20' })}</div>
+                <h2 style={{ transitionDelay: `${i + 500}ms`, }} className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"}`}></h2>
+                {!open ?
+                  <h2>{menu?.name}</h2>
+                  :
+                  <h2 className={`${!open && "hidden"} absolute left-48 z-50 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-150 group-hover:w-fit`}>
+                    {menu?.name}
+                  </h2>}
+              </Link>
+
+            ))}
+
+            <hr className="text-base" />
+
+            <button onClick={logout}>
+              <div className={"text-lg pl-1 over:bg-slate-900 hover:rounded-full"}>
+                <AiOutlineLogin />
+              </div>
+            </button>
+
+            <hr />
+          </div>
         </div>
-        <div> <img src={Administrador.src} alt="logotipo" className="w-36 h-auto" /></div><br /><hr /><br />
-        <div className="mt-4 flex flex-col gap-4 relative">
-          {menus?.map((menu, i) => (
-            <Link href={menu?.href} key={i} className={`${menu?.margin && "mt-5"} group flex items-center text-xs gap-2 p-1 font-medium hover:bg-slate-900 hover:rounded-full hover:p-1 hover:w-[100%]`}>
-              <div>{React.createElement(menu?.icon, { size: '20' })}</div>
-              <h2 style={{ transitionDelay: `${i + 500}ms`, }} className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"}`}></h2>
-              {!open ?
-                <h2>{menu?.name}</h2>
-                :
-                <h2 className={`${!open && "hidden"} absolute left-48 z-50 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-150 group-hover:w-fit`}>
-                  {menu?.name}
-                </h2>}
-            </Link>
-          ))}
-          <hr />
-        </div>
-      </div>
-      {children}
-    </section>
-  );
-}
+        {children}
+      </section>
+    </>
+  )
+};
+
 export default Sidebar;
