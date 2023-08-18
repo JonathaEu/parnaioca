@@ -18,18 +18,18 @@ type Clientes = {
 }
 
 export default function dashboard() {
-//     const router = useRouter();
-//     const { user } = useStateContext();
+        const router = useRouter();
+        const { user } = useStateContext();
 
-//     const RouteCadastroCliente = () => { router.push('/app/cliente/cadastro') }
-//     const RouteCadastroItens = () => { router.push('/app/cliente/cadastro') }
-//     const RouteRealizarReserva = () => { router.push('/app/reservas') }
-//     const RouteCadastroFrigobar = () => { router.push('/app/frigobar') }
-//     const RouteCadastroQuarto = () => { router.push('/app/quarto') }
-//     const RouteCadastroTipoQuarto = () => { router.push('/app/quartoCategory') }
-//     const RouteCadastroEstacionamento = () => { router.push('/app/estacionamento') }
-//     const CheckInButton = () => { router.push('/app/cliente/cadastro') }
-//     const CheckOutButton = () => { router.push('/app/cliente/cadastro') }
+        // const RouteCadastroCliente = () => { router.push('/app/cliente/cadastro') }
+        // const RouteCadastroItens = () => { router.push('/app/cliente/cadastro') }
+        // const RouteRealizarReserva = () => { router.push('/app/reservas') }
+        // const RouteCadastroFrigobar = () => { router.push('/app/frigobar') }
+        // const RouteCadastroQuarto = () => { router.push('/app/quarto') }
+        // const RouteCadastroTipoQuarto = () => { router.push('/app/quartoCategory') }
+        // const RouteCadastroEstacionamento = () => { router.push('/app/estacionamento') }
+        // const CheckInButton = () => { router.push('/app/cliente/cadastro') }
+        // const CheckOutButton = () => { router.push('/app/cliente/cadastro') }
 
     const [clientes, setClientes] = useState([]);
 
@@ -42,69 +42,19 @@ export default function dashboard() {
         getClientes();
     }, []);
     console.log(clientes);
-//     return (
-//         <>
-//             <div className="font-medium border border-cyan-400 p-10 
-//             ">
-//                 <ul className="absolute right-28">
-//                     <li>{user?.name}
-//                     </li>
-//                 </ul>
-//                 <div className=" absolute right-10  p-2 bg-red-500 rounded-md">
-//                     <button type="button" onClick={logout}>Sair</button>
-//                 </div>
-//             </div>
-//             <div className="flex justify-center items-center mt-2">
-//                 <h2 className="">Bem-vindo {user?.name}, o que deseja fazer?</h2>
-//             </div>
+        return (
+            <>
+                <div className="font-medium border border-cyan-400 p-10 
+                ">
+                    <ul className="absolute right-28">
+                        <li>{user?.name}
+                        </li>
+                    </ul>
+                </div>
+                <div className="flex justify-center items-center mt-2">
+                    <h2 className="">Bem-vindo {user?.name}, o que deseja fazer?</h2>
+                </div>
 
-//             <div className=" shadow-2xl mx-2 border-b-2 border-l-2 border-r-2 rounded-lg">
-//                 <div className="mx-10 grid grid-cols-4 gap-4 justify-between px-2 mt-4 py-4 text-sm ">
-//                     <button type="button" onClick={RouteCadastroCliente}
-//                         className="bg-cyan-600 rounded-md text-white p-[10px]">
-//                         Cadastrar Cliente
-//                     </button>
-
-//                     <button type="button" onClick={RouteRealizarReserva}
-//                         className="bg-cyan-600 rounded-md text-white ">
-//                         Realizar Reserva
-//                     </button>
-//                     <button type="button" onClick={RouteCadastroQuarto}
-//                         className="bg-cyan-600 rounded-md text-white ">
-//                         Cadastrar Quarto
-//                     </button>
-
-//                     <button type="button" className="bg-cyan-600 rounded-md text-white ">
-//                         Cadastrar itens para o frigobar
-//                     </button>
-
-//                     <button type="button" className="bg-cyan-600 rounded-md text-white ">
-//                         Cadastrar Frigobar Para Quarto
-//                     </button>
-
-//                     <button type="button" className="bg-cyan-600 rounded-md text-white">
-//                         Realizar check-out
-//                     </button>
-
-//                     <button type="button" className="bg-cyan-600 rounded-md text-white">
-//                         Realizar check-out
-//                     </button>
-
-//                     <button type="button" onClick={RouteCadastroTipoQuarto}
-//                         className="bg-cyan-600 rounded-md text-white">
-//                         Cadastrar categoria de acomodação
-//                     </button>
-
-//                     <button type="button" className="bg-cyan-600 rounded-md text-white">
-//                         Cadastrar Vaga no Estacionamento
-//                     </button>
-
-//                 </div>
-//             </div>
-//         </>
-//     )
-    return (
-        <>
 
             <SideBarFuncionario>
                 <div className="">
