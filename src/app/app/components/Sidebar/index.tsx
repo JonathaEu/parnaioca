@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import LogoTipo from '../../../../../public/assets/logo.png';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { BiUser, BiBed, BiDrink, BiMessageRounded } from 'react-icons/bi';
-import { AiFillCar, AiFillHeart } from 'react-icons/ai';
+import { AiFillCar, AiFillHeart, AiFillCheckCircle } from 'react-icons/ai';
 import Link from "next/link";
 
 function Sidebar({ children }: any) {
@@ -14,10 +14,12 @@ function Sidebar({ children }: any) {
         { name: "Login", href: "../../../../app/funcionario/login", icon: BiUser },
         { name: "Dashboard", url: '', href: '../../../../app/dashboard', icon: MdOutlineDashboard },
         { name: "A pousada", href: '../../../app/pousada', icon: AiFillHeart },
+        {name: "Check in / CheckOut", href:"/", icon: AiFillCheckCircle},
         { name: "Acomodações", url: '', href: '/', icon: BiBed },
         { name: "Frigobar", url: '', href: '/', icon: BiDrink },
         { name: "Estacionamento", url: '', href: '/', icon: AiFillCar },
         { name: "Fale Conosco", href: '../../app/contato', icon: BiMessageRounded, margin: "" }
+    
     ];
 
     const [open, setOpen] = useState(true);
