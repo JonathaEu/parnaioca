@@ -29,31 +29,54 @@ export default function Frigobar() {
                         <FormElements></FormElements>
                         <div className='w-full'>
                             <table className="w-full text-sm text-left text-white dark:text-gray-400">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
                                     <tr>
                                         <th scope="col" className="px-6 py-3">
-                                            Frigobares
+                                            Frigobar número:
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Está no quarto:
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Situação:
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {frigobar.map((frigobar) => {
-
+                                        // const [quarto, setQuarto] = useState([]);
+                                        // useEffect(() => {
+                                        //     const getQuarto = async () => {
+                                        //         const response = await api.get(`/quarto${frigobar.quartos_id}`);
+                                        //         setQuarto(response.data.data);
+                                        //         // console.log(response.data.data);
+                                        //     };
+                                        //     getQuarto();
+                                        // }, []);
                                         return (
                                             <>
                                                 {/* <tr className=" relative bottom-20">
                                                     <th className="w-screen">Frigobares:</th>
                                                 </tr> */}
 
-                                                <tr key={frigobar.id} className='bg-cyan-700 border-b dark:bg-gray-800'>
+                                                <tr key={frigobar.id} className='bg-cyan-700 border-b dark:bg-gray-800 dark:text-white'>
                                                     <td className='py-4 px-6'>
-                                                        {frigobar.id}
-                                                        <div className='flex flex-col3'>
-                                                            <button className='bg-indigo-500 flex  indent-32'>Cadastrar</button>
-                                                            <button className='bg-indigo-500 flex  indent-36'>editar</button>
-                                                            <button className='bg-indigo-500 flex  indent-48'>excluir</button>
-                                                        </div>
+                                                        {frigobar.numero}
                                                     </td>
+                                                    <td className='py-4 px-6'>
+                                                        {frigobar.quartos_id}
+                                                    </td>
+                                                    <td className='py-4 px-6 w-[200px]'>
+                                                        {frigobar.ativo}
+                                                    </td>
+                                                    <td className='flex justify-end gap-10 mt-2 mr-3'>
+                                                        <button className='bg-indigo-500 flex p-2 rounded-md'>Cadastrar</button>
+                                                        <button className='bg-indigo-500 flex p-2 rounded-md'>editar</button>
+                                                        <button className='bg-indigo-500 flex p-2 rounded-md'>excluir</button>
+                                                    </td>
+
                                                 </tr>
                                             </>
                                         )

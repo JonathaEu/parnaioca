@@ -56,14 +56,15 @@ export default function FormElements() {
 
     return (
         <>
-            <div className='mt-32'>
-                <Button onClick={() => props.setOpenModal('form-elements')}>Toggle modal</Button>
+            <div className='mt-32 mb-4'>
+                <Button onClick={() => props.setOpenModal('form-elements')}>Cadastrar frigobar</Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">
                             <h3 className="text-xl font-medium text-gray-900 dark:text-white">Cadastrar Frigobar</h3>
-                            <form onSubmit={handleSubmit(onSubmit)} className='text-gray-800 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4 mt-14 px-5
+                            <form onSubmit={handleSubmit(onSubmit)}
+                                className='text-gray-800 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4 mt-14 px-5  dark:text-white
                         '>
 
                                 <div>
