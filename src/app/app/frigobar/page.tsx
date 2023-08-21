@@ -44,7 +44,7 @@ export default function Frigobar() {
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className=''>
                                     {frigobar.map((frigobar) => {
                                         // const [quarto, setQuarto] = useState([]);
                                         // useEffect(() => {
@@ -61,7 +61,7 @@ export default function Frigobar() {
                                                     <th className="w-screen">Frigobares:</th>
                                                 </tr> */}
 
-                                                <tr key={frigobar.id} className='bg-cyan-700 border-b dark:bg-gray-800 dark:text-white'>
+                                                <tr key={frigobar.id} className='indent-10 bg-cyan-700 border-b dark:bg-gray-800 dark:text-white'>
                                                     <td className='py-4 px-6'>
                                                         {frigobar.numero}
                                                     </td>
