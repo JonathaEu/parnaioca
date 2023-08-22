@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import LogoTipo from '../../../../../public/assets/logo.png';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { BiUser, BiBed, BiDrink, BiMessageRounded } from 'react-icons/bi';
-import { AiFillCar, AiFillHeart } from 'react-icons/ai';
+import { AiFillCar, AiFillHeart, AiFillCheckCircle } from 'react-icons/ai';
 import Link from "next/link";
 
 function Sidebar({ children }: any) {
@@ -18,6 +18,7 @@ function Sidebar({ children }: any) {
         { name: "Frigobar", url: '', href: '/', icon: BiDrink },
         { name: "Estacionamento", url: '', href: '/', icon: AiFillCar },
         { name: "Fale Conosco", href: '../../app/contato', icon: BiMessageRounded, margin: "" }
+    
     ];
 
     const [open, setOpen] = useState(true);

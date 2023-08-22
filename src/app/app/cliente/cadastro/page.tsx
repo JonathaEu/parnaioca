@@ -4,8 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import cadastraCliente from '@/functions/postClientes'
 import Cadastro from '../../../../../public/assets/cadastro.png'
 import LogoTipo from '../../../../../public/assets/logo.png'
-import Sidebar from '../../components/Sidebar'
 import Footer from '../../components/Footer'
+import SideBarFuncionario from '../../components/SideBarFuncionario'
 
 type Inputs = {
     nome: string
@@ -31,19 +31,21 @@ export default function App() {
 
     return (
         <>
-            <Sidebar>
-                <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
-                    <section className="flex flex-wrap content-between ">
+            <SideBarFuncionario>
+                <div className="bg-[url('/assets/fundo-piscina.png')] bg-cover">
+                    <section className="flex flex-wrap">
 
-                        <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4
+                        <form onSubmit={handleSubmit(onSubmit)} className=' bg-[#fafafa] text-black grid grid-cols-1 items-center rounded backdrop-blur-sm bg-black/40 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-56 p-4 py-4
     mt-14 px-5'>
 
-                            <div>
+                            <div className="flex items-center">
                                 <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center" />
+                                <h1 className="text-white font-bold text-[30px]">Cadastro de Clientes</h1>
                             </div>
+                            <br/>
                             <div className='grid grid-cols-1 md:grid-cols-2 content-center items-center'>
 
-                                <div className='space-y-4 pl-40'>
+                                <div className='space-y-4 pl-10'>
                                     <div className='mb-4'>
                                         <label htmlFor="nome" className='block mb-2 text-sm font-medium'>
                                             Nome
@@ -63,7 +65,7 @@ export default function App() {
                                     </div>
                                 </div>
 
-                                <div className='space-y-4 pl-40'>
+                                <div className='space-y-4 pl-10'>
                                     <div className='mb-4'>
                                         <label htmlFor="cpf" className='block mb-2 text-sm font-medium'>
                                             CPF
@@ -88,7 +90,7 @@ export default function App() {
                         text-gray-900 border-slate-950 text-sm  rounded-md block w-80 p-2 hover:border-slate-800'/>
                                     </div>
                                 </div>
-                                <div className='space-y-4 pl-40'>
+                                <div className='space-y-4 pl-10'>
                                     <div className='mb-4'>
                                         <label htmlFor="cidade" className='block mb-2 text-sm font-medium'>
                                             Cidade
@@ -115,7 +117,7 @@ export default function App() {
                         </form>
                     </section>
                 </div>
-            </Sidebar>
+            </SideBarFuncionario>
         </>
     )
 }
