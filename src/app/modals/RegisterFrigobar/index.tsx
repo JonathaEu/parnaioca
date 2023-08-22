@@ -15,8 +15,7 @@ type Inputs = {
 
 export default function FormElements() {
     const [openModal, setOpenModal] = useState<string | undefined>();
-    const [email, setEmail] = useState("");
-    const props = { openModal, setOpenModal, email, setEmail };
+    const props = { openModal, setOpenModal };
     const {
         register,
         handleSubmit,
@@ -57,7 +56,7 @@ export default function FormElements() {
     return (
         <>
             <div className='mt-32 mb-4'>
-                <Button onClick={() => props.setOpenModal('form-elements')}>Cadastrar frigobar</Button>
+                <Button className="ml-10 p-2" onClick={() => props.setOpenModal('form-elements')}>Cadastrar frigobar</Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
