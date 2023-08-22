@@ -15,19 +15,21 @@ export default function Frigobar() {
 
     useEffect(() => {
         const getFrigobar = async () => {
-            const response = await api.get('/frigobar');
-            setFrigobar(response.data.data);
-            // console.log(response.data.data);
+            const response = await api.get('/frigobar_quarto');
+            setFrigobar(response.data);
+            console.log(response);
         };
         getFrigobar();
     }, []);
+    // console.log(frigobar);
+
     return (
         <>
             <Sidebar>
                 <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
                     <section className="flex flex-wrap content-between ">
                         <FormElements></FormElements>
-                        <div className='w-full'>
+                        <div className='w-full px-10'>
                             <table className="w-full text-sm text-left text-white dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
                                     <tr>
@@ -37,44 +39,40 @@ export default function Frigobar() {
                                         <th scope="col" className="px-6 py-3">
                                             Está no quarto:
                                         </th>
-                                        <th scope="col" className="px-6 py-3">
+                                        <th scope="col" className="px-4 py-3">
                                             Situação:
                                         </th>
                                         <th scope="col" className="px-6 py-3">
                                         </th>
                                     </tr>
                                 </thead>
+
+
                                 <tbody className=''>
                                     {frigobar.map((frigobar) => {
-                                        // const [quarto, setQuarto] = useState([]);
-                                        // useEffect(() => {
-                                        //     const getQuarto = async () => {
-                                        //         const response = await api.get(`/quarto${frigobar.quartos_id}`);
-                                        //         setQuarto(response.data.data);
-                                        //         // console.log(response.data.data);
-                                        //     };
-                                        //     getQuarto();
-                                        // }, []);
+                                        const frigBoolean = []
+                                        let status = frigobar.ativo ? "Ativo" : "Inativo";
+                                        const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
+                                        const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
+                                        let statusStyle = frigobar.ativo ? classNameGreen : classNameRed;
+
                                         return (
                                             <>
-                                                {/* <tr className=" relative bottom-20">
-                                                    <th className="w-screen">Frigobares:</th>
-                                                </tr> */}
-
-                                                <tr key={frigobar.id} className='indent-10 bg-cyan-700 border-b dark:bg-gray-800 dark:text-white'>
-                                                    <td className='py-4 px-6'>
+                                                <tr key={frigobar.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                                    <td className='py-4 px-6 indent-[20%]'>
                                                         {frigobar.numero}
                                                     </td>
                                                     <td className='py-4 px-6'>
-                                                        {frigobar.quartos_id}
+                                                        {frigobar?.quarto?.nome}
                                                     </td>
-                                                    <td className='py-4 px-6 w-[200px]'>
-                                                        {frigobar.ativo}
+                                                    <td className={`indent-[35%] `}>
+                                                        <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 ${statusStyle}`}>
+                                                            {status}
+                                                        </div>
                                                     </td>
-                                                    <td className='flex justify-end gap-10 mt-2 mr-3'>
-                                                        <button className='bg-indigo-500 flex p-2 rounded-md'>Cadastrar</button>
-                                                        <button className='bg-indigo-500 flex p-2 rounded-md'>editar</button>
-                                                        <button className='bg-indigo-500 flex p-2 rounded-md'>excluir</button>
+                                                    <td className='flex justify-end gap-10 mt-2 mb-2 pb-0.5 mr-3'>
+                                                        <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2'>editar</button>
+                                                        <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
                                                     </td>
 
                                                 </tr>
