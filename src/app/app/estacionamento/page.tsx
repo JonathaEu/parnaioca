@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { useForm, SubmitHandler } from "react-hook-form"
 import cadastraCliente from '@/functions/postClientes'
 import Cadastro from '../../../../public/assets/cadastro.png'
 import LogoTipo from '../../../../public/assets/logo.png'
@@ -9,34 +8,18 @@ import Footer from '@/app/app/components/Footer'
 import { useState, useEffect } from 'react';
 import api from '@/services/api'
 import RegistraEstacionamento from '@/functions/RegisterEstacionamento'
+import RegisterEstacionamentoModal from '@/app/modals/RegisterParking'
 
-type Inputs = {
-    quartos_id: number
-}
+
 export default function Itens() {
-
-    const {
-        register,
-        handleSubmit,
-        reset
-    } = useForm<Inputs>()
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data);
-        RegistraEstacionamento({ data })
-            .then((response) => {
-                window.alert('Estacionamento Relacionado com sucesso')
-            }).catch((err) => {
-                window.alert(err);
-            });
-        reset();
-    }
     const [quarto, setQuarto] = useState([]);
 
     useEffect(() => {
         const getQuarto = async () => {
-            const response = await api.get('/quarto');
-            setQuarto(response.data.data);
+            const response = await api.get('/estacionamento_quarto');
+            setQuarto(response.data);
             // console.log(response.data.data);
+            console.log(response);
         };
         getQuarto();
     }, []);
@@ -45,36 +28,60 @@ export default function Itens() {
             <Sidebar>
                 <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
                     <section className="flex flex-wrap content-between ">
+                        <RegisterEstacionamentoModal></RegisterEstacionamentoModal>
+                        <div className='w-full px-10'>
+                            <table className="w-full text-sm text-left text-white dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">
+                                            Esta Vaga Pertence ao Quarto:
+                                        </th>
 
-                        <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4 mt-14 px-5
-                        '>
+                                        <th scope="col" className="px-4 py-3">
+                                        </th>
 
-                            <div>
-                                <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center"
-                                />
-                            </div>
-                            <div className='text-center'>
-                                <label>A Qual acomodação esta vaga pertence?</label>
-                                <div className='flex gap-10 mb-8 text-black justify-center items-center mt-10'>
-                                    <select {...register("quartos_id")}>
-                                        {quarto.map((item) => {
+                                        <th scope="col" className="px-4 py-3">
+                                        </th>
 
-                                            return (
-                                                <>
-                                                    <option value={item.id}>{item?.nome}</option>
-                                                </>
-                                            );
-                                        })}
-                                    </select>
-                                </div>
-                            </div>
-                            <div>
-                                <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca] left-[430px] mt-10
-                                '/>
+                                        <th scope="col" className="px-6 py-3">
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                            </div>
-                        </form>
+
+                                <tbody className=''>
+                                    {quarto.map((quarto) => {
+                                        // let status = frigobar.ativo ? "Ativo" : "Inativo";
+                                        // const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
+                                        // const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
+                                        // let statusStyle = frigobar.ativo ? classNameGreen : classNameRed;
+
+                                        return (
+                                            <>
+                                                <tr key={quarto.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                                    <td className='py-4 px-6 indent-[20%]'>
+                                                        {quarto?.quarto?.nome}
+                                                    </td>
+                                                    <td className='py-4 px-6'>
+                                                    </td>
+                                                    <td className={`indent-[35%] `}>
+                                                        <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5`}>
+                                                        </div>
+                                                    </td>
+                                                    <td className='flex justify-end gap-10 mt-2 mb-2 pb-0.5 mr-3'>
+                                                        <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2'>editar</button>
+                                                        <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                                    </td>
+
+                                                </tr>
+                                            </>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
+
                 </div>
             </Sidebar>
         </>

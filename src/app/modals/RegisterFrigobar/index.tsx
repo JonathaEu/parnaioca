@@ -15,8 +15,7 @@ type Inputs = {
 
 export default function FormElements() {
     const [openModal, setOpenModal] = useState<string | undefined>();
-    const [email, setEmail] = useState("");
-    const props = { openModal, setOpenModal, email, setEmail };
+    const props = { openModal, setOpenModal };
     const {
         register,
         handleSubmit,
