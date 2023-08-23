@@ -1,33 +1,20 @@
 "use client"
-import React from 'react'
-import { useForm, SubmitHandler } from "react-hook-form"
-import cadastraCliente from '@/functions/postClientes'
-import Cadastro from '../../../../public/assets/cadastro.png'
-import LogoTipo from '../../../../public/assets/logo.png'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '@/app/app/components/Sidebar'
-import Footer from '@/app/app/components/Footer'
-import cadastraItens from '@/functions/postItens'
+import RegisterItensModal from '@/app/modals/RegisterItens'
+import api from '@/services/api';
 
-type Inputs = {
-    nome: string
-    valor: string
-}
 export default function Itens() {
+    const [item, setItem] = useState([]);
 
-    const {
-        register,
-        handleSubmit,
-        reset
-    } = useForm<Inputs>()
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        cadastraItens({ data })
-            .then((response) => {
-                window.alert('Item cadastrado com sucesso')
-            }).catch((err) => {
-                window.alert(err);
-            });
-        reset();
-    }
+    useEffect(() => {
+        const getItem = async () => {
+            const response = await api.get('/itens');
+            setItem(response.data.data);
+            console.log(response);
+        };
+        getItem();
+    }, []);
 
     return (
         <>
@@ -35,40 +22,56 @@ export default function Itens() {
                 <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
                     <section className="flex flex-wrap content-between ">
 
-                        <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4
-    mt-14 px-5'>
+                        <RegisterItensModal></RegisterItensModal>
+                        <div className='w-full px-10'>
+                            <table className="w-full text-sm text-left text-white dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">
+                                            Item:
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Valor atual:
+                                        </th>
+                                        <th scope="col" className="px-4 py-3">
+                                            Quantidade:
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                            <div>
-                                <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center" />
-                            </div>
-                            <div className='grid grid-cols-1 md:grid-cols-2 content-center items-center'>
 
-                                <div className='space-y-4 pl-40'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="nome" className='block mb-2 text-sm font-medium'>
-                                            Nome do Item
-                                        </label>
-                                        <input defaultValue='' placeholder='Digite o nome completo' id="nome" {...register('nome', { required: true })} className='border 
-                     text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
-                                    </div>
-                                </div>
+                                <tbody className=''>
+                                    {item.map((item) => {
 
-                                <div className='space-y-4 pl-10'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="valor" className='block mb-2 text-sm font-medium'>
-                                            Valor
-                                        </label>
-                                        <input defaultValue='' id="valor" placeholder="Digite o valor" {...register('valor')} className='border
-                         text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800'/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex flex-col items-center p-2'>
+                                        return (
+                                            <>
+                                                <tr key={item.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                                    <td className='py-4 px-6 indent-[20%]'>
+                                                        {item.nome}
+                                                    </td>
+                                                    <td className='py-4 px-6'>
+                                                        {item?.valor}
+                                                    </td>
+                                                    <td className={`indent-[35%] `}>
+                                                        <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 `}>
+                                                            {item?.quantidade}
+                                                        </div>
+                                                    </td>
+                                                    <td className='flex justify-end gap-10 mt-2 mb-2 pb-0.5 mr-3'>
+                                                        <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2'>editar</button>
+                                                        <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                                    </td>
 
-                                <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' />
+                                                </tr>
+                                            </>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
 
-                            </div>
-                        </form>
                     </section>
                 </div>
             </Sidebar>
