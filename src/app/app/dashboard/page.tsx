@@ -1,6 +1,5 @@
 'use client'
 import { useStateContext } from "@/context/AuthProvider";
-import logout from "@/functions/logout";
 import { useRouter } from "next/navigation";
 import Sidebar from "../components/Sidebar";
 import { Children } from "react";
@@ -41,7 +40,7 @@ export default function dashboard() {
         };
         getClientes();
     }, []);
-    console.log(clientes);
+
     return (
         <>
                 <SideBarFuncionario>
