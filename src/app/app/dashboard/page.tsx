@@ -4,12 +4,8 @@ import { useEffect, useState } from "react";
 import api from '@/services/api';
 import SideBarFuncionario from '../components/SideBarFuncionario';
 import { useStateContext } from '@/context/AuthProvider';
-import axios from 'axios';
-import { error } from "console";
 import BuscarCliente from "@/functions/get-clientes";
 import { Table } from 'react-bootstrap';
-import ApexCharts from 'react-apexcharts';
-
 
 type Clientes = {
   id: number;
@@ -47,8 +43,8 @@ const dados = [
 
 export default function dashboard() {
   const { user } = useStateContext();
-    
-    const [clientes, setClientes] = useState<any[]>([]);
+
+  const [clientes, setClientes] = useState<any[]>([]);
   const RouteClientes = () => { router.push('app/cliente/cadastro') };
 
   useEffect(() => {
@@ -61,10 +57,13 @@ export default function dashboard() {
       })
   }, []);
 
+
+
+
   return (
     <>
       <SideBarFuncionario>
-        <div className="bg-gray-100 h-screen w-screen">
+        <div className="bg-gray-100 h-full w-screen">
 
           <div className="flex justify-center items-center bg-black p-2 text-white">
             <h2 className="text-sm">Bem-vindo <b>{user?.name}</b>, o que deseja fazer?</h2>
@@ -74,7 +73,7 @@ export default function dashboard() {
             <h1 className="ml-4 p-8 w-full font-bold text-[28px]">DASHBOARD</h1>
           </div>
           <hr className="h-[100]" />
-          <div className="grid drop-shadow-md lg:grid-cols-3 p-4 relative content-between overflow-hidden bg-cover bg-no-repeat">
+          <div className="grid drop-shadow-md lg:grid-cols-3 p-14 relative content-between overflow-hidden bg-cover bg-no-repeat">
             <div className="transition duration-300 ease-in-out hover:scale-110 hover:drop-shadow-xl p-2 col-span-1 bg-white flex w-80 border rounded-lg">
               <div className="flex flex-col w-full items-center p-2">
                 <td className="text-2x1 font-bold">Quarto mais rentável:</td>
@@ -100,10 +99,6 @@ export default function dashboard() {
           </div>
           <hr />
           <br />
-
-        {/* GRÁFICO */}
-        <div></div>
-
           <hr />
           <br />
           <div>
@@ -126,20 +121,20 @@ export default function dashboard() {
               <tbody>
                 {clientes.map((clientes) => {
                   return (
-                      <tr key={clientes.id} className="bottom-20">
-                        <td>{clientes.quarto}</td>
-                        <td>{clientes.nome}</td>
-                        <td>{clientes.data_inicio}</td>
-                        <td>{clientes.data_fim}</td>
-                        <hr className="h-[100]" />
-                      </tr>
+                    <tr key={clientes.id} className="bottom-20">
+                      <td>{clientes.quarto}</td>
+                      <td>{clientes.nome}</td>
+                      <td>{clientes.data_inicio}</td>
+                      <td>{clientes.data_fim}</td>
+                      <hr className="h-[100]" />
+                    </tr>
                   );
                 })}
               </tbody>
             </Table>
           </div>
-          <br/>
-          <hr className="h-[100]"/>
+          <br />
+          <hr className="h-[100]" />
 
         </div>
       </SideBarFuncionario >

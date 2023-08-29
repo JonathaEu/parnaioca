@@ -5,7 +5,6 @@ import { AuthProvider, useStateContext } from '@/context/AuthProvider';
 import { useContext, useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import ImgLogo from '../../../../../public/assets/logo.png'
-import Sidebar from '../../components/Sidebar';
 
 type Inputs = {
   name: string,

@@ -1,7 +1,7 @@
 export const APP_ROUTES = {
     private: {
         dashboard: {
-            name: '/app/dashboard2',
+            name: '/app/dashboard',
         },
         quartoCategory: {
             name: '/app/quartoCategory',

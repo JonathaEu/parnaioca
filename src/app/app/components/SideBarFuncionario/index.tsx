@@ -17,9 +17,9 @@ import LogoTipo from '../../../../../public/assets/logo.png'
 function Sidebar({ children }: any) {
 
   const menus = [
-    { name: "Dashboard", href: '/', icon: MdOutlineDashboard },
-    { name: "Clientes", href: "/", icon: BsPersonBadge },
-    { name: "Reservas", href: '/', icon: RiReservedLine, margin: "" },
+    { name: "Dashboard", href: '/app/dashboard', icon: MdOutlineDashboard },
+    { name: "Clientes", href: "/app/cliente/cadastro", icon: BsPersonBadge },
+    { name: "Reservas", href: '/app/reservas', icon: RiReservedLine, margin: "" },
     { name: "Check in / Check out", href: "/", icon: AiFillCheckCircle },
     { name: "Acomodações", href: '/', icon: BiBed },
     { name: "Frigobar", href: '/', icon: BiDrink },
