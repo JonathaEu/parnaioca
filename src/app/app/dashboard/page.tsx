@@ -32,16 +32,16 @@ export default function dashboard() {
         getClientes();
     }, []);
     console.log(clientes);
-    
+
     return (
         <>
-                <SideBarFuncionario>
-            <div className="h-screen">
+            <SideBarFuncionario>
+                <div className="h-screen">
                     <div className="">
                         <div className="flex justify-center items-center bg-black p-2 text-white">
                             <h2 className="text-sm">Bem-vindo <b>{user?.name}</b>, o que deseja fazer?</h2>
                         </div>
- 
+
                         <div className="flex items-center text-center">
                             <h1 className="ml-4 w-full font-semibold text-[28px]">Dashboard</h1>
                         </div>
@@ -100,6 +100,8 @@ export default function dashboard() {
                             </div>
                         </div>
                     </div>
+                </div>
+
             </SideBarFuncionario>
         </>
     )
