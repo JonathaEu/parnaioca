@@ -1,11 +1,13 @@
 "use client"
 import React from 'react'
-import { useForm, SubmitHandler } from "react-hook-form"
 import cadastraCliente from '@/functions/postClientes'
 import Cadastro from '../../../../../public/assets/cadastro.png'
 import LogoTipo from '../../../../../public/assets/logo.png'
 import Footer from '../../components/Footer'
+import { useState, useEffect } from 'react';
 import SideBarFuncionario from '../../components/SideBarFuncionario'
+import api from '@/services/api'
+import RegisterClientesModal from '@/app/modals/registerCliente'
 
 type Inputs = {
     nome: string
@@ -16,105 +18,73 @@ type Inputs = {
     cidade: string
     estado: string
 }
-export default function App() {
-
-    const {
-        register,
-        handleSubmit,
-        reset
-    } = useForm<Inputs>()
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        cadastraCliente({ data });
-        // reset();
-    }
-
+export default function CadastroClientes() {
+    const [cliente, setCliente] = useState([]);
+    useEffect(() => {
+        const getcliente = async () => {
+            const response = await api.get('/cliente');
+            setCliente(response.data.data);
+            console.log(response);
+        };
+        getcliente();
+    }, []);
 
     return (
         <>
             <SideBarFuncionario>
-                <div className="bg-[url('/assets/fundo-piscina.png')] bg-cover">
-                    <section className="flex flex-wrap">
+                <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
+                    <section className="flex flex-wrap content-between ">
+                        <RegisterClientesModal></RegisterClientesModal>
+                        <div className='w-full px-10'>
+                            <table className="w-full text-sm text-left text-white dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">
+                                            Cliente:
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Está no quarto:
+                                        </th>
+                                        <th scope="col" className="px-4 py-3">
+                                            Situação:
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className=''>
+                                    {cliente.map((cliente) => {
+                                        // let status = cliente.ativo ? "Ativo" : "Inativo";
+                                        // const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
+                                        // const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
+                                        // let statusStyle = cliente.ativo ? classNameGreen : classNameRed;
 
-                        <form onSubmit={handleSubmit(onSubmit)} className=' bg-[#fafafa] text-black grid grid-cols-1 items-center rounded backdrop-blur-sm bg-black/40 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-56 p-4 py-4
-    mt-14 px-5'>
+                                        return (
+                                            <>
+                                                <tr key={cliente.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                                    <td className='py-4 px-6 indent-[20%]'>
+                                                        {cliente.nome}
+                                                    </td>
+                                                    <td className='py-4 px-6'>
+                                                        {/* {cliente?.quarto?.nome} */}
+                                                    </td>
+                                                    <td className={`indent-[35%] `}>
+                                                        {/* <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 ${statusStyle}`}>
+                                                        {status}
+                                                    </div> */}
+                                                    </td>
+                                                    <td className='flex justify-end gap-10 mt-2 mb-2 pb-0.5 mr-3'>
+                                                        <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2'>editar</button>
+                                                        <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                                    </td>
 
-                            <div className="flex items-center">
-                                <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center" />
-                                <h1 className="text-white font-bold text-[30px]">Cadastro de Clientes</h1>
-                            </div>
-                            <br/>
-                            <div className='grid grid-cols-1 md:grid-cols-2 content-center items-center'>
-
-                                <div className='space-y-4 pl-10'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="nome" className='block mb-2 text-sm font-medium'>
-                                            Nome
-                                        </label>
-                                        <input defaultValue='' placeholder='Digite o nome completo' id="nome" {...register('nome', { required: true })} className='border 
-                     text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
-                                    </div>
-                                </div>
-
-                                <div className='space-y-4 pl-10'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="email" className='block mb-2 text-sm font-medium'>
-                                            Email
-                                        </label>
-                                        <input defaultValue='' id="email" placeholder="Digite o email" {...register('email')} className='border
-                         text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800'/>
-                                    </div>
-                                </div>
-
-                                <div className='space-y-4 pl-10'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="cpf" className='block mb-2 text-sm font-medium'>
-                                            CPF
-                                        </label>
-                                        <input defaultValue='' placeholder="Digite o CPF" id="cpf" {...register('cpf')} className='border 
-                         text-gray-900 text-sm border-slate-950 rounded-md block w-80 p-2 hover:border-slate-800'/>
-                                    </div>
-                                </div>
-                                <div className='space-y-4 pl-10'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="nascimento" className='block mb-2 text-sm font-medium'>
-                                            Data de Nascimento
-                                        </label>
-                                        <input type="date" defaultValue='' id="nascimento" {...register('nascimento')} className='border 
-                     text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
-                                    </div>
-                                    <div className='mb-4'>
-                                        <label htmlFor="telefone" className='block mb-2 text-sm font-medium'>
-                                            Telefone
-                                        </label>
-                                        <input defaultValue='' id="telefone" placeholder="Digite o telefone" {...register('telefone')} className='border 
-                        text-gray-900 border-slate-950 text-sm  rounded-md block w-80 p-2 hover:border-slate-800'/>
-                                    </div>
-                                </div>
-                                <div className='space-y-4 pl-10'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="cidade" className='block mb-2 text-sm font-medium'>
-                                            Cidade
-                                        </label>
-                                        <input defaultValue='' id="cidade" placeholder="Digite a cidade" {...register('cidade')} className='border 
-                    text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
-                                    </div>
-                                </div>
-                                <div className='space-y-4 pl-10'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="estado" className='block mb-2 text-sm font-medium'>
-                                            Estado
-                                        </label>
-                                        <input defaultValue='' id="estado" placeholder="Digite o estado" {...register('estado')} className='border 
-                    text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex flex-col items-center p-2'>
-
-                                <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' />
-
-                            </div>
-                        </form>
+                                                </tr>
+                                            </>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
                 </div>
             </SideBarFuncionario>
