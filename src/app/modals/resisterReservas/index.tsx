@@ -2,24 +2,27 @@
 import { useEffect, useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
-
+import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import cadastraCliente from '@/functions/postClientes';
+import RegisterReserva from '@/functions/RegisterReserva';
 
 type Inputs = {
-    id: number;
-    nome: string;
-    cpf: number;
-    email: string;
-    nascimento: Date;
-    telefone: number;
-    cidade: string;
-    estado: string
+    clientes_id: number;
+    quartos_id: number;
+    users_id: number;
+    consumos_id: number;
+    status: string;
+    dt_inicial: Date;
+    dt_final: Date;
+    check_in: string;
+    check_out: string;
+
 }
 
-export default function RegisterClientesModal() {
+function RegisterReservaModal() {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -28,8 +31,9 @@ export default function RegisterClientesModal() {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        cadastraCliente({ data })
+        RegisterReserva({ data })
             .then((response) => {
+                window.alert('Cadastrado com sucesso')
                 reset();
 
             }).catch((err) => {
@@ -47,10 +51,21 @@ export default function RegisterClientesModal() {
         getFrigobar();
     }, []);
 
+    const [clientes, setClientes] = useState([]);
+    useEffect(() => {
+        const getClientes = async () => {
+            const response = await api.get('/cliente');
+            setClientes(response.data.data);
+            console.log(response);
+        };
+        getClientes();
+    }, []);
+
+
     return (
         <>
             <div className='mt-32 mb-4'>
-                <Button className="ml-10 p-2" onClick={() => props.setOpenModal('form-elements')}>Cadastrar Cliente</Button>
+                <Button className="ml-10 p-2 bg-indigo-800" onClick={() => props.setOpenModal('form-elements')}>Cadastrar Cliente</Button>
                 <Modal className='w-[800px] flex justify-center items-center ml-[12%]' show={props.openModal === 'form-elements'} popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
@@ -65,12 +80,17 @@ export default function RegisterClientesModal() {
                                 <div className='grid grid-cols-1 md:grid-cols-2 content-center items-center'>
 
                                     <div className=''>
-                                        <div className='mb-4'>
-                                            <label htmlFor="nome" className='block mb-2 text-sm font-medium'>
-                                                Nome
-                                            </label>
-                                            <input defaultValue='' placeholder='Digite o nome completo' id="nome" {...register('nome', { required: true })} className='border 
-                     text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                        <div className='flex gap-10 mb-8 text-black justify-center items-center mt-10'>
+                                            <select {...register("clientes_id")}>
+                                                {clientes.map((clientes) => {
+
+                                                    return (
+                                                        <>
+                                                            <option value={clientes.id}>{clientes?.nome}</option>
+                                                        </>
+                                                    );
+                                                })}
+                                            </select>
                                         </div>
                                     </div>
 
@@ -144,3 +164,4 @@ export default function RegisterClientesModal() {
 }
 
 
+export default RegisterReservaModal;

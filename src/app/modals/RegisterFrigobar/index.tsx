@@ -4,7 +4,7 @@ import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
 
 import { useForm, SubmitHandler } from "react-hook-form"
-import RegistraFrigobar from '@/functions/PostFrigobar/idex';
+import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 
 type Inputs = {

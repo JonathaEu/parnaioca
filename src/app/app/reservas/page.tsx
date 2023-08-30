@@ -1,41 +1,95 @@
+'use client'
 import React from 'react'
+import router, { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import api from '@/services/api';
+import SideBarFuncionario from '../components/SideBarFuncionario';
+import { useStateContext } from '@/context/AuthProvider';
+import RegisterReservaModal from '@/app/modals/resisterReservas';
 
 export default function Reserva() {
+
+    const [reserva, setReserva] = useState([]);
+
+    useEffect(() => {
+        const getReserva = async () => {
+            const response = await api.get('/reserva_rel')
+            setReserva(response.data.data);
+            console.log(response.data);
+            console.log(response);
+
+        };
+        getReserva();
+    }, []);
+
+
     return (
-
         <>
-            <div className='grid grid-cols-2'>
-                <div>                <label htmlFor="default" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Default select
-                </label>
+            <SideBarFuncionario>
+                <div className='w-full px-10'>
+                    <RegisterReservaModal />
+                    <table className="w-full text-sm text-left text-white dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
+                            <tr>
+                                <th scope="col" className="px-6 py-3">
+                                    Cliente hospedado:
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Está no quarto:
+                                </th>
+                                <th scope="col" className="px-4 py-3">
+                                    check in:
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    check out:
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                </th>
+                            </tr>
+                        </thead>
 
-                    <select id="default" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-            ">
-                        <option selected>Choose a country</option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                        <option value="FR">France</option>
-                        <option value="DE">Germany</option>
 
-                    </select>
+                        <tbody className=''>
+                            {reserva.map((reserva, index) => {
+
+                                return (
+                                    <>
+                                        <tr key={reserva.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                            <td className='py-4 px-6 indent-[20%]'>
+                                                {reserva.clientes?.nome}
+
+                                            </td>
+                                            <td className='py-4 px-6'>
+                                                {reserva.quartos?.nome}
+                                            </td>
+
+                                            <td className={``}>
+                                                {reserva.check_in}
+                                            </td>
+
+
+                                            <td className={``}>
+                                                {reserva.check_out}
+                                            </td>
+
+
+                                            <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
+
+                                                <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2 border border-purple-400'>editar</button>
+                                                <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                            </td>
+
+
+
+                                        </tr>
+                                    </>
+                                )
+                            })}
+                        </tbody>
+                    </table>
                 </div>
 
-                <div>
-                    <label htmlFor="default" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Default select
-                    </label>
-
-                    <select id="default" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-            ">
-                        <option selected>Choose a country</option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                        <option value="FR">France</option>
-                        <option value="DE">Germany</option>
-
-                    </select>
-                </div>
-            </div>
+            </SideBarFuncionario>
         </>
 
     )
