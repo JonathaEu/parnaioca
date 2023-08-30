@@ -3,10 +3,9 @@ import React from 'react'
 import cadastraCliente from '@/functions/postClientes'
 import Cadastro from '../../../../../public/assets/cadastro.png'
 import LogoTipo from '../../../../../public/assets/logo.png'
-import Sidebar from '../../components/Sidebar'
 import Footer from '../../components/Footer'
 import { useState, useEffect } from 'react';
-
+import SideBarFuncionario from '../../components/SideBarFuncionario'
 import api from '@/services/api'
 import RegisterClientesModal from '@/app/modals/registerCliente'
 
@@ -20,9 +19,7 @@ type Inputs = {
     estado: string
 }
 export default function CadastroClientes() {
-
     const [cliente, setCliente] = useState([]);
-
     useEffect(() => {
         const getcliente = async () => {
             const response = await api.get('/cliente');
@@ -34,7 +31,7 @@ export default function CadastroClientes() {
 
     return (
         <>
-            <Sidebar>
+            <SideBarFuncionario>
                 <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
                     <section className="flex flex-wrap content-between ">
                         <RegisterClientesModal></RegisterClientesModal>
@@ -90,7 +87,7 @@ export default function CadastroClientes() {
                         </div>
                     </section>
                 </div>
-            </Sidebar>
+            </SideBarFuncionario>
         </>
     )
 }
