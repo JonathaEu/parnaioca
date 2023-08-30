@@ -13,7 +13,7 @@ type Inputs = {
     numero: number;
     valor: number;
     max_cap: number;
-    quarto_id: number;
+    tipo_quartos_id: number;
 }
 
 
@@ -93,10 +93,12 @@ export default function Quarto() {
                     <div>
                     </div>
 
-                    <div className='flex gap-10 mb-8'>
-                        <label>Categoria da acomodação</label>
-                        <select {...register("quarto_id")}>
-                            {tipoQuarto.map((item) => {
+
+                <div className='flex gap-10 mb-8'>
+                    <label>Categoria da acomodação</label>
+                    <select {...register("tipo_quartos_id")}>
+                        {tipoQuarto.map((item) => {
+
 
                                 return (
                                     <>

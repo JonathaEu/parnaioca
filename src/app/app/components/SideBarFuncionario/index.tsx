@@ -13,9 +13,7 @@ import Link from "next/link";
 import logout from "@/functions/logout";
 import LogoTipo from '../../../../../public/assets/logo.png'
 
-
-function Sidebar({ children }: any) {
-
+function SideBarFuncionario({ children }: any) {
   const menus = [
     { name: "Dashboard", href: '/app/dashboard', icon: MdOutlineDashboard },
     { name: "Clientes", href: "/app/cliente/cadastro", icon: BsPersonBadge },
@@ -71,4 +69,4 @@ function Sidebar({ children }: any) {
   )
 };
 
-export default Sidebar;
+export default SideBarFuncionario;
