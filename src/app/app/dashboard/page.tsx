@@ -18,19 +18,9 @@ type Clientes = {
 }
 
 export default function dashboard() {
+
     const router = useRouter();
     const { user } = useStateContext();
-
-    // const RouteCadastroCliente = () => { router.push('/app/cliente/cadastro') }
-    // const RouteCadastroItens = () => { router.push('/app/cliente/cadastro') }
-    // const RouteRealizarReserva = () => { router.push('/app/reservas') }
-    // const RouteCadastroFrigobar = () => { router.push('/app/frigobar') }
-    // const RouteCadastroQuarto = () => { router.push('/app/quarto') }
-    // const RouteCadastroTipoQuarto = () => { router.push('/app/quartoCategory') }
-    // const RouteCadastroEstacionamento = () => { router.push('/app/estacionamento') }
-    // const CheckInButton = () => { router.push('/app/cliente/cadastro') }
-    // const CheckOutButton = () => { router.push('/app/cliente/cadastro') }
-
     const [clientes, setClientes] = useState([]);
 
     useEffect(() => {
@@ -42,6 +32,7 @@ export default function dashboard() {
         getClientes();
     }, []);
     console.log(clientes);
+    
     return (
         <>
                 <SideBarFuncionario>
@@ -109,7 +100,6 @@ export default function dashboard() {
                             </div>
                         </div>
                     </div>
-            </div>
             </SideBarFuncionario>
         </>
     )
