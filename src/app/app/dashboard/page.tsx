@@ -60,21 +60,6 @@ export default function dashboard() {
 
 
 
-    
-    return (
-        <>
-                <SideBarFuncionario>
-            <div className="h-screen">
-                    <div className="">
-                        <div className="flex justify-center items-center bg-black p-2 text-white">
-                            <h2 className="text-sm">Bem-vindo <b>{user?.name}</b>, o que deseja fazer?</h2>
-                        </div>
- 
-                        <div className="flex items-center text-center">
-                            <h1 className="ml-4 w-full font-semibold text-[28px]">Dashboard</h1>
-                        </div>
-                        <div className="bg-white border-t-[1px] rounded-lg pb-6 grid grid-cols-2 -mt-10 pt-16 gap-4 text-center">
-
 
   return (
     <>
@@ -157,4 +142,5 @@ export default function dashboard() {
       </SideBarFuncionario >
     </>
   )
+  
 };

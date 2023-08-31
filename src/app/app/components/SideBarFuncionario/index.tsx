@@ -20,7 +20,7 @@ function SideBarFuncionario({ children }: any) {
     { name: "Reservas", href: '/app/reservas', icon: RiReservedLine, margin: "" },
     { name: "Check in / Check out", href: "/", icon: AiFillCheckCircle },
     { name: "Acomodações", href: '/', icon: BiBed },
-    { name: "Frigobar", href: '/', icon: BiDrink },
+    { name: "Frigobar", href: '/app/frigobar', icon: BiDrink },
     { name: "Estacionamento", href: '/', icon: AiFillCar },
 
   ];
