@@ -6,13 +6,13 @@ import api from '@/services/api';
 
 export default function Itens() {
     const [item, setItem] = useState([]);
+    const getItem = async () => {
+        const response = await api.get('/itens');
+        setItem(response.data.data);
+        console.log(response);
+    };
 
     useEffect(() => {
-        const getItem = async () => {
-            const response = await api.get('/itens');
-            setItem(response.data.data);
-            console.log(response);
-        };
         getItem();
     }, []);
 
@@ -22,7 +22,7 @@ export default function Itens() {
                 <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
                     <section className="flex flex-wrap content-between ">
 
-                        <RegisterItensModal></RegisterItensModal>
+                        <RegisterItensModal getItem={getItem}></RegisterItensModal>
                         <div className='w-full px-10'>
                             <table className="w-full text-sm text-left text-white dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
@@ -43,7 +43,7 @@ export default function Itens() {
 
 
                                 <tbody className=''>
-                                    {item.map((item) => {
+                                    {item.map((item: any) => {
 
                                         return (
                                             <>

@@ -13,7 +13,7 @@ type Inputs = {
     quantidade: number;
 }
 
-export default function RegisterItensModal() {
+export default function RegisterItensModal({ getItem }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -24,10 +24,12 @@ export default function RegisterItensModal() {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         cadastraItens({ data })
             .then((response) => {
-                window.alert('Item cadastrado com sucesso')
+                // window.alert('Item cadastrado com sucesso')
             }).catch((err) => {
                 window.alert(err);
             });
+        getItem()
+        setOpenModal(false as any)
         reset();
     }
 

@@ -26,7 +26,6 @@ type AuthContextProps = {
     Signin: () => Promise<void>,
 }
 
-
 const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthProvider = ({ children }: any) => {
@@ -69,8 +68,8 @@ export const AuthProvider = ({ children }: any) => {
             const config = {
                 headers: {
                     "Authorization": `Bearer ${response}`,
-                    "content-type": "application/json"
-                }
+                    "content-type": "application/json",
+                },
             }
             api.get('/me', config)
                 .then((response) => {
@@ -79,6 +78,7 @@ export const AuthProvider = ({ children }: any) => {
                 .catch((err) => {
                     console.log(err)
                 })
+            console.log(user)
 
         })
     }, [])

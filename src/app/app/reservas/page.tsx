@@ -50,7 +50,7 @@ export default function Reserva() {
 
 
                         <tbody className=''>
-                            {reserva.map((reserva, index) => {
+                            {reserva.map((reserva: any, index) => {
 
                                 return (
                                     <>
@@ -78,8 +78,6 @@ export default function Reserva() {
                                                 <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2 border border-purple-400'>editar</button>
                                                 <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
                                             </td>
-
-
 
                                         </tr>
                                     </>

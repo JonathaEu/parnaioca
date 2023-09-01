@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import Modal from 'react-modal';
 import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar/index'
+import EditFrigobarModal from '@/app/modals/editFrigobar'
 
 type Inputs = {
     itens_id: number
@@ -137,7 +138,7 @@ export default function Frigobar() {
 
                 <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
                     <section className="flex flex-wrap content-between ">
-                        <FormElements></FormElements>
+                        <FormElements />
                         <div className='w-full px-10'>
                             <table className="w-full text-sm text-left text-white dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
@@ -179,8 +180,7 @@ export default function Frigobar() {
                                                         </div>
                                                     </td>
                                                     <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
-                                                        <button onClick={openModal} setFrigIndex={frigobar?.index} {...register("frigobar_id")} className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2 border border-purple-400'
-                                                        >Adicionar Produtos</button>
+                                                        <EditFrigobarModal key={frigobar.id} index={index} frigobar={frigobar} />
                                                         <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2 border border-purple-400'>editar</button>
                                                         <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
                                                     </td>

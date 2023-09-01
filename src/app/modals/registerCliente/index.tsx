@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
 
@@ -7,6 +7,8 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import cadastraCliente from '@/functions/postClientes';
+import BuscarCliente from '@/functions/get-clientes';
+import { useStateContext } from '@/context/AuthProvider';
 
 type Inputs = {
     id: number;
@@ -20,6 +22,7 @@ type Inputs = {
 }
 
 export default function RegisterClientesModal() {
+    const { setToken, setUser, user, Signin, cliente, setCliente } = useStateContext();
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {

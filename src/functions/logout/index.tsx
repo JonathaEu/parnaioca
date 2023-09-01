@@ -12,16 +12,16 @@ export default function logout() {
                     "Authorization": `Bearer ${response}`,
                     "content-type": "application/json",
                 },
-             
+
             }
             api.post('/logout', config)
-            .then((response) => {
-                localStorage.clear();
-                window.location.href = '/app/funcionario/login'
-                console.log(response);
-                resolve(response);
-            
-            })
+                .then((response) => {
+                    localStorage.clear();
+                    window.location.href = '/app/funcionario/login'
+                    // console.log(response);
+                    resolve(response);
+
+                })
                 .catch((err) => {
                     console.log(err)
                     reject(err)
