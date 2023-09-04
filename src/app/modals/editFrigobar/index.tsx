@@ -2,17 +2,21 @@
 import { useEffect, useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
+
 import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
+import editFrigobar from '@/functions/EditFrigobar';
 
 type Inputs = {
+    id: number
     quartos_id: number
     numero: number
     ativo: number
+    status: string
 }
 
-export default function registerFrigobarModal({ getFrigobar }: any) {
+export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -22,7 +26,7 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data);
-        RegistraFrigobar({ data })
+        editFrigobar({ data })
             .then((response) => {
                 console.log(response)
             }).catch((err) => {
@@ -42,20 +46,20 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
         };
         getQuarto();
     }, []);
-    const [frigobar, setFrigobar] = useState([]);
+    const [itens, setItens] = useState([]);
     useEffect(() => {
-        const getFrigobar = async () => {
-            const response = await api.get('/frigobar');
-            setFrigobar(response.data.data);
+        const getItens = async () => {
+            const response = await api.get('/itens');
+            setItens(response.data.data);
             // console.log(response.data.data);
         };
-        getFrigobar();
+        getItens();
     }, []);
 
     return (
         <>
-            <div className='mt-32 mb-4'>
-                <Button className="ml-10 p-2 bg-orange-500" onClick={() => props.setOpenModal('form-elements')}>Cadastrar frigobar</Button>
+            <div className=''>
+                <Button className="ml-10 p-2" onClick={() => props.setOpenModal('form-elements')}>Editar</Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
@@ -75,7 +79,7 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
                                     <div className='space-y-4'>
                                         <div className='mb-4'>
                                             <label htmlFor="numero" className='block mb-2 text-sm font-medium'>
-                                                Numero
+                                                {frigobar.id}
                                             </label>
                                             <input defaultValue='' placeholder='Digite o numero do Frigobar' id="numero" {...register('numero', { required: true })} className='border 
 text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
@@ -83,15 +87,20 @@ text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-sl
                                     </div>
 
                                 </div>
+                                <div className='space-y-4'>
+                                    <div className='mb-4'>
+                                        <input value={frigobar.id} disabled placeholder={frigobar.id} id="id" {...register('id', { value: frigobar.id })} className='border 
+text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                    </div>
+                                </div>
 
                                 <div className='text-center'>
-                                    <label>Qual o status do frigobar?</label>
+                                    <label>Status do frigobar</label>
                                     <div className='flex gap-10 mb-8 text-black justify-center items-center mt-10'>
-                                        <select {...register("ativo")}>
-                                            <>
-                                                <option value={1}>Ativo</option>
-                                                <option value={0}>Inativo</option>
-                                            </>
+                                        <select {...register('ativo')}>
+                                            <option>Selecione</option>
+                                            <option value={1}>Ativo</option>
+                                            <option value={0}>Inativo</option>
                                         </select>
                                     </div>
                                 </div>
