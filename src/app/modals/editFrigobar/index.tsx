@@ -6,14 +6,17 @@ import Cadastro from '../../../../public/assets/cadastro.png'
 import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
+import editFrigobar from '@/functions/EditFrigobar';
 
 type Inputs = {
+    id: number
     quartos_id: number
     numero: number
     ativo: number
+    status: string
 }
 
-export default function EditFrigobarModal({ index, frigobar }) {
+export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -23,16 +26,16 @@ export default function EditFrigobarModal({ index, frigobar }) {
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data);
-        RegistraFrigobar({ data })
+        editFrigobar({ data })
             .then((response) => {
                 console.log(response)
-                window.alert('Frigobar cadastrado com sucesso')
             }).catch((err) => {
                 console.log(err)
                 console.error(err)
-                window.alert(err);
             });
-        // reset();
+        getFrigobar();
+        setOpenModal(false as any)
+        reset();
     }
     const [quarto, setQuarto] = useState([]);
     useEffect(() => {
@@ -56,7 +59,7 @@ export default function EditFrigobarModal({ index, frigobar }) {
     return (
         <>
             <div className=''>
-                <Button className="ml-10 p-2" onClick={() => props.setOpenModal('form-elements')}>Adicionar produtos</Button>
+                <Button className="ml-10 p-2" onClick={() => props.setOpenModal('form-elements')}>Editar</Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
@@ -76,7 +79,7 @@ export default function EditFrigobarModal({ index, frigobar }) {
                                     <div className='space-y-4'>
                                         <div className='mb-4'>
                                             <label htmlFor="numero" className='block mb-2 text-sm font-medium'>
-                                                {frigobar.numero}
+                                                {frigobar.id}
                                             </label>
                                             <input defaultValue='' placeholder='Digite o numero do Frigobar' id="numero" {...register('numero', { required: true })} className='border 
 text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
@@ -84,19 +87,20 @@ text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-sl
                                     </div>
 
                                 </div>
+                                <div className='space-y-4'>
+                                    <div className='mb-4'>
+                                        <input value={frigobar.id} disabled placeholder={frigobar.id} id="id" {...register('id', { value: frigobar.id })} className='border 
+text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                    </div>
+                                </div>
 
                                 <div className='text-center'>
-                                    <label>Quais itens deseja adicionar?</label>
+                                    <label>Status do frigobar</label>
                                     <div className='flex gap-10 mb-8 text-black justify-center items-center mt-10'>
-                                        <select {...register("quartos_id")}>
-                                            {itens.map((itens) => {
-
-                                                return (
-                                                    <>
-                                                        <option value={itens.id}>{itens?.nome}</option>
-                                                    </>
-                                                );
-                                            })}
+                                        <select {...register('ativo')}>
+                                            <option>Selecione</option>
+                                            <option value={1}>Ativo</option>
+                                            <option value={0}>Inativo</option>
                                         </select>
                                     </div>
                                 </div>
@@ -105,7 +109,7 @@ text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-sl
                                     <label>A Qual acomodação este Frigobar pertence?</label>
                                     <div className='flex gap-10 mb-8 text-black justify-center items-center mt-10'>
                                         <select {...register("quartos_id")}>
-                                            {quarto.map((quarto) => {
+                                            {quarto.map((quarto: any) => {
 
                                                 return (
                                                     <>
