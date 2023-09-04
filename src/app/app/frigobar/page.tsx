@@ -26,7 +26,7 @@ export default function Frigobar() {
     return (
         <>
             <SideBarFuncionario>
-                <div className="bg-[url'(../../../../public/assets/madeira.jpg)'] bg-cover h-screen w-full">
+                <div className="bg-gray-600 bg-cover h-screen w-full">
                     <div className="flex flex-col content-center items-center h-[75%] w-[80%] backdrop-blur-sm bg-white/30 rounded-x shadow-lg bg-[#adbac2] shadow-slate-700 mx-auto p-4
       mt-20 px-10">
 
