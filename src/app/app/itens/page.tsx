@@ -53,7 +53,7 @@ export default function Itens() {
                                                         {item.nome}
                                                     </td>
                                                     <td className='py-4 px-6'>
-                                                        {item?.valor}
+                                                        <p>R$: {item?.valor}</p>
                                                     </td>
                                                     <td className={`indent-[35%] `}>
                                                         <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 `}>

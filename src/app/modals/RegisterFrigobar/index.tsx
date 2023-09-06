@@ -18,6 +18,7 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
     const {
         register,
         handleSubmit,
+        formState: { errors },
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -77,8 +78,13 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
                                             <label htmlFor="numero" className='block mb-2 text-sm font-medium'>
                                                 Numero
                                             </label>
-                                            <input defaultValue='' placeholder='Digite o numero do Frigobar' id="numero" {...register('numero', { required: true })} className='border 
+                                            <input defaultValue='' placeholder='Digite o numero do Frigobar' id="numero" {...register('numero', { required: true })}
+                                                aria-invalid={errors.numero ? "true" : "false"} className='border 
 text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                            {errors.numero?.type === "required" && (
+                                                <p role="alert" className='w-[300px] indent-[2%] bg-red-400 '>Precisa informar o número do frigobar</p>
+                                            )}
+
                                         </div>
                                     </div>
 
