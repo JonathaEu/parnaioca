@@ -19,7 +19,7 @@ function SideBarFuncionario({ children }: any) {
     { name: "Reservas", href: '/app/reservas', icon: RiReservedLine, margin: "" },
     { name: "Check in / Check out", href: "/", icon: AiFillCheckCircle },
     { name: "Pagamento", href: '/app/pagamento', icon: BsCashCoin },
-    { name: "Acomodações", href: '/', icon: BiBed },
+    { name: "Acomodações", href: '/app/acomodacao', icon: BiBed },
     { name: "Frigobar", href: '/app/frigobar', icon: BiDrink },
     { name: "Estacionamento", href: '/', icon: AiFillCar },
 
@@ -56,15 +56,15 @@ function SideBarFuncionario({ children }: any) {
             <hr className="text-base" />
 
             <button onClick={logout}>
-              <div className={"text-lg pl-1 over:bg-slate-900 hover:rounded-full hover:bg-[#8BC53E] hover:text-[#000] flex flex-col"}>
+              <div className={"text-lg pl-1 over:bg-slate-900 hover:rounded-full hover:bg-[#8BC53E] hover:text-[#000] flex flex-row"}>
                 <AiOutlineLogin />
               </div>
             </button>
             <hr />
           </div>
-        </div>
+        </div >
         {children}
-      </section>
+      </section >
     </>
   )
 };

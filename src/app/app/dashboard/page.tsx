@@ -6,6 +6,7 @@ import SideBarFuncionario from '../components/SideBarFuncionario';
 import { useStateContext } from '@/context/AuthProvider';
 import BuscarCliente from "@/functions/get-clientes";
 import { Table } from 'react-bootstrap';
+import Dashboard from '../../../../public/assets/dashboard.png';
 
 type Clientes = {
   id: number;
@@ -71,8 +72,8 @@ export default function dashboard() {
           </div>
 
 
-          <div className="flex items-center text-center mr-[58] ">
-            <h1 className="ml-4 p-8 w-full font-bold text-[28px]">DASHBOARD</h1>
+          <div className="flex items-center text-cente justify-center w-full h-auto">
+            <img src={Dashboard.src} alt="dashboard" className="w-96 p-4"/>
           </div>
           <hr className="h-[100]" />
           <div className="grid drop-shadow-md lg:grid-cols-3 p-14 relative content-between overflow-hidden bg-cover bg-no-repeat">
