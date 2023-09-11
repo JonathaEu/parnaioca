@@ -16,16 +16,17 @@ type inputs = {
 }
 
 interface IitemIntoFrig {
-    quantity: number
-    item: inputs
+    // quantity: number
+    iten_id: any
+    frigobar_id: number
 }
 
-export default function ItensIntoFrigobar({ getItem, index, frigobar, }: any) {
+export default function ItensIntoFrigobar({ getItem, index, frigobar, id, }: any) {
     const [selecoes, setSelecoes] = useState<string[]>([]);
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const [itens, setItens] = useState([]);
-    const [itensIntoFrig, setItensIntoFrig] = useState<IitemIntoFrig[]>([]);
+    const [itensIntoFrig, setItensIntoFrig] = useState([]);
     const getItens = async () => {
         const response = await api.get('/itens');
         setItens(response.data.data);
@@ -34,6 +35,13 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, }: any) {
     };
     useEffect(() => {
         getItens();
+    }, []);
+    const getItensInFrigobar = async () => {
+        const response = await api.get('/frigobar_itens');
+        setItensIntoFrig(response.data.data);
+    }
+    useEffect(() => {
+        getItensInFrigobar();
     }, []);
 
     const {
@@ -44,61 +52,47 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, }: any) {
     } = useForm()
     const onSubmit = (data: any) => {
         // Manipule os dados conforme necessário, neste caso, adicionando à lista de seleções
-        console.log(data)
+        // console.log(data)
     };
 
-    const addToFrig = (id: number) => {
+    const postItemIntoFrig = (id: number) => {
         const item = itens.find((item: any) => item?.id === id);
-        console.log(id)
-        console.log(item)
-        const alreadyInFrig = itensIntoFrig.find((itemFrig: any) => itemFrig?.item.id === id);
 
-        if (alreadyInFrig) {
-            const newItemIntoFrig: IitemIntoFrig[] = itensIntoFrig.map((item: any) => {
-                if (item.id === id)
-                    ({
-                        alert: 'DANGEEEEEEEEEEEEEER',
-                        ...item,
-                        quantity: 0
-                    });
-                return item;
-            });
+    }
 
-            setItensIntoFrig(newItemIntoFrig);
-            console.log('----------------------')
-            console.log('Estou no If')
-            console.log(newItemIntoFrig)
-        };
-        // SE o item ainda nao estiver no frigobar
-        const frigItem: IitemIntoFrig = {
-            item: item!,
-            quantity: 1,
-        };
-        const newItemIntoFrig: IitemIntoFrig[] = [...itensIntoFrig, frigItem];
-        setItensIntoFrig(newItemIntoFrig);
-    };
-    console.log(itensIntoFrig)
-    const removeFromFrig = (id: number) => {
-        const alreadyInFrig = itensIntoFrig.find(
-            (item: any) => item?.id === id
-        );
-        if (alreadyInFrig!.quantity > 1) {
-            const newItemIntoFrig: IitemIntoFrig[] = itensIntoFrig.map((item: any) => {
-                if (item?.id === id)
-                    ({
-                        ...item,
-                        quantity: item.quantity--,
-                    });
-                return item;
-            })
-            setItensIntoFrig(newItemIntoFrig);
-            return;
+    let postItemSuccess = false;
+    const mensagem = () => {
+        if (postItemSuccess) {
+            <h1>'Item Adicionado com sucesso';</h1>
         }
+    }
 
-        const newItemIntoFrig: IitemIntoFrig[] = itensIntoFrig.filter(
-            (item: any) => item.id !== id
-        );
-        setItensIntoFrig(newItemIntoFrig);
+    const addFrigItem = (id: any) => {
+        const item = itens.find((item: any) => item?.id === id);
+        const frigItem: IitemIntoFrig = {
+            iten_id: item?.id,
+            // quantity: 1,
+            frigobar_id: frigobar.id
+        };
+        api.post('/frigobar_itens', frigItem).then((sucess) => {
+            postItemSuccess = true;
+            mensagem();
+        }).catch((err) => { console.log(err) })
+    };
+    const removeFrigItem = (id: any) => {
+        getItensInFrigobar();
+        const item = itens.find((item: any) => item?.id === id);
+        const frigItem: IitemIntoFrig = {
+            iten_id: item?.id,
+            // quantity: 1,
+            frigobar_id: frigobar.id
+        };
+        if (itensIntoFrig.length) {
+            console.log('Não Está vazio')
+            api.post('/deleteItemFromFrigobar', frigItem)
+        }
+        console.log('Array vazio')
+
     };
 
     // console.log(data)
@@ -132,15 +126,22 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, }: any) {
                                     <label>Selecione as opções:</label>
                                     <ul>
                                         {itens.map((itens: any, index) => (
-                                            <li className='flex flex-col-2 gap-10'>
+                                            <li className='flex flex-col-4 justify-between gap-4 mb-4'>
                                                 <p>{itens.nome}</p>
-                                                <button onClick={() => addToFrig(itens.id)}
-                                                    className='bg-blue-500 rounded-sm px-1 h-4 -pt-10'>+</button>
-                                                <button onClick={() => removeFromFrig(itens.id)}
-                                                    className='bg-red-500 rounded-sm px-1 h-4 -pt-10'>-</button>
+                                                <div className='flex gap-2'>
+                                                    <button onClick={() => addFrigItem(itens.id)}
+                                                        className='bg-blue-500 rounded-sm px-1 h-4 -pt-10'>+</button>
+                                                    <input onBlur={() => postItemIntoFrig(itens.id)}
+                                                        className='w-10 h-6' type="number" />
+                                                    <button onClick={() => removeFrigItem(itens.id)}
+                                                        className='bg-red-500 rounded-sm px-1 h-4 -pt-10'>-</button>
+                                                </div>
                                             </li>
                                         ))}
                                     </ul>
+
+                                    {/* <div>{itensIntoFrig. }</div> */}
+
                                 </div>
                                 <div className='flex flex-col items-center p-2'>
 
