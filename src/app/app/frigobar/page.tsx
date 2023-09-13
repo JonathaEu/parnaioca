@@ -87,7 +87,7 @@ export default function Frigobar() {
                                                         </div>
                                                     </td>
                                                     <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
-                                                        <ItensIntoFrigobar key={frigobar.id} getItem={getItem} index={index} frigobar={frigobar} id={frigobar.id} />
+                                                        <ItensIntoFrigobar key={frigobar.id} getItem={getItem} itens2={itens} index={index} frigobar={frigobar} id={frigobar.id} />
                                                         <EditFrigobarModal key={frigobar.id} index={index} frigobar={frigobar} id={frigobar.id} getFrigobar={getFrigobar} />
                                                         <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
                                                     </td>

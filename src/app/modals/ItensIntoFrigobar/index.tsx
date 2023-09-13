@@ -8,25 +8,23 @@ import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import cadastraItens from '@/functions/postItens';
 
-type inputs = {
-    // nome: string
-    // valor: string
-    quantity: number;
-    itens: string
-}
-
 interface IitemIntoFrig {
-    // quantity: number
     iten_id: any
     frigobar_id: number
+    quantidade: number
 }
 
-export default function ItensIntoFrigobar({ getItem, index, frigobar, id, }: any) {
+export default function ItensIntoFrigobar({ getItem, index, frigobar, id, itens2 }: any) {
     const [selecoes, setSelecoes] = useState<string[]>([]);
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const [itens, setItens] = useState([]);
     const [itensIntoFrig, setItensIntoFrig] = useState([]);
+    const [arrayInicial, setArrayInicial] = useState([]);
+    const [quantidade, setQuantidade] = useState<number>(0);
+    const [idItem, setIdItem] = useState([]);
+    const [manyItens, setManyItens] = useState([]);
+
     const getItens = async () => {
         const response = await api.get('/itens');
         setItens(response.data.data);
@@ -50,14 +48,33 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id, }: any
         reset,
         control
     } = useForm()
-    const onSubmit = (data: any) => {
+    const onSubmit = () => {
+        postItemIntoFrig()
         // Manipule os dados conforme necessário, neste caso, adicionando à lista de seleções
-        // console.log(data)
+        // console.log()
     };
-
-    const postItemIntoFrig = (id: number) => {
+    const postItemIntoFrig = () => {
         const item = itens.find((item: any) => item?.id === id);
-
+        const frigItem: IitemIntoFrig = {
+            iten_id: idItem,
+            frigobar_id: frigobar.id,
+            quantidade: quantidade
+        };
+        console.log(frigItem)
+        const novoArray = [].concat(arrayInicial, frigItem);
+        console.log(novoArray);
+        // novoArray.forEach((element) => api.post('/frigobar_itens', frigItem))
+        // .then((sucess) => {
+        //     mensagem();
+        // }).catch((err) => { console.log(err) })
+    }
+    const handleManyItens = () => {
+        const newManyItens = arrayInicial.concat(Array(quantidade).fill(idItem))
+        setManyItens([newManyItens].concat(arrayInicial))
+        console.log(manyItens);
+        // const manyManyItens = newManyItens.concat(arrayInicial, idItem);
+        // console.log(newManyItens);
+        // console.log(manyManyItens);
     }
 
     let postItemSuccess = false;
@@ -71,11 +88,10 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id, }: any
         const item = itens.find((item: any) => item?.id === id);
         const frigItem: IitemIntoFrig = {
             iten_id: item?.id,
-            // quantity: 1,
             frigobar_id: frigobar.id
         };
+        console.log(frigItem)
         api.post('/frigobar_itens', frigItem).then((sucess) => {
-            postItemSuccess = true;
             mensagem();
         }).catch((err) => { console.log(err) })
     };
@@ -84,17 +100,17 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id, }: any
         const item = itens.find((item: any) => item?.id === id);
         const frigItem: IitemIntoFrig = {
             iten_id: item?.id,
-            // quantity: 1,
             frigobar_id: frigobar.id
         };
         if (itensIntoFrig.length) {
             console.log('Não Está vazio')
             api.post('/deleteItemFromFrigobar', frigItem)
         }
-        console.log('Array vazio')
 
+        if (!itensIntoFrig.length) {
+            window.alert("não há itens a seren removidos")
+        }
     };
-
     // console.log(data)
     //     .then((response) => {
     //         // window.alert('Item cadastrado com sucesso')
@@ -125,14 +141,17 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id, }: any
                                 <div>
                                     <label>Selecione as opções:</label>
                                     <ul>
-                                        {itens.map((itens: any, index) => (
-                                            <li className='flex flex-col-4 justify-between gap-4 mb-4'>
+                                        {itens.map((itens: any, index: any) => (
+                                            <li key={itens.id} className='flex flex-col-4 justify-between gap-4 mb-4'>
                                                 <p>{itens.nome}</p>
                                                 <div className='flex gap-2'>
                                                     <button onClick={() => addFrigItem(itens.id)}
                                                         className='bg-blue-500 rounded-sm px-1 h-4 -pt-10'>+</button>
-                                                    <input onBlur={() => postItemIntoFrig(itens.id)}
-                                                        className='w-10 h-6' type="number" />
+                                                    <input
+                                                        className='w-10 h-6 text-black' type="number"
+                                                        value={quantidade[index]}
+                                                        onChange={(e: any) => { setQuantidade(Number(e.target.value)); setIdItem(itens.id) }}
+                                                    />
                                                     <button onClick={() => removeFrigItem(itens.id)}
                                                         className='bg-red-500 rounded-sm px-1 h-4 -pt-10'>-</button>
                                                 </div>
@@ -143,11 +162,15 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id, }: any
                                     {/* <div>{itensIntoFrig. }</div> */}
 
                                 </div>
-                                <div className='flex flex-col items-center p-2'>
+                                <div className='flex flex-col-2 justify-around items-center p-2'>
 
-                                    <button type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2
+                                    <button onClick={() => { }}
+                                        className='relative text-white button w-20 h-12 bg-[#8B0000] rounded-lg cursor-pointer select-none active:translate-y-2
+                                      active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#4d1a1a] active:border-b-[0px] transition-all duration-150
+                                      [box-shadow:0_10px_0_0_#4d1a1a,0_15px_0_0_#4d1a1a] border-b-[1px] border-[#391313]' >Remover itens</button>
+                                    <button type='submit' className='relative text-white button w-20 h-12 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2
                                       active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150
-                                      [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' >enviar</button>
+                                      [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' >Adcionar itens</button>
                                 </div>
                             </form >
                         </div>

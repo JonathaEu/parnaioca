@@ -22,6 +22,7 @@ export default function RegisterItensModal({ getItem }: any) {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
+        console.log(data)
         cadastraItens({ data })
             .then((response) => {
                 // window.alert('Item cadastrado com sucesso')
