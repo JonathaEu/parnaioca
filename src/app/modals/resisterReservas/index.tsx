@@ -145,14 +145,9 @@ function RegisterReservaModal() {
                                             <label htmlFor="estado" className='mb-2 text-sm font-medium flex content-center items-center'>
                                                 Nome do funcionario
                                             </label>
-                                            {funcionario.map((funcionario: any) => {
-                                                return (
 
-                                                    <input defaultValue='' value={funcionario?.name} disabled placeholder={funcionario?.name} {...register('users_id')} className='border 
+                                            <input defaultValue='' value={funcionario?.name} disabled placeholder={funcionario?.name} {...register('users_id')} className='border 
                         text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
-                                                )
-                                            })}
-
                                         </div>
                                     </div>
                                 </div>
