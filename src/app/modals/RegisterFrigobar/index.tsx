@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
+import drink from '../../../../public/assets/drink.png'
 import Cadastro from '../../../../public/assets/cadastro.png'
 import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
@@ -55,28 +56,26 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
 
     return (
         <>
+
             <div className='mt-32 mb-4'>
                 <Button className="ml-10 p-2 bg-orange-500" onClick={() => props.setOpenModal('form-elements')}>Cadastrar frigobar</Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
-                        <div className="space-y-6">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Cadastrar Frigobar</h3>
-                            <form onSubmit={handleSubmit(onSubmit)}
-                                className='text-gray-800 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4 mt-14 px-5  dark:text-white
-                        '>
-
-                                <div>
-                                    <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center"
+                        <div className="">
+                                <div className="flex items-center">
+                                    <img src={drink.src} alt="cadastro" className="p-2 w-28 h-full content-center flex items-center"
                                     />
+                            <h3 className="text-center text-bold uppercase text-white text-2xl">Cadastrar Frigobar</h3>
                                 </div>
-
+                            <form onSubmit={handleSubmit(onSubmit)}
+                                className='mx-auto p-12 dark:text-white'>
                                 <div className='grid grid-cols-1 md:grid-cols-2 content-center items-center'>
 
-                                    <div className='space-y-4'>
+                                    <div className=''>
                                         <div className='mb-4'>
                                             <label htmlFor="numero" className='block mb-2 text-sm font-medium'>
-                                                Numero
+                                                Número
                                             </label>
                                             <input defaultValue='' placeholder='Digite o numero do Frigobar' id="numero" {...register('numero', { required: true })}
                                                 aria-invalid={errors.numero ? "true" : "false"} className='border 
@@ -92,19 +91,20 @@ text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-sl
 
                                 <div className='text-center'>
                                     <label>Qual o status do frigobar?</label>
-                                    <div className='flex gap-10 mb-8 text-black justify-center items-center mt-10'>
+                                    <div className='flex gap-10 mb-5 text-black justify-center items-center mt-2'>
                                         <select {...register("ativo")}>
                                             <>
+                                                <option value={2}></option>
                                                 <option value={1}>Ativo</option>
                                                 <option value={0}>Inativo</option>
                                             </>
                                         </select>
                                     </div>
                                 </div>
-
+<br />
                                 <div className='text-center'>
-                                    <label>A Qual acomodação este Frigobar pertence?</label>
-                                    <div className='flex gap-10 mb-8 text-black justify-center items-center mt-10'>
+                                    <label>A qual acomodação este frigobar pertence?</label>
+                                    <div className='flex gap-20 transition-transform mb-8 text-black justify-center items-center mt-10'>
                                         <select {...register("quartos_id")}>
                                             {quarto.map((quarto: any) => {
 
@@ -119,8 +119,7 @@ text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-sl
                                 </div>
 
                                 <div>
-                                    <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca] left-[130px] mt-10
-                                '/>
+                                    <input type='submit' className='hover:border-[#282a3a] cursor-pointer rounded bg-[#252f46] hover:bg-[#3c4d7b] hover:transition-opacity text-white hover:text-black font-bold py-1 px-2'/>
 
                                 </div>
                             </form>
