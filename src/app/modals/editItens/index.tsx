@@ -3,17 +3,17 @@ import { useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
 import { useForm, SubmitHandler } from "react-hook-form"
-import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
-import cadastraItens from '@/functions/postItens';
+import EditItens from '@/functions/editItens';
 
 type Inputs = {
     nome: string
     valor: string
     quantidade: number;
+    id: number
 }
 
-export default function RegisterItensModal({ getItem }: any) {
+export default function EditItensModal({ getItem, index, data, item }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -22,12 +22,12 @@ export default function RegisterItensModal({ getItem }: any) {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data)
-        cadastraItens({ data })
+        EditItens({ data })
             .then((response) => {
                 // window.alert('Item cadastrado com sucesso')
             }).catch((err) => {
-                window.alert(err);
+                console.log(err)
+                console.error(err)
             });
         getItem()
         setOpenModal(false as any)
@@ -36,8 +36,8 @@ export default function RegisterItensModal({ getItem }: any) {
 
     return (
         <>
-            <div className='mt-32 mb-4'>
-                <Button className="ml-10 p-2 bg-orange-500" onClick={() => props.setOpenModal('form-elements')}>Cadastrar Itens</Button>
+            <div className=''>
+                <Button className="ml-10 p-2 bg-orange-500" onClick={() => props.setOpenModal('form-elements')}>Editar</Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
@@ -54,9 +54,14 @@ export default function RegisterItensModal({ getItem }: any) {
                                     <div className='space-y-4 '>
                                         <div className='mb-4'>
                                             <label htmlFor="nome" className='block mb-2 text-sm font-medium'>
-                                                Nome do Item
-                                            </label>
+                                                Nome do Item                                             </label>
                                             <input defaultValue='' placeholder='Digite o nome completo' id="nome" {...register('nome', { required: true })} className='border 
+                     text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                        </div>
+                                    </div>
+                                    <div className='space-y-4 '>
+                                        <div className='mb-4'>
+                                            <input defaultValue='' disabled placeholder={item.id} id="id" {...register('id', { value: item.id })} className='border 
                      text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
                                         </div>
                                     </div>

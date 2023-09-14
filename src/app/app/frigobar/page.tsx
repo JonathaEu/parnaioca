@@ -8,6 +8,7 @@ import api from '@/services/api'
 import FormElements from '@/app/modals/RegisterFrigobar'
 import SideBarFuncionario from '../components/SideBarFuncionario'
 import EditFrigobarModal from '@/app/modals/editFrigobar'
+import ItensIntoFrigobar from '@/app/modals/ItensIntoFrigobar'
 
 
 type Inputs = {
@@ -27,6 +28,15 @@ export default function Frigobar() {
 
     useEffect(() => {
         getFrigobar();
+    }, []);
+    const [itens, setItens] = useState([]);
+    const getItem = async () => {
+        const response = await api.get('/itens');
+        setItens(response.data);
+        console.log(response);
+    };
+    useEffect(() => {
+        getItem();
     }, []);
 
     // console.log(frigobar);
@@ -59,33 +69,34 @@ export default function Frigobar() {
                                         const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
                                         const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
                                         let statusStyle = frigobar.ativo ? classNameGreen : classNameRed;
+                                       
+                                        return (
+                                            <>
+                                                <tr key={frigobar.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                                    <td className='py-4 px-6 indent-[20%]'>
+                                                        {frigobar.numero}
+                                                    </td>
+                                                    <td className='py-4 px-6'>
+                                                        {frigobar?.quarto?.nome}
+                                                    </td>
+                                                    <td className={``}>
+                                                        <div className={`w-full rounded-md  mr-2 text-center px-2.5 py-0.5 ${statusStyle}`}>
+                                                            {status}
+                                                        </div>
+                                                    </td>
+                                                    <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
+                                                        <ItensIntoFrigobar key={frigobar.id} getItem={getItem} itens2={itens} index={index} frigobar={frigobar} id={frigobar.id} />
+                                                        <EditFrigobarModal key={frigobar.id} index={index} frigobar={frigobar} id={frigobar.id} getFrigobar={getFrigobar} />
+                                                        <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                                    </td>
 
-                                            return (
-                                                <>
-                                                    <tr key={frigobar.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
-                                                        <td className='py-4 px-6 indent-[20%]'>
-                                                            {frigobar.numero}
-                                                        </td>
-                                                        <td className='py-4 px-6'>
-                                                            {frigobar?.quarto?.nome}
-                                                        </td>
-                                                        <td className={`indent-[35%] `}>
-                                                            <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 ${statusStyle}`}>
-                                                                {status}
-                                                            </div>
-                                                        </td>
-                                                        <td className='flex justify-end gap-10 mt-2 mb-2 pb-0.5 mr-3'>
-                                                            <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2'>editar</button>
-                                                            <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
-                                                        </td>
-
-                                                    </tr>
-                                                </>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
+                                                </tr>
+                                            </>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                         </section>
                     </div>
                 </div>
