@@ -2,12 +2,13 @@
 import React from 'react'
 import Cadastro from '../../../../public/assets/cadastro.png'
 import LogoTipo from '../../../../public/assets/logo.png'
-import Sidebar from '@/app/app/components/Sidebar'
 import Footer from '@/app/app/components/Footer'
 import { useState, useEffect } from 'react';
 import api from '@/services/api'
 import FormElements from '@/app/modals/RegisterFrigobar'
+import SideBarFuncionario from '../components/SideBarFuncionario'
 import EditFrigobarModal from '@/app/modals/editFrigobar'
+
 
 type Inputs = {
     itens_id: number
@@ -32,29 +33,26 @@ export default function Frigobar() {
 
     return (
         <>
-            <Sidebar>
-                <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
-                    <section className="flex flex-wrap content-between ">
-                        <FormElements getFrigobar={getFrigobar} />
-                        <div className='w-full px-10'>
-                            <table className="w-full text-sm text-left text-white dark:text-gray-400">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-3">
-                                            Frigobar número:
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Está no quarto:
-                                        </th>
-                                        <th scope="col" className="px-4 py-3">
-                                            Situação:
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                        </th>
-                                    </tr>
-                                </thead>
-
-
+        <SideBarFuncionario>
+                       <FormElements />
+                        <section>
+                            <div>
+                                <table className="rounded-lg">
+                                    <thead className="text-xs uppercase dark:bg-[#2a2c45] dark:text-white">
+                                        <tr className="">
+                                            <th scope="col" className="px-16 p-2">
+                                                Número do Frigobar:
+                                            </th>
+                                            <th scope="col" className="px-20 p-2">
+                                                Quarto:
+                                            </th>
+                                            <th scope="col" className="px-20 p-2">
+                                                Situação:
+                                            </th>
+                                            <th scope="col" className="px-2 p-2">
+                                            </th>
+                                        </tr>
+                                    </thead>
                                 <tbody className=''>
                                     {frigobar.map((frigobar: any, index) => {
                                         let status = frigobar.ativo ? "Ativo" : "Inativo";
@@ -62,36 +60,36 @@ export default function Frigobar() {
                                         const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
                                         let statusStyle = frigobar.ativo ? classNameGreen : classNameRed;
 
-                                        return (
-                                            <>
-                                                <tr key={frigobar.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
-                                                    <td className='py-4 px-6 indent-[20%]'>
-                                                        {frigobar.numero}
-                                                    </td>
-                                                    <td className='py-4 px-6'>
-                                                        {frigobar?.quarto?.nome}
-                                                    </td>
-                                                    <td className={``}>
-                                                        <div className={`w-full rounded-md  mr-2 text-center px-2.5 py-0.5 ${statusStyle}`}>
-                                                            {status}
-                                                        </div>
-                                                    </td>
-                                                    <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
-                                                        <EditFrigobarModal key={frigobar.id} index={index} frigobar={frigobar} id={frigobar.id} getFrigobar={getFrigobar} />
-                                                        <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
-                                                    </td>
+                                            return (
+                                                <>
+                                                    <tr key={frigobar.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                                        <td className='py-4 px-6 indent-[20%]'>
+                                                            {frigobar.numero}
+                                                        </td>
+                                                        <td className='py-4 px-6'>
+                                                            {frigobar?.quarto?.nome}
+                                                        </td>
+                                                        <td className={`indent-[35%] `}>
+                                                            <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 ${statusStyle}`}>
+                                                                {status}
+                                                            </div>
+                                                        </td>
+                                                        <td className='flex justify-end gap-10 mt-2 mb-2 pb-0.5 mr-3'>
+                                                            <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2'>editar</button>
+                                                            <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                                        </td>
 
-                                                </tr>
-                                            </>
-                                        )
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </section>
+                                                    </tr>
+                                                </>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-            </Sidebar>
+            </SideBarFuncionario>
         </>
     )
 }

@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.1",
+    "@splidejs/react-splide": "github:splidejs/react-splide",
+    "@splidejs/splide": "^4.1.4",
+    "@types/gsap": "^3.0.0",
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
@@ -23,6 +27,8 @@
     "eslint-config-next": "13.4.12",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.5.0",
+    "framer-motion": "^10.16.4",
+    "gsap": "^3.12.2",
     "hook-form": "^0.0.1",
     "next": "13.4.12",
     "react": "^18.2.0",
@@ -36,15 +42,20 @@
     "react-icons": "^4.10.1",
     "react-modal": "^3.16.1",
     "react-responsive-carousel": "^3.2.23",
+    "react-scroll": "^1.8.9",
     "react-slick": "^0.29.0",
     "react-slideshow-image": "^4.2.1",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^6.0.7",
+    "swiper": "^10.2.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6",
-    "victory": "^36.6.11"
+    "victory": "^36.6.11",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
+    "@types/react-scroll": "^1.8.7",
     "@types/react-slick": "^0.23.10",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.27",
