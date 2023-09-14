@@ -5,32 +5,36 @@ import LogoTipo from '../../../../public/assets/logo.png'
 import Footer from '@/app/app/components/Footer'
 import { useState, useEffect } from 'react';
 import api from '@/services/api'
-import RegistraFrigobar from '@/functions/PostFrigobar/idex'
 import FormElements from '@/app/modals/RegisterFrigobar'
 import SideBarFuncionario from '../components/SideBarFuncionario'
+import EditFrigobarModal from '@/app/modals/editFrigobar'
 
+
+type Inputs = {
+    itens_id: number
+    numero: number
+    ativo: number
+    frigobar_id: number
+}
 
 export default function Frigobar() {
     const [frigobar, setFrigobar] = useState([]);
+    const getFrigobar = async () => {
+        const response = await api.get('/frigobar_quarto');
+        setFrigobar(response.data);
+        console.log(response);
+    };
 
     useEffect(() => {
-        const getFrigobar = async () => {
-            const response = await api.get('/frigobar_quarto');
-            setFrigobar(response.data);
-            console.log(response);
-        };
         getFrigobar();
     }, []);
+
     // console.log(frigobar);
 
     return (
         <>
-            <SideBarFuncionario>
-                <div className="bg-gray-600 bg-cover h-screen w-full">
-                    <div className="flex flex-col content-center items-center h-[75%] w-[80%] backdrop-blur-sm bg-white/30 rounded-x shadow-lg bg-[#adbac2] shadow-slate-700 mx-auto p-4
-      mt-20 px-10">
-
-                        <FormElements />
+        <SideBarFuncionario>
+                       <FormElements />
                         <section>
                             <div>
                                 <table className="rounded-lg">
@@ -49,14 +53,12 @@ export default function Frigobar() {
                                             </th>
                                         </tr>
                                     </thead>
-
-
-                                    <tbody className=''>
-                                        {frigobar.map((frigobar) => {
-                                            let status = frigobar.ativo ? "Ativo" : "Inativo";
-                                            const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
-                                            const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
-                                            let statusStyle = frigobar.ativo ? classNameGreen : classNameRed;
+                                <tbody className=''>
+                                    {frigobar.map((frigobar: any, index) => {
+                                        let status = frigobar.ativo ? "Ativo" : "Inativo";
+                                        const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
+                                        const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
+                                        let statusStyle = frigobar.ativo ? classNameGreen : classNameRed;
 
                                             return (
                                                 <>

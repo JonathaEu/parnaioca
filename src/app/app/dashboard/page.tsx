@@ -9,56 +9,55 @@ import { Table } from 'react-bootstrap';
 import Dashboard from '../../../../public/assets/dashboard.png';
 
 type Clientes = {
-  id: number;
-  quarto: string;
-  nome: string;
-  data_inicio: string;
-  data_fim: string;
+    id: number;
+    quarto: string;
+    nome: string;
+    data_inicio: string;
+    data_fim: string;
 }
 
 const dados = [
-  {
-    id: 1,
-    quarto: "Suíte Parnaioca",
-    nome: "Victor",
-    data_inicio: "10/10/2023",
-    data_fim: "12/10/2023",
-  },
+    {
+        id: 1,
+        quarto: "Suíte Parnaioca",
+        nome: "Victor",
+        data_inicio: "10/10/2023",
+        data_fim: "12/10/2023",
+    },
 
-  {
-    id: 2,
-    quarto: "Apartamento 10",
-    nome: "Lucas",
-    data_inicio: "10/10/2023",
-    data_fim: "12/10/2023",
-  },
+    {
+        id: 2,
+        quarto: "Apartamento 10",
+        nome: "Lucas",
+        data_inicio: "10/10/2023",
+        data_fim: "12/10/2023",
+    },
 
-  {
-    id: 3,
-    quarto: "Suíte Mendes Lopes",
-    nome: "Ludmilla",
-    data_inicio: "10/10/2023",
-    data_fim: "12/10/2023",
-  },
+    {
+        id: 3,
+        quarto: "Suíte Mendes Lopes",
+        nome: "Ludmilla",
+        data_inicio: "10/10/2023",
+        data_fim: "12/10/2023",
+    },
 ]
 
 export default function dashboard() {
 
-  const { user } = useStateContext();
+    const { user } = useStateContext();
 
-  const [clientes, setClientes] = useState<any[]>([]);
-  const RouteClientes = () => { router.push('app/cliente/cadastro') };
+    const [clientes, setClientes] = useState<any[]>([]);
+    const RouteClientes = () => { router.push('app/cliente/cadastro') };
 
-  useEffect(() => {
-    setClientes(dados);
-    BuscarCliente().then((sucess) => {
-      // setClientes(sucess);
-    })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, []);
-
+    useEffect(() => {
+        setClientes(dados);
+        BuscarCliente().then((sucess) => {
+            // setClientes(sucess);
+        })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
 
 
 

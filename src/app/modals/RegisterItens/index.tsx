@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
 import { useForm, SubmitHandler } from "react-hook-form"
-import RegistraFrigobar from '@/functions/PostFrigobar/idex';
+import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import cadastraItens from '@/functions/postItens';
 
@@ -13,7 +13,7 @@ type Inputs = {
     quantidade: number;
 }
 
-export default function RegisterItensModal() {
+export default function RegisterItensModal({ getItem }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -24,10 +24,12 @@ export default function RegisterItensModal() {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         cadastraItens({ data })
             .then((response) => {
-                window.alert('Item cadastrado com sucesso')
+                // window.alert('Item cadastrado com sucesso')
             }).catch((err) => {
                 window.alert(err);
             });
+        getItem()
+        setOpenModal(false as any)
         reset();
     }
 
