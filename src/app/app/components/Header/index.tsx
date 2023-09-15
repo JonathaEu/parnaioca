@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import acomodacoes from '../../../../../public/assets/acomodacoes.png';
-import lagoaazul from '../../../../../public/assets/header/suíte-lagoazul.png';
-import parnaioca from '../../../../../public/assets/header/suíte-parnaioca.png';
-import apartamentos from '../../../../../public/assets/header/apartamentos.png';
-import lopesmendes from '../../../../../public/assets/header/suítelopesmendes.png';
+
 
 
 const Header = () => {
@@ -36,7 +33,7 @@ const Header = () => {
                 <div className={`${isScrolled ? 'grid' : 'text-[#abeb56]'} grid text-[12px] text-black`}>
                    
                    <div className="flex justify-center items-center">
-                    <img src={acomodacoes.src} alt="acomodações" className={`${isScrolled ? 'w-32' : 'transition-all duration-300 ease-out' } w-[300px] pt-3 transition-all duration-300 ease-in-out`} />
+                    <img src={acomodacoes.src} alt="acomodações" className={`${isScrolled ? 'w-[230px] pt-3' : 'transition-all duration-300 ease-out' } w-[300px] pt-3 transition-all duration-300 ease-in-out`} />
                    </div>
 
                     <div className="flex pb-2">

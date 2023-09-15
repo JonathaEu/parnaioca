@@ -1,8 +1,6 @@
 "use client"
 import React from 'react'
 import cadastraCliente from '@/functions/postClientes'
-import Cadastro from '../../../../../public/assets/cadastro.png'
-import LogoTipo from '../../../../../public/assets/logo.png'
 import Footer from '../../components/Footer'
 import { useState, useEffect } from 'react';
 import SideBarFuncionario from '../../components/SideBarFuncionario'
@@ -12,6 +10,10 @@ import RegisterClientesModal from '@/app/modals/registerCliente'
 import BuscarCliente from '@/functions/get-clientes'
 import { useForm, SubmitHandler } from "react-hook-form"
 import getQuartos from '@/functions/getQuartos'
+import excluir from '../../../../../public/assets/excluir.png'
+import editar from '../../../../../public/assets/editar.png'
+import avatar from '../../../../../public/assets/avatar-modal-cliente.png'
+import cadastro from '../../../../../public/assets/cadastro-de-clientes.png'
 
 
 
@@ -23,6 +25,7 @@ type Inputs = {
     telefone: string
     cidade: string
     estado: string
+    genero: string
 }
 export default function CadastroClientes() {
 
@@ -43,16 +46,27 @@ export default function CadastroClientes() {
 
     const customStyles = {
         overlay: {
-            backgroundColor: 'rgba(0, 0 ,0, 0.3)',
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
             backdropFilter: 'blur(4px)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'auto',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
         },
         content: {
-            background: '#75726F',
-            borderRadius: '20px',
+            background: '#6e737d',
+            borderRadius: '8px',
             padding: '20px',
-            // height: '100%'
-        }
+            maxWidth: '80%',
+            maxHeight: '96%',
+        },
     };
+
     let subtitle: any;
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -102,17 +116,19 @@ export default function CadastroClientes() {
                     onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}
                     style={customStyles}
+                    className={`w-[60%] p-2`}
                 >
 
-                    <div className="space-y-6 w-full">
-
-                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Cadastrar Cliente</h3>
+                    <div className="">
                         <form onSubmit={handleSubmit(onSubmit)} >
-                            <div>
-                                <button className='absolute right-[2%] top-[2%]  text-black' onClick={closeModal}>X</button>
-                                <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center" />
+                            <div className="flex justify-center items-center w-full bg-[#374151]">
+                                <img src={avatar.src} alt="cadastro" className="w-64" />
                             </div>
-                            <div className='grid grid-cols-1 md:grid-cols-2 content-center items-center'>
+                            <br />
+                            <div>
+                                <button className='absolute right-[2%] top-[2%]  text-black' onClick={closeModal}>x</button>
+                            </div>
+                            <div className='grid grid-cols-1 md:grid-cols-2'>
 
                                 <div className=''>
                                     <div className='mb-4'>
@@ -143,6 +159,7 @@ export default function CadastroClientes() {
                          text-gray-900 text-sm border-slate-950 rounded-md block w-80 p-2 hover:border-slate-800'/>
                                     </div>
                                 </div>
+
                                 <div className='space-y-4 pl-10'>
                                     <div className='mb-4'>
                                         <label htmlFor="nascimento" className='block mb-2 text-sm font-medium'>
@@ -151,6 +168,28 @@ export default function CadastroClientes() {
                                         <input type="date" defaultValue='' id="nascimento" {...register('nascimento')} className='border 
                      text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
                                     </div>
+                                </div>
+
+                                <div>
+                                    <div className="mb-4">
+                                        <label htmlFor="genero" className="block mb-2 text-sm font-medium">
+                                            Gênero
+                                        </label>
+                                        <select
+                                            id="genero"
+                                            name="genero"
+                                            {...register('genero')}
+                                            className="border text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800"
+                                        >
+                                            <option value=" "></option>
+                                            <option value="masculino">Masculino</option>
+                                            <option value="feminino">Feminino</option>
+                                            <option value="nao-binario">Não Binário</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className='space-y-4 pl-10'>
                                     <div className='mb-4'>
                                         <label htmlFor="telefone" className='block mb-2 text-sm font-medium'>
                                             Telefone
@@ -159,6 +198,7 @@ export default function CadastroClientes() {
                         text-gray-900 border-slate-950 text-sm  rounded-md block w-80 p-2 hover:border-slate-800'/>
                                     </div>
                                 </div>
+
                                 <div className=''>
                                     <div className='mb-4'>
                                         <label htmlFor="cidade" className='block mb-2 text-sm font-medium'>
@@ -168,6 +208,7 @@ export default function CadastroClientes() {
                     text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
                                     </div>
                                 </div>
+
                                 <div className='space-y-4 pl-10'>
                                     <div className='mb-4'>
                                         <label htmlFor="estado" className='block mb-2 text-sm font-medium'>
@@ -180,19 +221,31 @@ export default function CadastroClientes() {
                             </div>
                             <div className='flex flex-col items-center p-2'>
 
-                                <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' />
+                                <div className="bg-[#374151] p-2 rounded-lg hover:bg-[#111827]">
 
+                                    <input type='submit'
+                                        className='
+                                        text-white cursor-pointer' />
+                                </div>
                             </div>
                         </form>
                     </div>
                 </Modal>
-                <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
+
+                <div className="w-full h-screen bg-[#DCDCDC]">
+
+                <header className="flex justify-between">
+                    <div className="bg-white p-4 m-0 flex shadow-lg w-full h-auto">
+                        <img src={cadastro.src} alt="cadastro" className="w-44 float-right" />
+                    </div>
+                </header>
+
                     <section className="flex flex-wrap content-between ">
                         <div className='w-full px-10'>
-                            <button onClick={openModal} className='bg-purple-100 mt-10 mb-6 text-white text-sm font-medium mr-2 rounded-sm dark:bg-orange-600 dark:text-white p-2 '
-                            >Cadastrar Clientes</button>
+                            <button onClick={openModal} className='mt-10 mb-6 text-white text-sm font-semibold uppercase mr-2 rounded-lg bg-[#111827] dark:text-white p-2 shadow-md hover:bg-[#374151]'
+                            >Cadastrar</button>
                             <table className="w-full text-sm text-left text-white dark:text-gray-400">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
+                                <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 text-white w-full">
                                     <tr>
                                         <th scope="col" className="px-6 py-3">
                                             Cliente:
@@ -230,8 +283,8 @@ export default function CadastroClientes() {
                                                     </td>
                                                     <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
 
-                                                        <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2 border border-purple-400'>editar</button>
-                                                        <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                                        <button><img src={editar.src} alt="editar" className="w-9" /></button>
+                                                        <button><img src={excluir.src} alt="excluir" className="w-8" /></button>
                                                     </td>
 
                                                 </tr>
