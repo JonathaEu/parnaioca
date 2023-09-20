@@ -7,6 +7,11 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import cadastraItens from '@/functions/postItens';
+import adicionarItens from '../../../../public/assets/adicionarItens.png'
+import { BsTrashFill } from 'react-icons/bs';
+import { MdAddCircle } from 'react-icons/md';
+import { GrSubtractCircle } from 'react-icons/gr';
+import { FiPlusCircle } from 'react-icons/fi';
 
 interface IitemIntoFrig {
     iten_id: any
@@ -25,6 +30,7 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any)
     const [idItem, setIdItem] = useState([]);
     const [idItemAnteriores, setIdItemAnteriores] = useState([]);
     const [quantidadesAnteriores, setQuantidadesAnteriores] = useState([]);
+
 
     const adicionarAoArray = () => {
         // Adicione o valor atual da quantidade ao array de quantidades anteriores
@@ -112,6 +118,8 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any)
             window.alert("não há itens a seren removidos")
         }
     };
+
+
     // console.log(data)
     //     .then((response) => {
     //         // window.alert('Item cadastrado com sucesso')
@@ -126,73 +134,127 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any)
     return (
         <>
             <div className=''>
-                <Button className=" p-2 bg-orange-500" onClick={() => props.setOpenModal('form-elements')}>Adicionar Itens ao Frigobar</Button>
-                <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
-                    <Modal.Header />
-                    <Modal.Body>
-                        <div className="space-y-6">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Itens</h3>
-                            <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4
-    mt-14 px-5'>
+                <div className="items-center flex justify-center">
+                    <Button
+                        className="
+                    flex transition duration-300 
+                    hover:bg-lime-900 col-span-1
+                    bg-lime-700 uppercase border-none mt-2"
 
-                                <div>
-                                    <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center" />
+                        onClick={() => props.setOpenModal('form-elements')}>
+                        Adicionar Itens
+                    </Button>
+
+                </div>
+                <div className="">
+
+                    <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+                        <Modal.Header />
+                        <Modal.Body>
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-center">
+                                    <img
+                                        src={adicionarItens.src}
+                                        alt="adicionarItens"
+                                        className="w-44 invert" />
                                 </div>
 
-                                <div>
-                                    <label>Selecione as opções:</label>
-                                    <ul>
-                                        {itens.map((itens: any, index: any) => (
-                                            <li key={itens.id} className='flex flex-col-2 justify-end gap-4 mb-4'>
-                                                <p>{itens.nome}</p>
-                                                <div className='flex gap-2'>
-                                                    <button onClick={() => addFrigItem(itens.id)}
-                                                        className='bg-blue-500 rounded-sm px-1 h-4 -pt-10'>+</button>
-                                                    <input
-                                                        className='w-10 h-6 text-black' type="number"
-                                                        value={quantidade[index]}
-                                                        onChange={handleQuantidadeChange}
-                                                        onBlur={() => setIdItem(itens.id)}
-                                                    // onMouseLeave={adicionarAoArray}
-                                                    />
-                                                    <button onClick={() => removeFrigItem(itens.id)}
-                                                        className='bg-red-500 rounded-sm px-1 h-4 -pt-10'>-</button>
-                                                </div>
-                                                <div>
-                                                    <input type="checkbox" onClick={adicionarAoArray}
-                                                        onBlur={adicionarIdAoArray}
-                                                        name="escolha" id="" />
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <div className=' bg-red-500 text-black'>
-                                        <h2>Quantidades Anteriores:</h2>
-                                        <ul>
-                                            {quantidadesAnteriores.map((q, index) => (
-                                                <li key={index}>{q}</li>
+                                <form onSubmit={handleSubmit(onSubmit)}
+
+                                    className='text-slate-200 grid grid-cols-1
+                                content-center items-center rounded 
+                                 bg-[#2C3441]
+                                  mx-auto p-4 py-4 mt-14 px-5'>
+                                    <div>
+                                        <label className="uppercase p-2 pb-3 font-semibold">Opções:</label>
+                                        <ul className="">
+                                            {itens.map((itens: any, index: any) => (
+                                                <li key={itens.id} className='flex flex-col-2 gap-4 mb-4'>
+                                                    <p>{itens.nome}</p>
+
+                                                    <div className='flex gap-2'>
+                                                        <button onClick={() => addFrigItem(itens.id)}
+                                                            className="hover:invert"
+                                                        >
+                                                            <FiPlusCircle />
+                                                        </button>
+
+                                                        <input
+                                                            className='w-10 h-6 text-black' type="number"
+                                                            value={quantidade[index]}
+                                                            onChange={handleQuantidadeChange}
+                                                            onBlur={() => setIdItem(itens.id)}
+                                                        // onMouseLeave={adicionarAoArray}
+                                                        />
+                                                        <button onClick={() => removeFrigItem(itens.id)}
+                                                            className="invert hover:invert-0">
+                                                            <GrSubtractCircle />
+                                                        </button>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" onClick={adicionarAoArray}
+                                                            onBlur={adicionarIdAoArray}
+                                                            name="escolha" id="" />
+                                                    </div>
+                                                </li>
                                             ))}
                                         </ul>
+                                        <div className="items-center flex justify-center">
+                                            <div className='
+                                        w-56 p-1 text-[12px] rounded
+                                        bg-red-600 text-slate-50 indent-2
+                                        flex items-center justify-center uppercase
+                                        '>
+                                                <h2>Itens adicionados:</h2>
+                                                <ul>
+                                                    {quantidadesAnteriores.map((q, index) => (
+                                                        <li key={index}>{q}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        {/* <div>{itensIntoFrig. }</div> */}
+
                                     </div>
+                                    <div className='flex flex-col-2 justify-around items-center p-2'>
 
-                                    {/* <div>{itensIntoFrig. }</div> */}
+                                        <button
+                                            type='submit'
+                                            onClick={adicionarAoArray}
+                                            className='bg-blue-700 font-semibold
+                                        hover:bg-blue-900 cursor-pointer p-2
+                                        items-center flex rounded-2xl text-gray-200
+                                        hover:text-gray-300 space-evenly
+                                         shadow-black
+                                        transition-transform transform 
+                                        active:scale-95 py-2 px-2
+                                        active:bg-[#000000] uppercase'
+                                        ><MdAddCircle />
 
-                                </div>
-                                <div className='flex flex-col-2 justify-around items-center p-2'>
+                                        </button>
 
-                                    <button type='button' onClick={adicionarAoArray}
-                                        className='relative text-white button w-20 h-12 bg-[#8B0000] rounded-lg cursor-pointer select-none active:translate-y-2
-                                      active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#4d1a1a] active:border-b-[0px] transition-all duration-150
-                                      [box-shadow:0_10px_0_0_#4d1a1a,0_15px_0_0_#4d1a1a] border-b-[1px] border-[#391313]' >Remover itens</button>
-                                    <button type='submit' className='relative text-white button w-20 h-12 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2
-                                      active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150
-                                      [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' >Adcionar itens</button>
-                                </div>
-                            </form >
-                        </div>
-                    </Modal.Body >
-                </Modal >
-            </div >
+                                        <button
+                                            type='button'
+                                            className='bg-red-700 font-semibold
+                                        hover:bg-red-900 cursor-pointer p-2
+                                        items-center flex rounded-2xl text-gray-200
+                                        hover:text-gray-300 space-evenly
+                                        shadow-black
+                                        transition-transform transform 
+                                        active:scale-95 py-2 px-2
+                                        active:bg-[#000000] uppercase'>
+                                            <BsTrashFill />
+
+                                        </button>
+                                    </div>
+                                </form >
+                            </div>
+                        </Modal.Body >
+                    </Modal >
+                </div >
+            </div>
         </>
     )
 }

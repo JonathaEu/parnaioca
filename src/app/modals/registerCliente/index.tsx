@@ -133,7 +133,14 @@ export default function RegisterClientesModal() {
                                 </div>
                                 <div className='flex flex-col items-center p-2'>
 
-                                    <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' />
+                                    <input type='submit' className='
+                                    bg-[#111827]
+                    text-gray-200 hover:bg-[#374151]
+                    hover:text-gray-300 shadow-black
+                    p-2 rounded-md cursor-pointer
+                    transition-transform transform 
+                    active:scale-95 py-2 px-4
+                    active:bg-[#000000] uppercase' />
 
                                 </div>
                             </form>

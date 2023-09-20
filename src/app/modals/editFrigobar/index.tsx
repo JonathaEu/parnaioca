@@ -2,11 +2,13 @@
 import { useEffect, useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
-
+import drinkFrigobar from '../../../../public/assets/drink-frigobar.png'
+import fundoModal from '../../../../public/assets/fundo-modal-frigobar.png'
 import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import editFrigobar from '@/functions/EditFrigobar';
+import editar from '../../../../public/assets/editar.png'
 
 type Inputs = {
     id: number
@@ -59,18 +61,23 @@ export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }
     return (
         <>
             <div className=''>
-                <Button className="ml-10 p-2" onClick={() => props.setOpenModal('form-elements')}>Editar</Button>
+                <Button className="border-none" onClick={() => props.setOpenModal('form-elements')}>
+                    <img src={editar.src} alt="editar" className="w-9" />
+                </Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Cadastrar Frigobar</h3>
+                            <h3 className="text-xl font-medium text-gray-900 dark:text-white"></h3>
                             <form onSubmit={handleSubmit(onSubmit)}
                                 className='text-gray-800 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4 mt-14 px-5  dark:text-white
                         '>
 
                                 <div>
-                                    <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center"
+                                    <img
+                                        src={Cadastro.src}
+                                        alt="cadastro"
+                                        className="w-1/5 h-full items-center"
                                     />
                                 </div>
 
@@ -122,8 +129,15 @@ text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-sl
                                 </div>
 
                                 <div>
-                                    <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca] left-[130px] mt-10
-                                '/>
+                                    <input type='submit' className='
+                                                    bg-[#111827]
+                                                    text-gray-200 hover:bg-[#374151]
+                                                    hover:text-gray-300 shadow-black
+                                                    p-2 rounded-md cursor-pointer
+                                                    transition-transform transform 
+                                                    active:scale-95 py-2 px-4
+                                                    active:bg-[#000000] uppercase"
+                                    '/>
 
                                 </div>
                             </form>

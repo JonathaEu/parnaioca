@@ -14,6 +14,7 @@ import excluir from '../../../../../public/assets/excluir.png'
 import editar from '../../../../../public/assets/editar.png'
 import avatar from '../../../../../public/assets/avatar-modal-cliente.png'
 import cadastro from '../../../../../public/assets/cadastro-de-clientes.png'
+import InputMask from 'react-input-mask';
 
 
 
@@ -119,7 +120,7 @@ export default function CadastroClientes() {
                     className={`w-[60%] p-2`}
                 >
 
-                    <div className="">
+                    <div className="mb-3">
                         <form onSubmit={handleSubmit(onSubmit)} >
                             <div className="flex justify-center items-center w-full bg-[#374151]">
                                 <img src={avatar.src} alt="cadastro" className="w-64" />
@@ -135,18 +136,33 @@ export default function CadastroClientes() {
                                         <label htmlFor="nome" className='block mb-2 text-sm font-medium'>
                                             Nome
                                         </label>
-                                        <input defaultValue='' placeholder='Digite o nome completo' id="nome" {...register('nome', { required: true })} className='border 
-                     text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                        <input
+                                            defaultValue=''
+                                            placeholder='Digite o nome completo'
+                                            id="nome"
+                                            {...register('nome', { required: true })}
+                                            className='border text-gray-900
+                                        text-sm rounded-md border-slate-950
+                                        block w-80 p-2 hover:border-slate-800'
+                                        />
                                     </div>
                                 </div>
 
                                 <div className='space-y-4 pl-10'>
                                     <div className='mb-4'>
-                                        <label htmlFor="email" className='block mb-2 text-sm font-medium'>
+                                        <label htmlFor="email"
+                                            className='block mb-2 text-sm font-medium'>
                                             Email
                                         </label>
-                                        <input defaultValue='' id="email" placeholder="Digite o email" {...register('email')} className='border
-                         text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800'/>
+                                        <input
+                                            defaultValue=''
+                                            id="email"
+                                            placeholder="exemplo@exemplo.com"
+                                            {...register('email')}
+                                            className='border text-gray-500
+                                          text-sm border-slate-950
+                                          rounded-md block p-2 
+                                          w-80 hover:border-slate-800'/>
                                     </div>
                                 </div>
 
@@ -155,8 +171,15 @@ export default function CadastroClientes() {
                                         <label htmlFor="cpf" className='block mb-2 text-sm font-medium'>
                                             CPF
                                         </label>
-                                        <input defaultValue='' placeholder="Digite o CPF" id="cpf" {...register('cpf')} className='border 
-                         text-gray-900 text-sm border-slate-950 rounded-md block w-80 p-2 hover:border-slate-800'/>
+                                        <InputMask
+                                            defaultValue=''
+                                            placeholder="Digite o CPF"
+                                            mask="999.999.999-99"
+                                            id="cpf" {...register('cpf')}
+                                            className='border text-gray-900 
+                                        text-sm border-slate-950
+                                        rounded-md block w-80 p-2
+                                        hover:border-slate-800'/>
                                     </div>
                                 </div>
 
@@ -165,8 +188,16 @@ export default function CadastroClientes() {
                                         <label htmlFor="nascimento" className='block mb-2 text-sm font-medium'>
                                             Data de Nascimento
                                         </label>
-                                        <input type="date" defaultValue='' id="nascimento" {...register('nascimento')} className='border 
-                     text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
+                                        <input
+                                            type="date"
+                                            defaultValue=''
+                                            id="nascimento"
+                                            {...register('nascimento')}
+                                            className='border text-gray-900
+                                        border-slate-950 text-sm
+                                        rounded-md block w-80 p-2
+                                        hover:border-slate-800'
+                                        />
                                     </div>
                                 </div>
 
@@ -179,7 +210,11 @@ export default function CadastroClientes() {
                                             id="genero"
                                             name="genero"
                                             {...register('genero')}
-                                            className="border text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800"
+                                            className="
+                                            border text-gray-900
+                                            text-sm border-slate-950
+                                            rounded-md block p-2 w-80
+                                            hover:border-slate-800"
                                         >
                                             <option value=" "></option>
                                             <option value="masculino">Masculino</option>
@@ -194,8 +229,17 @@ export default function CadastroClientes() {
                                         <label htmlFor="telefone" className='block mb-2 text-sm font-medium'>
                                             Telefone
                                         </label>
-                                        <input defaultValue='' id="telefone" placeholder="Digite o telefone" {...register('telefone')} className='border 
-                        text-gray-900 border-slate-950 text-sm  rounded-md block w-80 p-2 hover:border-slate-800'/>
+                                        <InputMask
+                                            mask="(99) 99999-9999"
+                                            defaultValue=''
+                                            id="telefone"
+                                            placeholder="(00) 00000-0000"
+                                            {...register('telefone')}
+                                            className='
+                                        border text-gray-900
+                                        border-slate-950 text-sm
+                                        rounded-md block w-80 p-2
+                                        hover:border-slate-800'/>
                                     </div>
                                 </div>
 
@@ -204,8 +248,15 @@ export default function CadastroClientes() {
                                         <label htmlFor="cidade" className='block mb-2 text-sm font-medium'>
                                             Cidade
                                         </label>
-                                        <input defaultValue='' id="cidade" placeholder="Digite a cidade" {...register('cidade')} className='border 
-                    text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
+                                        <input defaultValue=''
+                                            id="cidade"
+                                            placeholder="Digite a cidade"
+                                            {...register('cidade')}
+                                            className='border text-gray-900
+                                        border-slate-950 text-sm
+                                        rounded-md block w-80 p-2
+                                        hover:border-slate-800'
+                                        />
                                     </div>
                                 </div>
 
@@ -214,18 +265,33 @@ export default function CadastroClientes() {
                                         <label htmlFor="estado" className='block mb-2 text-sm font-medium'>
                                             Estado
                                         </label>
-                                        <input defaultValue='' id="estado" placeholder="Digite o estado" {...register('estado')} className='border 
-                    text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                        <input
+                                            defaultValue=''
+                                            id="estado"
+                                            placeholder="Digite o estado"
+                                            {...register('estado')}
+                                            className='
+                                        border text-gray-900
+                                        text-sm rounded-md
+                                        border-slate-950 block
+                                        w-80 p-2 hover:border-slate-800'
+                                        />
                                     </div>
                                 </div>
                             </div>
                             <div className='flex flex-col items-center p-2'>
 
-                                <div className="bg-[#374151] p-2 rounded-lg hover:bg-[#111827]">
+                                <div className="rounded-lg">
 
                                     <input type='submit'
                                         className='
-                                        text-white cursor-pointer' />
+                                        mb-6 bg-[#111827]
+                                        text-gray-200 hover:bg-[#374151]
+                                        hover:text-gray-300 shadow-black
+                                         rounded-md cursor-pointer
+                                        transition-transform transform 
+                                        active:scale-95 py-2 px-4
+                                        active:bg-[#000000] uppercase' />
                                 </div>
                             </div>
                         </form>
@@ -234,18 +300,33 @@ export default function CadastroClientes() {
 
                 <div className="w-full h-screen bg-[#DCDCDC]">
 
-                <header className="flex justify-between">
-                    <div className="bg-white p-4 m-0 flex shadow-lg w-full h-auto">
-                        <img src={cadastro.src} alt="cadastro" className="w-44 float-right" />
-                    </div>
-                </header>
+                    <header className="flex justify-between">
+                        <div className="bg-white p-4 m-0 flex shadow-lg w-full h-auto">
+                            <img src={cadastro.src} alt="cadastro" className="w-44" />
+                        </div>
+                    </header>
 
                     <section className="flex flex-wrap content-between ">
                         <div className='w-full px-10'>
-                            <button onClick={openModal} className='mt-10 mb-6 text-white text-sm font-semibold uppercase mr-2 rounded-lg bg-[#111827] dark:text-white p-2 shadow-md hover:bg-[#374151]'
-                            >Cadastrar</button>
+                            <button
+                                onClick={openModal}
+                                className='
+                                    mb-6 mt-10 bg-[#111827]
+                                    text-gray-200 hover:bg-[#374151]
+                                    hover:text-gray-300 shadow-black
+                                     rounded-md cursor-pointer
+                                    transition-transform transform 
+                                    active:scale-95 py-2 px-4 p-2
+                                    active:bg-[#000000] uppercase text-bold'
+                            >
+                                Cadastrar
+                            </button>
                             <table className="w-full text-sm text-left text-white dark:text-gray-400">
-                                <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 text-white w-full">
+                                <thead
+                                    className="
+                                text-xs uppercase
+                                bg-gray-50 dark:bg-gray-700
+                                text-white w-full">
                                     <tr>
                                         <th scope="col" className="px-6 py-3">
                                             Cliente:
