@@ -1,9 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import Sidebar from '@/app/app/components/Sidebar'
 import RegisterItensModal from '@/app/modals/RegisterItens'
 import api from '@/services/api';
 import EditItensModal from '@/app/modals/editItens'
+import SideBarFuncionario from '../components/SideBarFuncionario';
+import itensHeader from '../../../../public/assets/itensHeader.png';
+import excluir from '../../../../public/assets/excluir.png';
 
 export default function Itens() {
     const [item, setItem] = useState([]);
@@ -19,8 +21,18 @@ export default function Itens() {
 
     return (
         <>
-            <Sidebar>
-                <div className="bg-[url('/assets/ilha.jpg')] bg-cover w-full h-screen">
+            <SideBarFuncionario>
+                <div className="w-full bg-[#d0d0d0]">
+                    <header className='bg-white p-1 m-0 flex shadow-lg w-full h-auto'>
+                        <div>
+                            <img
+                                src={itensHeader.src}
+                                alt="itens"
+                                className="w-20 m-3"
+                            />
+                        </div>
+                    </header>
+
                     <section className="flex flex-wrap content-between ">
 
                         <RegisterItensModal getItem={getItem}></RegisterItensModal>
@@ -53,16 +65,31 @@ export default function Itens() {
                                                         {item.nome}
                                                     </td>
                                                     <td className='py-4 px-6'>
-                                                        <p>R$: {item?.valor}</p>
+                                                        <p>R$ {item?.valor}</p>
                                                     </td>
                                                     <td className={`indent-[35%] `}>
                                                         <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 `}>
                                                             {item?.quantidade}
                                                         </div>
                                                     </td>
-                                                    <td className='flex justify-end gap-10 mt-2 mb-2 pb-0.5 mr-3'>
-                                                        <EditItensModal getItem={getItem} key={item.id} index={index} item={item} />
-                                                        <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                                    <td className='
+                                                    flex justify-end
+                                                    gap-10 mt-2 mb-2
+                                                    pb-0.5 mr-3
+                                                    '>
+                                                        <EditItensModal
+                                                            getItem={getItem}
+                                                            key={item.id}
+                                                            index={index}
+                                                            item={item}
+                                                        />
+                                                        <button>
+                                                            <img
+                                                                src={excluir.src}
+                                                                alt="excluir"
+                                                                className="w-8"
+                                                            />
+                                                        </button>
                                                     </td>
 
                                                 </tr>
@@ -75,7 +102,7 @@ export default function Itens() {
 
                     </section>
                 </div>
-            </Sidebar>
+            </SideBarFuncionario>
         </>
     )
 }
