@@ -21,7 +21,7 @@ function SideBarFuncionario({ children }: any) {
     { name: "Pagamento", href: '/app/pagamento', icon: BsCashCoin },
     { name: "Acomodações", href: '/app/acomodacao', icon: BiBed },
     { name: "Frigobar", href: '/app/frigobar', icon: BiDrink },
-    { name: "Estacionamento", href: '/', icon: AiFillCar },
+    { name: "Estacionamento", href: '/app/estacionamento', icon: AiFillCar },
 
   ];
 

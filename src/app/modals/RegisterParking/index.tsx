@@ -1,10 +1,10 @@
 "use client"
 import { useForm, SubmitHandler } from "react-hook-form"
-import Cadastro from '../../../../public/assets/cadastro.png'
 import { useState, useEffect } from 'react';
 import api from '@/services/api'
 import RegistraEstacionamento from '@/functions/RegisterEstacionamento'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
+import estacionamentoAvatar from '../../../../public/assets/EstacionamentoAvatar.png';
 
 type Inputs = {
     quartos_id: number
@@ -42,24 +42,65 @@ export default function RegisterEstacionamentoModal() {
     }, []);
     return (
         <>
-            <div className='mt-32 mb-4'>
-                <Button className="ml-10 p-2 bg-orange-500" onClick={() => props.setOpenModal('form-elements')}>Cadastrar Vaga no Estacinamento</Button>
-                <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+            <div
+                className='
+            mt-10 mb-4'
+            >
+
+                <Button
+                    className="
+                    ml-10 mb-6 bg-[#111827]
+                    text-gray-200 hover:bg-[#374151]
+                    hover:text-gray-300 shadow-black
+                    rounded-md cursor-pointer
+                    transition-transform transform 
+                    active:scale-95 text-lg
+                    active:bg-[#000000] uppercase"
+
+                    onClick={() => props.setOpenModal('form-elements')}>
+                    cadastrar
+                </Button>
+
+                <Modal
+                    show={props.openModal === 'form-elements'}
+                    size="md" popup onClose={() => props.setOpenModal(undefined)}
+                >
                     <Modal.Header />
                     <Modal.Body>
-                        <div className="space-y-6">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Cadastrar Frigobar</h3>
+                        <div className="space-y-6 p-2">
+                            <div
+                                className="
+                            flex items-center
+                            bg-[#FDF9F9] w-full
+                            justify-center
+                            ">
+                                <img
+                                    src={estacionamentoAvatar.src}
+                                    alt="estacionamento"
+                                    className="w-56 p-2"
+                                />
+                            </div>
+                            <form onSubmit={handleSubmit(onSubmit)}
+                                className='p-4
+                            text-slate-200 grid grid-cols-1
+                            content-center items-center
+                            backdrop-blur-sm bg-[#6E737D] w-3/3
+                            rounded-x shadow-lg rounded-b-lg
+                            mx-auto py-4 mt-14 px-5
+                             '>
 
-                            <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4 mt-14 px-5
-'>
-                                <div>
-                                    <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center"
-                                    />
-                                </div>
-                                <div className='text-center'>
-                                    <label>A Qual acomodação esta vaga pertence?</label>
+                                <div
+                                    className='
+                                text-center text-gray-900
+                                font-semibold
+                                '>
+                                    <label>
+                                        Para qual acomodação essa vaga está designada?
+                                    </label>
                                     <div className='flex gap-10 mb-8 text-black justify-center items-center mt-10'>
                                         <select {...register("quartos_id")}>
+                                            <option></option>
+
                                             {quarto.map((item) => {
 
                                                 return (
@@ -71,9 +112,19 @@ export default function RegisterEstacionamentoModal() {
                                         </select>
                                     </div>
                                 </div>
-                                <div>
-                                    <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca] left-[155px] mt-10
-                                '/>
+                                <div className="flex justify-center items-center">
+                                    <input
+                                        type='submit'
+                                        className='
+                                        bg-[#111827]
+                                        text-gray-200 hover:bg-[#374151]
+                                        hover:text-gray-300 shadow-black
+                                        p-2 rounded-md cursor-pointer
+                                        transition-transform transform 
+                                        active:scale-95 py-2 px-4
+                                        active:bg-[#000000]
+                                        font-bold
+                                        '/>
                                 </div>
                             </form>
                         </div>
