@@ -6,21 +6,24 @@ import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineDashboard } from 'react-icons/md';
 import { BiBed, BiDrink } from 'react-icons/bi';
+import { FiUserCheck } from 'react-icons/fi';
 import { AiFillCar, AiOutlineLogin, AiFillCheckCircle } from 'react-icons/ai';
 import { RiReservedLine } from 'react-icons/ri';
-import { BsPersonBadge, BsCashCoin } from 'react-icons/bs';
+import { BsCashCoin } from 'react-icons/bs';
 import logout from "@/functions/logout";
-import LogoTipo from '../../../../../public/assets/logo.png'
+import LogoTipo from '../../../../../public/assets/logo.png';
+import {TbHemispherePlus} from 'react-icons/tb';
 
 function SideBarFuncionario({ children }: any) {
   const menus = [
     { name: "Dashboard", href: '/app/dashboard', icon: MdOutlineDashboard },
-    { name: "Clientes", href: "/app/cliente/cadastro", icon: BsPersonBadge },
+    { name: "Clientes", href: "/app/cliente/cadastro", icon: FiUserCheck },
+    { name: "Acomodações", href: '/app/acomodacao', icon: BiBed },
     { name: "Reservas", href: '/app/reservas', icon: RiReservedLine, margin: "" },
     { name: "Check in / Check out", href: "/", icon: AiFillCheckCircle },
     { name: "Pagamento", href: '/app/pagamento', icon: BsCashCoin },
-    { name: "Acomodações", href: '/app/acomodacao', icon: BiBed },
     { name: "Frigobar", href: '/app/frigobar', icon: BiDrink },
+    { name: "Itens", href: '/app/itens', icon: TbHemispherePlus},
     { name: "Estacionamento", href: '/app/estacionamento', icon: AiFillCar },
 
   ];
