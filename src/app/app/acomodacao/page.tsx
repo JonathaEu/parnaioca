@@ -115,135 +115,136 @@ export default function Acomodação() {
     const [img2, setImg2] = useState([]);
     const [scrolling, setScrolling] = useState(false);
 
-{/*PARA FAZER UM SCROLL SUAVE DENTRO DA PÁGINA PELAS OPÇÕES DE ACOMODAÇÕES DA HEADER*/}
-    useEffect(() => {
-        const smoothScroll = (target: any) => {
-            const element = document.querySelector(target);
-            window.scrollTo({
-                top: element.offsetTop - 100,
-                behavior: 'smooth',
-            });
-        };
-
-        document.querySelectorAll("a[href^='#']").forEach((anchor) => {
-            anchor.addEventListener("click", (e) =>{
-                e.preventDefault();
-                const targetId = anchor.getAttribute("href");
-                smoothScroll(targetId);
-            });
+{/*PARA FAZER UM SCROLL SUAVE DENTRO DA PÁGINA PELAS OPÇÕES DE ACOMODAÇÕES DA HEADER*/ }
+useEffect(() => {
+    const smoothScroll = (target: any) => {
+        const element = document.querySelector(target);
+        window.scrollTo({
+            top: element.offsetTop - 100,
+            behavior: 'smooth',
         });
-    }, []);
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        };
-    }, []);
-
-    const handleScroll = () => {
-        if (window.scrollY > 100) {
-            setScrolling(true);
-        } else {
-            setScrolling(false);
-        }
     };
 
-    const closeModal = () => {
-        setModalOpen(false);
+    document.querySelectorAll("a[href^='#']").forEach((anchor) => {
+        anchor.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = anchor.getAttribute("href");
+            smoothScroll(targetId);
+        });
+    });
+}, []);
+
+useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+        window.removeEventListener('scroll', handleScroll)
     };
+}, []);
 
-    const openModal = (cosntextra: any) => {
-        setImg2(cosntextra)
-        setModalOpen(true);
-    };
+const handleScroll = () => {
+    if (window.scrollY > 100) {
+        setScrolling(true);
+    } else {
+        setScrolling(false);
+    }
+};
 
-    useEffect(() => {
-        console.log(carrossel.current?.scrollWidth, carrossel.current?.offsetWidth)
-        setWidth(carrossel.current?.scrollWidth - carrossel.current?.offsetWidth)
+const closeModal = () => {
+    setModalOpen(false);
+};
 
-        const interval = setInterval(() => {
-            setCurrentImageIndex((prevIndex) =>
-                prevIndex === Slide.length - 1 ? 0 : prevIndex + 1
-            );
-        }, 5000);
-        return () => clearInterval(interval);
+const openModal = (cosntextra: any) => {
+    setImg2(cosntextra)
+    setModalOpen(true);
+};
 
-    }, []);
+useEffect(() => {
+    console.log(carrossel.current?.scrollWidth, carrossel.current?.offsetWidth)
+    setWidth(carrossel.current?.scrollWidth - carrossel.current?.offsetWidth)
 
-    return (
+    const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+            prevIndex === Slide.length - 1 ? 0 : prevIndex + 1
+        );
+    }, 5000);
+    return () => clearInterval(interval);
 
-        <>
-            <SideBarFuncionario>
-                <Header />
+}, []);
 
+return (
 
-                <div className="pt-32 w-[100%]">
-                    <div className="flex justify-center items-center p-5">
-                        <div className="m-0 max-w-[700px]">
+    <>
+        <SideBarFuncionario>
 
-                            <motion.div ref={carrossel} /*CARROSSEL*/ className="cursor-grab overflow-hidden" whileTap={{ cursor: "grabbing" }}>
-                                <motion.div /*inner*/
-                                    className="flex transition duration-500 ease-in-out hover:scale-110 hover:drop-shadow-xl"
-                                    drag="x"
-                                    dragConstraints={{ right: 2, left: -width }}
-                                    initial={{ x: 200 }}
-                                    animate={{ x: -currentImageIndex * 700 }} whileInView={{ opacity: 1 }}
-                                    whileInView={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 1 }}
+            <Header />
 
 
-                                >
-                                    {Slide.map((lopesmendes, index) => (
-                                        <motion.div /*item*/ className="min-h-[400px] min-w-[700px] p-1" key={index}>
-                                            <img src={lopesmendes.src} alt="parnaioca" className="w-[100%] h-[90%] rounded-lg pointer-events-none " />
-                                        </motion.div>
-                                    ))}
+            <div className="pt-32 w-[100%]">
+                <div className="flex justify-center items-center p-5">
+                    <div className="m-0 max-w-[700px]">
 
-                                </motion.div>
+                        <motion.div ref={carrossel} /*CARROSSEL*/ className="cursor-grab overflow-hidden" whileTap={{ cursor: "grabbing" }}>
+                            <motion.div /*inner*/
+                                className="flex transition duration-500 ease-in-out hover:scale-110 hover:drop-shadow-xl"
+                                drag="x"
+                                dragConstraints={{ right: 2, left: -width }}
+                                initial={{ x: 200 }}
+                                animate={{ x: -currentImageIndex * 700 }} whileInView={{ opacity: 1 }}
+                                whileInView={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 1 }}
+
+
+                            >
+                                {Slide.map((lopesmendes, index) => (
+                                    <motion.div /*item*/ className="min-h-[400px] min-w-[700px] p-1" key={index}>
+                                        <img src={lopesmendes.src} alt="parnaioca" className="w-[100%] h-[90%] rounded-lg pointer-events-none " />
+                                    </motion.div>
+                                ))}
+
                             </motion.div>
-                        </div>
+                        </motion.div>
+                    </div>
+                </div>
+
+                <section id={'suitelopesmendes'}>
+                </section>
+                <br />
+                <div>  {/*SUÍTE LOPES MENDES */}
+                    <div className="bg-slate-200 flex p-20">
+                        <img src={suítelopesmendes.src} alt="lopesmendes" className="w-64" />
                     </div>
 
-                    <section id={'suitelopesmendes'}>
-                    </section>
-                    <br />
-                    <div>  {/*SUÍTE LOPES MENDES */}
-                        <div className="bg-slate-200 flex p-20">
-                            <img src={suítelopesmendes.src} alt="lopesmendes" className="w-64" />
-                        </div>
-
-                        <div className="flex justify-evenly">
-                            <img
-                                src={mainImage.src}
-                                alt="Foto Principal"
-                                onClick={() => { openModal(lopesmendes) }}
-                                className="
+                    <div className="flex justify-evenly">
+                        <img
+                            src={mainImage.src}
+                            alt="Foto Principal"
+                            onClick={() => { openModal(lopesmendes) }}
+                            className="
                                     hover:opacity-80 transition-opacity
                                     w-72 cursor-pointer hover:transition-all
                                 p-2"
-                            />
-                            <Galeria images={img2} modalOpen={modalOpen} onClose={closeModal} />
-                            <div className="p-10">
-                                <h6 className="text-justify font-normal">
-                                    Acomoda até 2 pessoas;<p />
-                                    Cama King-size com lençóis de alta qualidade;<p />
-                                    Ar-condicionado para um clima perfeito;<p />
-                                    Varanda privativa com vista panorâmica;<p />
-                                    Banheiro luxuoso com banheira de hidromassagem;<p />
-                                    Mini-bar abastecido com bebidas premium;<p />
-                                    TV de tela plana com canais a cabo;<p />
-                                    Estação de café e chá com cafeteira Nespresso e chaleira elétrica;<p />
-                                    Produtos de higiene pessoal da renomada marca L'Occitane;<p />
-                                    Serviço de quarto 24 horas para sua conveniência.<p />
-                                </h6>
+                        />
+                        <Galeria images={img2} modalOpen={modalOpen} onClose={closeModal} />
+                        <div className="p-10">
+                            <h6 className="text-justify font-normal">
+                                Acomoda até 2 pessoas;<p />
+                                Cama King-size com lençóis de alta qualidade;<p />
+                                Ar-condicionado para um clima perfeito;<p />
+                                Varanda privativa com vista panorâmica;<p />
+                                Banheiro luxuoso com banheira de hidromassagem;<p />
+                                Mini-bar abastecido com bebidas premium;<p />
+                                TV de tela plana com canais a cabo;<p />
+                                Estação de café e chá com cafeteira Nespresso e chaleira elétrica;<p />
+                                Produtos de higiene pessoal da renomada marca L'Occitane;<p />
+                                Serviço de quarto 24 horas para sua conveniência.<p />
+                            </h6>
 
-                            </div>
+                        </div>
 
-                            <div className="grid items-center">
-                                <a href="/app/reservas"
-                                    className="
+                        <div className="grid items-center">
+                            <a href="/app/reservas"
+                                className="
                                         p-3 text-[12px] uppercase
                                         text-bold text-center 
                                         text-white bg-slate-600
@@ -251,10 +252,10 @@ export default function Acomodação() {
                                         transition duration-300 ease-in-out
                                         hover:scale-110 hover:drop-shadow-xl
                                      ">
-                                    Fazer Checkin
-                                </a>
-                                <a href="/app/cliente/cadastro"
-                                    className="
+                                Fazer Checkin
+                            </a>
+                            <a href="/app/cliente/cadastro"
+                                className="
                                         p-3 text-[12px] uppercase
                                         text-bold text-center 
                                         text-white bg-slate-600
@@ -262,62 +263,127 @@ export default function Acomodação() {
                                         transition duration-300 ease-in-out
                                         hover:scale-110 hover:drop-shadow-xl
                                         ">
+                                Cadastrar Cliente
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <section id={'suiteparnaioca'}>
+                    <div> {/*SUÍTE PARNAIOCA*/}
+
+                        <div className="bg-slate-200 flex p-20">
+                            <img src={suíteparnaioca.src} alt="lopesmendes" className="w-64" />
+                        </div>
+
+                        <div className="flex justify-evenly">
+                            <img
+                                src={mainImage.src}
+                                alt="Foto Principal"
+                                onClick={() => { openModal(suiteparnaioca) }}
+                                className="
+                                hover:opacity-80 transition-opacity
+                                w-72 cursor-pointer hover:transition-all
+                                p-2"
+                            />
+                            <div className="p-10">
+                                <h6 className=" text-justify">
+
+                                    Acomodação exclusiva para casais;<p />
+                                    Cama King-size com dossel e roupas de cama de luxo;<p />
+                                    Jacuzzi privativa para relaxamento total;<p />
+                                    Varanda privativa com vista panorâmica para um cenário romântico;<p />
+                                    Ar-condicionado para um clima perfeito;<p />
+                                    Lareira aconchegante para noites românticas;<p />
+                                    Mini-bar com seleção premium de vinhos e champanhes;<p />
+                                    TV de tela plana com canais a cabo;<p />
+                                    Estação de café e chá com cafeteira Nespresso e chaleira elétrica;<p />
+                                    Produtos de higiene pessoal da renomada marca L'Occitane;<p />
+                                    Roupões de banho e chinelos macios;<p />
+                                    Serviço de quarto 24 horas para tornar cada momento especial.
+                                </h6>
+                            </div>
+
+                            <div className="grid items-center">
+                                <a href="/app/reservas"
+                                    className="
+                                     p-3 text-bold uppercase
+                                     text-[12px] text-center
+                                   text-white bg-slate-600
+                                     rounded-xl hover:bg-lime-800
+                                     transition duration-300 ease-in-out
+                                     hover:scale-110 hover:drop-shadow-xl
+                                ">
+                                    Fazer Checkin
+                                </a>
+                                <a href="/app/cliente/cadastro"
+                                    className="
+                                    p-3 text-[12px] uppercase
+                                    text-bold text-center 
+                                    text-white bg-slate-600
+                                    rounded-xl hover:bg-lime-800
+                                    transition duration-300 ease-in-out
+                                    hover:scale-110 hover:drop-shadow-xl
+                                    ">
                                     Cadastrar Cliente
                                 </a>
                             </div>
                         </div>
+
+
                     </div>
+                </section>
 
+                <section id={'suitelagoaazul'}>
+                    <div> {/* SUÍTE LAGOA AZUL */}
 
-                    <section id={'suiteparnaioca'}>
-                        <div> {/*SUÍTE PARNAIOCA*/}
+                        <div className="bg-slate-200 flex p-20">
+                            <img src={suítelagoaazul.src} alt="lopesmendes" className="w-64" />
+                        </div>
 
-                            <div className="bg-slate-200 flex p-20">
-                                <img src={suíteparnaioca.src} alt="lopesmendes" className="w-64" />
-                            </div>
-
-                            <div className="flex justify-evenly">
-                                <img
-                                    src={mainImage.src}
-                                    alt="Foto Principal"
-                                    onClick={() => { openModal(suiteparnaioca) }}
-                                    className="
+                        <div className="flex justify-evenly">
+                            <img
+                                src={mainImage.src}
+                                alt="Foto Principal"
+                                onClick={() => { openModal(lagoaazul) }}
+                                className="
                                 hover:opacity-80 transition-opacity
                                 w-72 cursor-pointer hover:transition-all
                                 p-2"
-                                />
-                                <div className="p-10">
-                                    <h6 className=" text-justify">
+                            />
+                            <div className="p-10">
+                                <h6 className=" text-justify">
 
-                                        Acomodação exclusiva para casais;<p />
-                                        Cama King-size com dossel e roupas de cama de luxo;<p />
-                                        Jacuzzi privativa para relaxamento total;<p />
-                                        Varanda privativa com vista panorâmica para um cenário romântico;<p />
-                                        Ar-condicionado para um clima perfeito;<p />
-                                        Lareira aconchegante para noites românticas;<p />
-                                        Mini-bar com seleção premium de vinhos e champanhes;<p />
-                                        TV de tela plana com canais a cabo;<p />
-                                        Estação de café e chá com cafeteira Nespresso e chaleira elétrica;<p />
-                                        Produtos de higiene pessoal da renomada marca L'Occitane;<p />
-                                        Roupões de banho e chinelos macios;<p />
-                                        Serviço de quarto 24 horas para tornar cada momento especial.
-                                    </h6>
-                                </div>
+                                    Espaço amplo e aconchegante para 2 pessoas;<p />
+                                    Cama King-size com dossel e roupas de cama de alta qualidade;<p />
+                                    Banheira de hidromassagem privativa para relaxamento supremo;<p />
+                                    Lareira a lenha para noites românticas;<p />
+                                    Varanda privativa com vistas deslumbrantes;<p />
+                                    Ar-condicionado para manter o clima perfeito;<p />
+                                    TV de tela plana com canais a cabo para entretenimento;<p />
+                                    Mini-bar abastecido com uma seleção premium de bebidas;<p />
+                                    Estação de café e chá com cafeteira Nespresso e chaleira elétrica;<p />
+                                    Produtos de banho da luxuosa marca L'Occitane;<p />
+                                    Roupões de banho e chinelos felpudos;<p />
+                                    Serviço de quarto 24 horas para sua comodidade.
+                                </h6>
+                            </div>
 
-                                <div className="grid items-center">
-                                    <a href="/app/reservas"
-                                        className="
-                                     p-3 text-bold uppercase
-                                     text-[12px] text-center
-                                   text-white bg-slate-600
+                            <div className="grid items-center">
+                                <a href="/"
+                                    className="
+                                    p-3 text-bold uppercase
+                                    text-[12px] text-center
+                                    text-white bg-slate-600
                                      rounded-xl hover:bg-lime-800
                                      transition duration-300 ease-in-out
                                      hover:scale-110 hover:drop-shadow-xl
                                 ">
-                                        Fazer Checkin
-                                    </a>
-                                    <a href="/app/cliente/cadastro"
-                                        className="
+                                    Fazer Checkin
+                                </a>
+                                <a href="/"
+                                    className="
                                     p-3 text-[12px] uppercase
                                     text-bold text-center 
                                   text-white bg-slate-600
@@ -325,53 +391,49 @@ export default function Acomodação() {
                                     transition duration-300 ease-in-out
                                     hover:scale-110 hover:drop-shadow-xl
                                 ">
-                                        Cadastrar Cliente
-                                    </a>
-                                </div>
+                                    Cadastrar Cliente
+                                </a>
                             </div>
-
-
                         </div>
-                    </section>
 
-                    <section id={'suitelagoaazul'}>
-                        <div> {/* SUÍTE LAGOA AZUL */}
+                    </div>
+                </section>
 
-                            <div className="bg-slate-200 flex p-20">
-                                <img src={suítelagoaazul.src} alt="lopesmendes" className="w-64" />
-                            </div>
+                <section id={'apartamentos'}>
+                    <div> {/* APARTAMENTOS */}
+                        <div className="bg-slate-200 flex p-20">
+                            <img src={quartos.src} alt="lopesmendes" className="w-64" />
+                        </div>
 
-                            <div className="flex justify-evenly">
-                                <img
-                                    src={mainImage.src}
-                                    alt="Foto Principal"
-                                    onClick={() => { openModal(lagoaazul) }}
-                                    className="
+                        <div className="flex justify-evenly">
+                            <img
+                                src={mainImage.src}
+                                alt="Foto Principal"
+                                onClick={() => { openModal(apartamentos) }}
+                                className="
                                 hover:opacity-80 transition-opacity
                                 w-72 cursor-pointer hover:transition-all
                                 p-2"
-                                />
-                                <div className="p-10">
-                                    <h6 className=" text-justify">
+                            />
+                            <div className="p-10">
+                                <h6 className=" text-justify">
 
-                                        Espaço amplo e aconchegante para 2 pessoas;<p />
-                                        Cama King-size com dossel e roupas de cama de alta qualidade;<p />
-                                        Banheira de hidromassagem privativa para relaxamento supremo;<p />
-                                        Lareira a lenha para noites românticas;<p />
-                                        Varanda privativa com vistas deslumbrantes;<p />
-                                        Ar-condicionado para manter o clima perfeito;<p />
-                                        TV de tela plana com canais a cabo para entretenimento;<p />
-                                        Mini-bar abastecido com uma seleção premium de bebidas;<p />
-                                        Estação de café e chá com cafeteira Nespresso e chaleira elétrica;<p />
-                                        Produtos de banho da luxuosa marca L'Occitane;<p />
-                                        Roupões de banho e chinelos felpudos;<p />
-                                        Serviço de quarto 24 horas para sua comodidade.
-                                    </h6>
-                                </div>
+                                    Acomodações para 2 ou mais pessoas;<p />
+                                    Cama confortável para uma boa noite de sono;<p />
+                                    Banheiro privativo com chuveiro e toalhas limpas;<p />
+                                    TV de tela plana com canais locais;<p />
+                                    Ventilador ou ar-condicionado, dependendo da estação;<p />
+                                    Espaço de armazenamento para suas roupas e pertences;<p />
+                                    Pequena área de estar para relaxar;<p />
+                                    Wi-Fi gratuito para se manter conectado;<p />
+                                    Limpeza diária para sua comodidade;<p />
+                                    Café da manhã continental incluído na tarifa.
+                                </h6>
+                            </div>
 
-                                <div className="grid items-center">
-                                    <a href="/"
-                                        className="
+                            <div className="grid items-center">
+                                <a href="/"
+                                    className="
                                      p-3 text-bold uppercase
                                      text-[12px] text-center
                                    text-white bg-slate-600
@@ -379,71 +441,10 @@ export default function Acomodação() {
                                      transition duration-300 ease-in-out
                                      hover:scale-110 hover:drop-shadow-xl
                                 ">
-                                        Fazer Checkin
-                                    </a>
-                                    <a href="/"
-                                        className="
-                                    p-3 text-[12px] uppercase
-                                    text-bold text-center 
-                                  text-white bg-slate-600
-                                    rounded-xl hover:bg-lime-800
-                                    transition duration-300 ease-in-out
-                                    hover:scale-110 hover:drop-shadow-xl
-                                ">
-                                        Cadastrar Cliente
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </section>
-
-                    <section id={'apartamentos'}>
-                        <div> {/* APARTAMENTOS */}
-                            <div className="bg-slate-200 flex p-20">
-                                <img src={quartos.src} alt="lopesmendes" className="w-64" />
-                            </div>
-
-                            <div className="flex justify-evenly">
-                                <img
-                                    src={mainImage.src}
-                                    alt="Foto Principal"
-                                    onClick={() => { openModal(apartamentos) }}
+                                    Fazer Checkin
+                                </a>
+                                <a href="/"
                                     className="
-                                hover:opacity-80 transition-opacity
-                                w-72 cursor-pointer hover:transition-all
-                                p-2"
-                                />
-                                <div className="p-10">
-                                    <h6 className=" text-justify">
-
-                                        Acomodações para 2 ou mais pessoas;<p />
-                                        Cama confortável para uma boa noite de sono;<p />
-                                        Banheiro privativo com chuveiro e toalhas limpas;<p />
-                                        TV de tela plana com canais locais;<p />
-                                        Ventilador ou ar-condicionado, dependendo da estação;<p />
-                                        Espaço de armazenamento para suas roupas e pertences;<p />
-                                        Pequena área de estar para relaxar;<p />
-                                        Wi-Fi gratuito para se manter conectado;<p />
-                                        Limpeza diária para sua comodidade;<p />
-                                        Café da manhã continental incluído na tarifa.
-                                    </h6>
-                                </div>
-
-                                <div className="grid items-center">
-                                    <a href="/"
-                                        className="
-                                     p-3 text-bold uppercase
-                                     text-[12px] text-center
-                                   text-white bg-slate-600
-                                     rounded-xl hover:bg-lime-800
-                                     transition duration-300 ease-in-out
-                                     hover:scale-110 hover:drop-shadow-xl
-                                ">
-                                        Fazer Checkin
-                                    </a>
-                                    <a href="/"
-                                        className="
                                     p-3 text-[12px] uppercase
                                     text-bold text-center 
                                   text-white bg-slate-600
@@ -451,16 +452,15 @@ export default function Acomodação() {
                                     transition duration-300 ease-in-out
                                     hover:scale-110 hover:drop-shadow-xl
                                 ">
-                                        Cadastrar Cliente
-                                    </a>
-                                </div>
+                                    Cadastrar Cliente
+                                </a>
                             </div>
-
                         </div>
-                    </section>
 
-                </div>
-            </SideBarFuncionario >
-        </>
-    )
+                    </div>
+                </section>
+            </div>
+        </SideBarFuncionario>
+    </>
+)
 };

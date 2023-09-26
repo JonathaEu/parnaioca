@@ -27,7 +27,7 @@ const Header = () => {
         <div>
             <div className={`${isScrolled ? 'bg-[#abeb56]' : 'bg-white'}
                      transition-all duration-300 pt-2 ease-in-out w-[100%]
-                     shadow-2xl m-0 fixed z-50 flex
+                     shadow-2xl m-0 fixed z-40 flex
                        items-center justify-center hover:bg-[#688c7d]`}>
 
                 <div className={`${isScrolled ? 'grid' : 'text-[#abeb56]'} grid text-[12px] text-black`}>

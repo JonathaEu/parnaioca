@@ -8,6 +8,7 @@ import ItensIntoFrigobar from '@/app/modals/ItensIntoFrigobar'
 import headerFrigobar from '../../../../public/assets/frigobar.png'
 import SideBarFuncionario from '../components/SideBarFuncionario'
 import excluir from '../../../../public/assets/excluir.png'
+import FrigobarModal from '../components/FrigobarModal';
 
 type Inputs = {
     itens_id: number
@@ -42,13 +43,13 @@ export default function Frigobar() {
     return (
         <>
             <SideBarFuncionario>
-                <div className="w-full bg-[#DCDCDC]">
-                    <header className="flex justify-between">
-                        <div className="bg-white p-4 m-0 flex shadow-lg w-full h-auto">
+                <div className="w-full h-screen bg-[#DCDCDC]">
+                    <header className="flex">
+                        <div className="bg-white p-4 m-0 flex shadow-lg w-full justify-center items-center h-auto">
                             <img src={headerFrigobar.src} alt="cadastro" className="w-24" />
                         </div>
                     </header>
-                    <div className="w-full">
+                    <div className="w-90% m-10">
                         <section className="flex flex-wrap content-between ">
                             <FormElements getFrigobar={getFrigobar} />
                             <div className='w-full px-10'>
@@ -66,6 +67,7 @@ export default function Frigobar() {
                                             </th>
                                             <th scope="col" className="px-6 py-3">
                                             </th>
+
                                         </tr>
                                     </thead>
 
@@ -76,6 +78,7 @@ export default function Frigobar() {
                                             const classNameGreen = "bg-green-100 animate-pulse text-green-800 text-xs font-medium mr-2 px-1.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
                                             const classNameRed = "bg-red-100 animate-pulse text-red-800 text-xs font-medium mr-2 px-1.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
                                             let statusStyle = frigobar.ativo ? classNameGreen : classNameRed;
+
 
                                             return (
                                                 <>
@@ -97,6 +100,8 @@ export default function Frigobar() {
                                                             <button>
                                                                 <img src={excluir.src} alt="excluir" className="w-8" />
                                                             </button>
+                                                                    <FrigobarModal />
+
                                                         </td>
 
                                                     </tr>

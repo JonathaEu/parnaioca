@@ -8,21 +8,6 @@ function Galeria({ mainImage, images, modalOpen, closeModal, onClose, isOpen }: 
 
   }, []);
 
-  // useEffect(() => {
-  //   const handleEscKeyPress = ({ event }: any) => {
-  //     if (event.key === 'Escape' && isOpen) {
-  //       closeModal();
-  //     }
-  //   }
-
-  //   window.addEventListener('keydown', handleEscKeyPress);
-
-  //   return () => {
-  //     window.removeEventListener('keydown', handleEscKeyPress);
-  //   };
-
-  // }, [isOpen]);
-
 
   return (
     <div>

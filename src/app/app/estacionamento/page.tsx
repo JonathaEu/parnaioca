@@ -24,9 +24,9 @@ export default function Itens() {
     return (
         <>
             <SideBarFuncionario>
-                <div className="w-full bg-[#d0d0d0]">
+                <div className="w-full bg-[#d0d0d0] h-screen">
                     <header>
-                        <div className='bg-white p-1 m-0 flex shadow-lg w-full h-auto'>
+                        <div className='bg-white p-1 m-0 flex items-center justify-center shadow-lg w-full h-auto'>
                             <img
                                 src={estacionamentoHeader.src}
                                 alt="estacionamento"
@@ -39,7 +39,7 @@ export default function Itens() {
                     <div className="w-full">
                         <section className="flex flex-wrap content-between ">
                             <RegisterEstacionamentoModal />
-                            <div className='w-full px-10'>
+                            <div className='w-full ml-[4%] px-10'>
                                 <table
                                     className="
                                 w-full text-sm 

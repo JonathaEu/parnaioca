@@ -22,13 +22,13 @@ export default function Itens() {
     return (
         <>
             <SideBarFuncionario>
-                <div className="w-full bg-[#d0d0d0]">
+                <div className="w-full h-screen bg-[#d0d0d0]">
                     <header className='bg-white p-1 m-0 flex shadow-lg w-full h-auto'>
-                        <div>
+                        <div className="flex items-center justify-center w-full p-2">
                             <img
                                 src={itensHeader.src}
                                 alt="itens"
-                                className="w-20 m-3"
+                                className="w-16"
                             />
                         </div>
                     </header>
@@ -36,7 +36,7 @@ export default function Itens() {
                     <section className="flex flex-wrap content-between ">
 
                         <RegisterItensModal getItem={getItem}></RegisterItensModal>
-                        <div className='w-full px-10'>
+                        <div className='w-full ml-[4%] mr-[4%] px-10'>
                             <table className="w-full text-sm text-left text-white dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
                                     <tr>

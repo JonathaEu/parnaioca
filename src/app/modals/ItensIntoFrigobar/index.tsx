@@ -15,7 +15,7 @@ import { FiPlusCircle } from 'react-icons/fi';
 
 interface IitemIntoFrig {
     iten_id: any
-    frigobar_id: number
+    frigobar_id: any
     quantidade: any
 }
 
@@ -96,8 +96,9 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any)
     const addFrigItem = (id: any) => {
         const item = itens.find((item: any) => item?.id === id);
         const frigItem: IitemIntoFrig = {
-            iten_id: item?.id,
-            frigobar_id: frigobar.id
+            iten_id: [item?.id],
+            frigobar_id:[ frigobar.id],
+            quantidade: [quantidade]
         };
         console.log(frigItem)
         api.post('/frigobar_itens', frigItem);

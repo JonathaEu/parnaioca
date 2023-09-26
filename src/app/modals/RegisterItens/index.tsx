@@ -38,14 +38,14 @@ export default function RegisterItensModal({ getItem }: any) {
 
     return (
         <>
-            <div className='mt-20 mb-4'>
+            <div className='mt-[24px] mb-4 ml-[5%]'>
 
                 <Button
                     className="
-                     ml-10 mb-6 bg-[#111827]
+                     ml-10 mb-2 bg-[#111827]
                      text-gray-200 hover:bg-[#374151]
                      hover:text-gray-300 shadow-black
-                     p-2 rounded-md cursor-pointer
+                     p-1 rounded-md cursor-pointer
                      transition-transform transform 
                      active:scale-95
                      active:bg-[#000000] uppercase"
@@ -71,99 +71,97 @@ export default function RegisterItensModal({ getItem }: any) {
                                     "
                                 />
                             </div>
-                            <form
-                                onSubmit={handleSubmit(onSubmit)}
-                                className='
+                                <form
+                                    onSubmit={handleSubmit(onSubmit)}
+                                    className='
                             text-slate-200 grid grid-cols-1
-                             content-center items-center 
-                             rounded backdrop-blur-sm
-                             bg-black/20 w-3/3 rounded-x
-                             shadow-lg shadow-slate-600
-                             mx-auto p-4 py-4 mt-14 px-5
+                             content-center items-center
+                             rounded bg-black/20 w-3/3 rounded-x
+                             shadow-lg mx-auto p-4 py-4 mt-14 px-5
                              '>
 
-                                <div className='
+                                    <div className='
                                 grid grid-cols-1 content-center
                                 items-center justify-center
                                 justify-self-center
                                 '>
 
-                                    <div className='space-y-4 '>
-                                        <div className='mb-4'>
-                                            <label
-                                                htmlFor="nome"
-                                                className='
+                                        <div className='space-y-4 '>
+                                            <div className='mb-4'>
+                                                <label
+                                                    htmlFor="nome"
+                                                    className='
                                             block mb-2 text-sm
-                                            font-medium
+                                            font-medium text-white
                                             '>
-                                                Nome
-                                            </label>
-                                            <input
-                                                defaultValue=''
-                                                placeholder='Digite o nome do item'
-                                                id="nome" {...register('nome', { required: true })}
-                                                className='
-                                            border text-gray-900 text-sm
+                                                    Nome
+                                                </label>
+                                                <input
+                                                    defaultValue=''
+                                                    placeholder='Digite o nome do item'
+                                                    id="nome" {...register('nome', { required: true })}
+                                                    className='
+                                            border text-white text-sm
                                             rounded-md border-slate-950
                                             block w-80 p-1 hover:border-slate-800
                                             '/>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className='space-y-4 '>
-                                        <div className='mb-4'>
-                                            <label
-                                                htmlFor="valor"
-                                                className='
+                                        <div className='space-y-4 '>
+                                            <div className='mb-4'>
+                                                <label
+                                                    htmlFor="valor"
+                                                    className='
                                             block mb-2 text-sm
                                             font-medium
                                             '>
-                                                Valor
-                                            </label>
-                                            <InputMask
-                                                mask='R$ 99.99'
-                                                placeholder='R$ 99.99'
-                                                defaultValue=''
-                                                id="valor"
-                                                {...register('valor')}
-                                                className='
-                                            border text-gray-900
+                                                    Valor
+                                                </label>
+                                                <InputMask
+                                                    mask='R$ 99.99'
+                                                    placeholder='R$ 99.99'
+                                                    defaultValue=''
+                                                    id="valor"
+                                                    {...register('valor')}
+                                                    className='
+                                            border
                                             text-sm border-slate-950
                                             rounded-md block p-1 w-[70px]
                                             hover:border-slate-800
                                             '/>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className='space-y-4 '>
-                                        <div className='mb-4'>
-                                            <label
-                                                htmlFor="quantidade"
-                                                className='
+                                        <div className='space-y-4 '>
+                                            <div className='mb-4'>
+                                                <label
+                                                    htmlFor="quantidade"
+                                                    className='
                                             block mb-2 text-sm
                                              font-medium
                                              '>
-                                                Quantidade
-                                            </label>
-                                            <input
-                                                type="number"
-                                                defaultValue=''
-                                                id="quantidade"
-                                                placeholder="00"
-                                                {...register('quantidade')}
-                                                className='
-                                            border text-black
+                                                    Quantidade
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    defaultValue=''
+                                                    id="quantidade"
+                                                    placeholder="00"
+                                                    {...register('quantidade')}
+                                                    className='
+                                            border
                                             text-sm border-slate-950
                                             rounded-md block p-1
                                             w-12 hover:border-slate-800
                                             '/>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className='flex flex-col items-center p-2'>
+                                    <div className='flex flex-col items-center p-2'>
 
-                                    <input type='submit'
-                                        className='
+                                        <input type='submit'
+                                            className='
                                     bg-[#111827]
                     text-gray-200 hover:bg-[#374151]
                     hover:text-gray-300 shadow-black
@@ -173,9 +171,9 @@ export default function RegisterItensModal({ getItem }: any) {
                     active:bg-[#000000] uppercase
                                     ' />
 
-                                </div>
-                            </form>
-                        </div>
+                                    </div>
+                                </form>
+                            </div>
                     </Modal.Body>
                 </Modal>
             </div>

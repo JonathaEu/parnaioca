@@ -46,9 +46,10 @@ export default function RegisterEstacionamentoModal() {
                 className='
             mt-10 mb-4'
             >
+                <div className="ml-20">
 
-                <Button
-                    className="
+                    <Button
+                        className="
                     ml-10 mb-6 bg-[#111827]
                     text-gray-200 hover:bg-[#374151]
                     hover:text-gray-300 shadow-black
@@ -57,9 +58,10 @@ export default function RegisterEstacionamentoModal() {
                     active:scale-95 text-lg
                     active:bg-[#000000] uppercase"
 
-                    onClick={() => props.setOpenModal('form-elements')}>
-                    cadastrar
-                </Button>
+                        onClick={() => props.setOpenModal('form-elements')}>
+                        cadastrar
+                    </Button>
+                </div>
 
                 <Modal
                     show={props.openModal === 'form-elements'}

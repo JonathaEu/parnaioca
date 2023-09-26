@@ -69,8 +69,8 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
     return (
         <>
             <div className=''>
-                <Button className="w-16" onClick={() => props.setOpenModal('form-elements')}>
-                    <img src={editar.src} alt="editar" />
+                <Button className="w-[72px]" onClick={() => props.setOpenModal('form-elements')}>
+                    <img src={editar.src} alt="editar" className="border-transparent" />
                 </Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
