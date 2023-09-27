@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import cadastraCliente from '@/functions/postClientes';
+import ReservaModal from '../../../../public/assets/reservasModal.png'
 import RegisterReserva from '@/functions/RegisterReserva';
 
 type Inputs = {
@@ -76,19 +77,43 @@ function RegisterReservaModal() {
 
     return (
         <>
-            <div className='mt-32 mb-4'>
-                <Button className="ml-10 p-2 bg-indigo-800" onClick={() => props.setOpenModal('form-elements')}>Registrar Reservas</Button>
-                <Modal className='w-[800px] flex justify-center items-center ml-[12%]' show={props.openModal === 'form-elements'} popup onClose={() => props.setOpenModal(undefined)}>
+            <div className='mt-16 mb-4'>
+                <Button
+                    className="
+                    ml-[4%] right-0 mb-6 bg-[#111827]
+                    text-gray-200 hover:bg-[#374151]
+                    hover:text-gray-300 shadow-black
+                    p-2 rounded-md cursor-pointer
+                    transition-transform transform 
+                    active:scale-95 py-2 px-4
+                    active:bg-[#000000] uppercase"
+                    onClick={() => props.setOpenModal('form-elements')}>
+                    Registrar
+                </Button>
+
+
+                <Modal
+                    className="w-[70%] ml-36 h-screen flex items-center justify-center"
+                    show={props.openModal === 'form-elements'} popup
+                    onClose={() => props.setOpenModal(undefined)}
+                >
+
                     <Modal.Header />
                     <Modal.Body>
-                        <div className="space-y-6 w-full">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Registrar Reservas</h3>
-                            <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4
-    mt-14 px-5'>
+                        <div className="">
+                            <div className="w-full flex items-center justify-center">
+                                <img src={ReservaModal.src} alt="ReservaModal"
+                                    className="w-60 invert"
+                                />
+                            </div>
+                            <form onSubmit={handleSubmit(onSubmit)}
+                                className='
+                            text-slate-200 grid grid-cols-1 
+                            content-center items-center rounded
+                             backdrop-blur-sm bg-black/20 w-3/3
+                              rounded-x shadow-lg shadow-slate-600
+                               mx-auto p-4 py-4 mt-14 px-5'>
 
-                                <div>
-                                    <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center" />
-                                </div>
                                 <div className='grid grid-cols-1 md:grid-cols-2 content-center items-center'>
 
                                     <div className=''>
@@ -122,7 +147,7 @@ function RegisterReservaModal() {
                                         </div>
                                     </div>
 
-                                    <div className=''>
+                                    <div className='flex justify-evenly'>
                                         <div className='mb-4'>
                                             <label htmlFor="cidade" className='block mb-2 text-sm font-medium'>
                                                 Check In
@@ -131,19 +156,11 @@ function RegisterReservaModal() {
                     text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
                                         </div>
                                     </div>
+
                                     <div className='space-y-4'>
                                         <div className='mb-4'>
-                                            <label htmlFor="estado" className='mb-2 text-sm font-medium flex content-center items-center'>
-                                                Check Out
-                                            </label>
-                                            <input defaultValue='' type="datetime-local" id="CheckOut" placeholder="Check Out" {...register('check_out')} className='border 
-                    text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
-                                        </div>
-                                    </div>
-                                    <div className='space-y-4'>
-                                        <div className='mb-4'>
-                                            <label htmlFor="estado" className='mb-2 text-sm font-medium flex content-center items-center'>
-                                                Nome do funcionario
+                                            <label htmlFor="estado" className='mb-2 text-sm font-medium '>
+                                                Nome do Funcionário
                                             </label>
 
                                             <input defaultValue='' value={funcionario?.name} disabled placeholder={funcionario?.name} {...register('users_id')} className='border 
@@ -152,7 +169,7 @@ function RegisterReservaModal() {
                                     </div>
                                 </div>
 
-                                <div className=''>
+                                <div className='flex justify-evenly'>
                                     <div className='mb-4'>
                                         <label htmlFor="cidade" className='block mb-2 text-sm font-medium'>
                                             Data de Início
@@ -160,14 +177,14 @@ function RegisterReservaModal() {
                                         <input defaultValue='' type="date" id="dt_inicial" placeholder="Check In" {...register('dt_inicial')} className='border 
                     text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
                                     </div>
-                                </div>
-                                <div className='space-y-4'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="estado" className='mb-2 text-sm font-medium flex'>
-                                            Data final
-                                        </label>
-                                        <input defaultValue='' type="date" id="dt_final" placeholder="Check Out" {...register('dt_final')} className='border 
+                                    <div className='space-y-4'>
+                                        <div className='mb-4'>
+                                            <label htmlFor="estado" className='mb-2 text-sm font-medium flex'>
+                                                Data final
+                                            </label>
+                                            <input defaultValue='' type="date" id="dt_final" placeholder="Check Out" {...register('dt_final')} className='border 
                     text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -193,7 +210,7 @@ function RegisterReservaModal() {
                         </div>
                     </Modal.Body>
                 </Modal>
-            </div>
+            </div >
         </>
 
     )
