@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ModalItens from '@/app/modals/modalItens';
 import api from '@/services/api';
 
-const FrigobarModal = () => {
+const FrigobarModal = (frigobar: any, id: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const frigobarItens = ["Item 1", "Item 2", "Item 3"];

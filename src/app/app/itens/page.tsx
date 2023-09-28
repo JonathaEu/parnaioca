@@ -22,7 +22,7 @@ export default function Itens() {
     return (
         <>
             <SideBarFuncionario>
-                <div className="w-full h-screen bg-[#d0d0d0]">
+                <div className="w-full h-full bg-[#d0d0d0]">
                     <header className='bg-white p-1 m-0 flex shadow-lg w-full h-auto'>
                         <div className="flex items-center justify-center w-full p-2">
                             <img
