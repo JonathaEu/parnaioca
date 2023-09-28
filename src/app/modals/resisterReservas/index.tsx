@@ -86,131 +86,219 @@ function RegisterReservaModal() {
                     p-2 rounded-md cursor-pointer
                     transition-transform transform 
                     active:scale-95 py-2 px-4
-                    active:bg-[#000000] uppercase"
+                    active:bg-[#000000] uppercase
+                    "
                     onClick={() => props.setOpenModal('form-elements')}>
                     Registrar
                 </Button>
 
 
-                <Modal
-                    className="w-[70%] ml-36 h-screen flex items-center justify-center"
-                    show={props.openModal === 'form-elements'} popup
-                    onClose={() => props.setOpenModal(undefined)}
-                >
+                <div className="flex items-center justify-center w-full inset-0 z-50 bg-black bg-opacity-50">
+                    <Modal
+                        className="w-[40%] ml-36 h-[100%] flex items-center justify-center text-center"
+                        show={props.openModal === 'form-elements'} popup
+                        onClose={() => props.setOpenModal(undefined)}
+                    >
 
-                    <Modal.Header />
-                    <Modal.Body>
-                        <div className="">
-                            <div className="w-full flex items-center justify-center">
-                                <img src={ReservaModal.src} alt="ReservaModal"
-                                    className="w-60 invert"
-                                />
-                            </div>
-                            <form onSubmit={handleSubmit(onSubmit)}
-                                className='
-                            text-slate-200 grid grid-cols-1 
+                        <Modal.Header />
+                        <Modal.Body>
+
+                            <div className="">
+                                <div className="w-full flex items-center justify-center">
+                                    <img src={ReservaModal.src} alt="ReservaModal"
+                                        className="w-60 invert"
+                                    />
+                                </div>
+                                <form onSubmit={handleSubmit(onSubmit)}
+                                    className='
+                                text-slate-200 grid grid-cols-1 
                             content-center items-center rounded
                              backdrop-blur-sm bg-black/20 w-3/3
-                              rounded-x shadow-lg shadow-slate-600
-                               mx-auto p-4 py-4 mt-14 px-5'>
+                             rounded-x shadow-lg shadow-slate-600
+                             mx-auto p-4 py-4 mt-14 px-5'>
 
-                                <div className='grid grid-cols-1 md:grid-cols-2 content-center items-center'>
+                                    <div>
+                                        <div className='flex items-center justify-evenly'>
+                                            <div>
+                                                <div className='flex gap-10 mb-8 text-black mt-10'>
+                                                    <select {...register("clientes_id",
+                                                        { required: "Necessário selecionar cliente" })}>
+                                                        <option value=""></option>
+                                                        {clientes.map((clientes: any) => {
+                                                            return (
+                                                                <>
+                                                                    <option value={clientes.id}>{clientes?.nome}</option>
+                                                                </>
+                                                            );
+                                                        })}
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div className=''>
-                                        <div className='flex gap-10 mb-8 text-black mt-10'>
-                                            <select {...register("clientes_id", { required: "Necessário selecionar cliente" })}>
-                                                <option value="">Selecione</option>
-                                                {clientes.map((clientes: any) => {
-                                                    return (
-                                                        <>
-                                                            <option value={clientes.id}>{clientes?.nome}</option>
-                                                        </>
-                                                    );
-                                                })}
-                                            </select>
+                                            <div className=''>
+                                                <div className='flex gap-10 mb-8 text-black mt-10'>
+                                                    <select {...register("quartos_id", { required: "Necessário selecionar quarto" })}>
+                                                        <option value=""></option>
+                                                        {quarto.map((quartos: any) => {
+
+                                                            return (
+                                                                <>
+                                                                    <option value={quartos.id}>{quartos?.nome}</option>
+                                                                </>
+                                                            );
+                                                        })}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className='flex items-center justify-evenly'>
+                                            <div className='space-y-4'>
+                                                <div className='mb-4'>
+                                                    <label htmlFor="cidade"
+                                                        className='
+                                                block mb-2 text-sm 
+                                                font-medium'
+                                                    >
+                                                        Check In
+                                                    </label>
+                                                    <input defaultValue=''
+                                                        type="datetime-local"
+                                                        id="CheckIn"
+                                                        placeholder="Check In"
+                                                        {...register('check_in')}
+                                                        className='
+                                                border text-gray-900 border-slate-950
+                                                text-sm rounded-md block w-40 p-1
+                                                hover:border-slate-800'
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className='space-y-4'>
+                                                <div className='mb-4'>
+                                                    <label htmlFor="estado"
+                                                        className='
+                                                block mb-2 text-sm 
+                                                font-medium'
+                                                    >
+                                                        Nome do Funcionário
+                                                    </label>
+
+                                                    <input
+                                                        defaultValue=''
+                                                        value={funcionario?.name} disabled
+                                                        placeholder={funcionario?.name}
+                                                        {...register('users_id')}
+                                                        className='
+                                                border text-gray-900 text-sm
+                                                rounded-md border-slate-950
+                                                block w-40 p-1 hover:border-slate-800'
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center justify-evenly">
+                                            <div className='space-y-4'>
+                                                <div className='mb-4'>
+                                                    <label
+                                                        htmlFor="cidade"
+                                                        className='
+                                                block mb-2 text-sm
+                                                font-medium
+                                                '>
+                                                        Data de Início
+                                                    </label>
+                                                    <input
+                                                        defaultValue=''
+                                                        type="date"
+                                                        id="dt_inicial"
+                                                        placeholder="Check In"
+                                                        {...register('dt_inicial')}
+                                                        className='
+                                                    border text-gray-900
+                                                border-slate-950 text-sm
+                                                rounded-md block w-40
+                                                p-1 hover:border-slate-800
+                                                '/>
+                                                </div>
+                                            </div>
+
+                                            <div className='space-y-4'>
+                                                <div className='space-y-4'>
+                                                    <div className='mb-4'>
+                                                        <label htmlFor="estado"
+                                                            className='
+                                                        mb-2 text-sm
+                                                        font-medium flex
+                                                    '>
+                                                            Data final
+                                                        </label>
+                                                        <input
+                                                            defaultValue=''
+                                                            type="date"
+                                                            id="dt_final"
+                                                            placeholder="Check Out"
+                                                            {...register('dt_final')}
+                                                            className='
+                                                        border text-gray-900
+                                                        border-slate-950 text-sm
+                                                        rounded-md block w-40
+                                                        p-1 hover:border-slate-800
+                                                    '/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className='flex items-center justify-center'>
+                                            <div
+                                                className='
+                                        flex gap-10 mb-8
+                                        text-black mt-10
+                                        '>
+                                                <label
+                                                    htmlFor=""
+                                                    className="
+                                            text-white
+                                            ">
+                                                    Status da reserva:
+                                                </label>
+                                                <select {...register("status")}>
+                                                    <option>Iniciada</option>
+                                                    <option>Pendente</option>
+                                                    <option>Finalizada</option>
+                                                    <option>Cancelado</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div
+                                            className='
+                                    flex flex-col
+                                    items-center p-2
+                                    '>
+
+                                            <input
+                                                type='submit' className='
+                                            ml-10 mb-2 bg-[#111827]
+                                            text-gray-200 hover:bg-[#374151]
+                                         hover:text-gray-300 shadow-black
+                                         p-3 rounded-md cursor-pointer
+                                         transition-transform transform 
+                                         active:scale-95
+                                         active:bg-[#000000] uppercase' />
+
                                         </div>
                                     </div>
-
-                                    <div className=''>
-                                        <div className='flex gap-10 mb-8 text-black mt-10'>
-                                            <select {...register("quartos_id", { required: "Necessário selecionar quarto" })}>
-                                                <option value="">Selecione</option>
-                                                {quarto.map((quartos: any) => {
-
-                                                    return (
-                                                        <>
-                                                            <option value={quartos.id}>{quartos?.nome}</option>
-                                                        </>
-                                                    );
-                                                })}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div className='flex justify-evenly'>
-                                        <div className='mb-4'>
-                                            <label htmlFor="cidade" className='block mb-2 text-sm font-medium'>
-                                                Check In
-                                            </label>
-                                            <input defaultValue='' type="datetime-local" id="CheckIn" placeholder="Check In" {...register('check_in')} className='border 
-                    text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
-                                        </div>
-                                    </div>
-
-                                    <div className='space-y-4'>
-                                        <div className='mb-4'>
-                                            <label htmlFor="estado" className='mb-2 text-sm font-medium '>
-                                                Nome do Funcionário
-                                            </label>
-
-                                            <input defaultValue='' value={funcionario?.name} disabled placeholder={funcionario?.name} {...register('users_id')} className='border 
-                        text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className='flex justify-evenly'>
-                                    <div className='mb-4'>
-                                        <label htmlFor="cidade" className='block mb-2 text-sm font-medium'>
-                                            Data de Início
-                                        </label>
-                                        <input defaultValue='' type="date" id="dt_inicial" placeholder="Check In" {...register('dt_inicial')} className='border 
-                    text-gray-900 border-slate-950 text-sm rounded-md block w-80 p-2 hover:border-slate-800'/>
-                                    </div>
-                                    <div className='space-y-4'>
-                                        <div className='mb-4'>
-                                            <label htmlFor="estado" className='mb-2 text-sm font-medium flex'>
-                                                Data final
-                                            </label>
-                                            <input defaultValue='' type="date" id="dt_final" placeholder="Check Out" {...register('dt_final')} className='border 
-                    text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className=''>
-                                    <div className='flex gap-10 mb-8 text-black mt-10'>
-                                        <label htmlFor="" className="text-white">Status da reserva:</label>
-                                        <select {...register("status")}>
-                                            <option>Iniciada</option>
-                                            <option>Pendente</option>
-                                            <option>Finalizada</option>
-                                            <option>Cancelado</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div className='flex flex-col items-center p-2'>
-
-                                    <input type='submit' className='relative text-white button w-16 h-8 bg-[#0049AC] rounded-lg cursor-pointer select-none active:translate-y-2  active:[box-shadow:0_0px_0_0_#0049AC,0_0px_0_0_#0049AC] active:border-b-[0px] transition-all duration-150 [box-shadow:0_10px_0_0_#0049AC,0_15px_0_0_#436ed234] border-b-[1px] border-[#6e86ca]' />
-
-                                </div>
-                            </form>
-                        </div>
-                    </Modal.Body>
-                </Modal>
-            </div >
+                                </form>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+                </div >
+            </div>
         </>
 
     )
