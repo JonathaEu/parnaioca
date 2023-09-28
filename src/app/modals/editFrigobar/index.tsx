@@ -7,6 +7,8 @@ import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import editFrigobar from '@/functions/EditFrigobar';
 import editar from '../../../../public/assets/editar.png'
+import getFrigobar from '@/functions/getFrigobar';
+import getQuartos from '@/functions/getQuartos';
 
 type Inputs = {
     id: number
@@ -16,7 +18,7 @@ type Inputs = {
     status: string
 }
 
-export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }: any) {
+export default function EditFrigobarModal({ frigobar, id, quarto }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -24,37 +26,25 @@ export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }
         handleSubmit,
         reset
     } = useForm<Inputs>()
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data);
-        editFrigobar({ data })
-            .then((response) => {
-                console.log(response)
-            }).catch((err) => {
-                console.log(err)
-                console.error(err)
-            });
-        getFrigobar();
-        setOpenModal(false as any)
-        reset();
+    const onSubmit: SubmitHandler<Inputs> = (data: any) => {
+        if (data != '') {
+            console.log(data);
+            editFrigobar({ data })
+                .then((response) => {
+                    console.log(response)
+                }).catch((err) => {
+                    console.log(err)
+                    console.error(err)
+                });
+            getFrigobar();
+            setOpenModal(false as any)
+            reset();
+        }
     }
-    const [quarto, setQuarto] = useState([]);
     useEffect(() => {
-        const getQuarto = async () => {
-            const response = await api.get('/quarto');
-            setQuarto(response.data.data);
-            // console.log(response.data.data);
-        };
-        getQuarto();
-    }, []);
-    const [itens, setItens] = useState([]);
-    useEffect(() => {
-        const getItens = async () => {
-            const response = await api.get('/itens');
-            setItens(response.data.data);
-            // console.log(response.data.data);
-        };
-        getItens();
-    }, []);
+
+    }, [quarto])
+
 
     const NumberInput = () => {
         const [value, setValue] = useState(0);
@@ -89,11 +79,11 @@ export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }
     return (
         <>
             <div className=''>
-                <Button className="border-none" onClick={() => props.setOpenModal('form-elements')}>
+                <Button className="border-none" onClick={() => props.setOpenModal('edit')}>
                     <img src={editar.src} alt="editar" className="w-9" />
                 </Button>
-                <Modal show={props.openModal === 'form-elements'}
-                    size="md" popup onClose={() => props.setOpenModal(undefined)}>
+
+                <Modal show={props.openModal === 'edit'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
                         <div className="">
@@ -169,12 +159,14 @@ export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }
                                             w-12 p-1 hover:border-slate-800
                                             items-center flex '/>
                                             </div>
+
                                         </div>
                                     </div>
 
                                 </div>
                                 <div className='space-y-4'>
                                     <div className='mb-4'>
+
                                         <input
                                             value={frigobar.id}
                                             disabled
@@ -187,6 +179,7 @@ export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }
                                         border-slate-950 block
                                         w-8 p-1 hover:border-slate-800
                                         '/>
+
                                     </div>
                                 </div>
 
@@ -245,7 +238,7 @@ export default function EditFrigobarModal({ index, frigobar, data, getFrigobar }
                                                     text-gray-200 hover:bg-[#374151]
                                                     hover:text-gray-300 shadow-black
                                                     p-2 rounded-md cursor-pointer
-                                                    transition-transform transform 
+                                                    transition-transform transform
                                                     active:scale-95 py-2 px-4
                                                     active:bg-[#000000] uppercase"
                                     '/>
