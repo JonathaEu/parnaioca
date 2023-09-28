@@ -12,6 +12,9 @@ import { BsTrashFill } from 'react-icons/bs';
 import { MdAddCircle } from 'react-icons/md';
 import { GrSubtractCircle } from 'react-icons/gr';
 import { FiPlusCircle } from 'react-icons/fi';
+import Image from 'next/image';
+import getItens from '@/functions/getItens';
+import { error } from 'console';
 
 interface IitemIntoFrig {
     iten_id: any
@@ -19,49 +22,22 @@ interface IitemIntoFrig {
     quantidade: any
 }
 
-export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any) {
-    const [selecoes, setSelecoes] = useState<string[]>([]);
+export default function ItensIntoFrigobar({ frigobar, id }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const [itens, setItens] = useState([]);
-    const [itensIntoFrig, setItensIntoFrig] = useState([]);
-    // const [arrayInicial, setArrayInicial] = useState([]);
-    const [quantidade, setQuantidade] = useState<number>(1);
-    const [idItem, setIdItem] = useState([]);
-    const [idItemAnteriores, setIdItemAnteriores] = useState([]);
-    const [quantidadesAnteriores, setQuantidadesAnteriores] = useState([]);
 
-
-    const adicionarAoArray = () => {
-        // Adicione o valor atual da quantidade ao array de quantidades anteriores
-        setQuantidadesAnteriores((prevQuantidades): any => [...prevQuantidades, quantidade]);
-    };
-    const adicionarIdAoArray = () => {
-        // Adicione o valor atual da quantidade ao array de quantidades anteriores
-        setIdItemAnteriores((prevId): any => [...prevId, idItem]);
-    };
-    const handleQuantidadeChange = (e: any) => {
-        const novaQuantidade = Number(e.target.value);
-        setQuantidade(novaQuantidade); // Atualize a quantidade atual
-        console.log(quantidade)
-    };
-
-    const getItens = async () => {
-        const response = await api.get('/itens');
-        setItens(response.data.data);
-        // console.log(response);
-        // console.log(itens);
-    };
     useEffect(() => {
-        getItens();
-    }, []);
-    const getItensInFrigobar = async () => {
-        const response = await api.get('/frigobar_itens');
-        setItensIntoFrig(response.data.data);
-    }
-    useEffect(() => {
-        getItensInFrigobar();
-    }, []);
+        getItens()
+            .then((sucess: any) => {
+                console.log(sucess)
+                setItens(sucess.data)
+            }).catch((error) => {
+                console.log(error);
+            });
+
+    }, [getItens])
+
 
     const {
         register,
@@ -69,67 +45,18 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any)
         reset,
         control
     } = useForm()
-    const onSubmit = () => {
-        postItemIntoFrig()
-        // Manipule os dados conforme necessário, neste caso, adicionando à lista de seleções
-        // console.log()
+
+
+    const onSubmit = (data: any) => {
+        console.log(data);
+        api.post('/frigobar_itens', data)
+            .then((sucess) => {
+                console.log(sucess)
+            }).catch((error) => {
+                console.log(error);
+            });
+        reset()
     };
-    const postItemIntoFrig = () => {
-        const item = itens.find((item: any) => item?.id === id);
-        const frigItem: IitemIntoFrig = {
-            iten_id: idItemAnteriores,
-            frigobar_id: frigobar.id,
-            quantidade: quantidadesAnteriores
-        };
-        console.log(frigItem)
-        console.log(quantidadesAnteriores)
-        api.post('/frigobar_itens', frigItem);
-        // const novoArray = [].concat(arrayInicial, frigItem);
-        // console.log(novoArray);
-        // .then((sucess) => {
-        //     mensagem();
-        // }).catch((err) => { console.log(err) })
-        // setManyItens([].concat(frigItem.iten_id));
-        // console.log(manyItens);
-    }
-
-    const addFrigItem = (id: any) => {
-        const item = itens.find((item: any) => item?.id === id);
-        const frigItem: IitemIntoFrig = {
-            iten_id: item?.id,
-            frigobar_id: frigobar.id
-        };
-        console.log(frigItem)
-        api.post('/frigobar_itens', frigItem);
-    };
-    const removeFrigItem = (id: any) => {
-        getItensInFrigobar();
-        const item = itens.find((item: any) => item?.id === id);
-        const frigItem: IitemIntoFrig = {
-            iten_id: item?.id,
-            frigobar_id: frigobar.id
-        };
-        if (itensIntoFrig.length) {
-            console.log('Não Está vazio')
-            api.post('/deleteItemFromFrigobar', frigItem)
-        }
-
-        if (!itensIntoFrig.length) {
-            window.alert("não há itens a seren removidos")
-        }
-    };
-
-
-    // console.log(data)
-    //     .then((response) => {
-    //         // window.alert('Item cadastrado com sucesso')
-    //     }).catch((err) => {
-    //         window.alert(err);
-    //     });
-    // getItem()
-    // setOpenModal(false as any)
-    // reset();
-    // };
 
     return (
         <>
@@ -153,10 +80,12 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any)
                         <Modal.Body>
                             <div className="space-y-6">
                                 <div className="flex items-center justify-center">
-                                    <img
+                                    <Image
+                                        width={44}
+                                        height={44}
                                         src={adicionarItens.src}
                                         alt="adicionarItens"
-                                        className="w-44 invert" />
+                                        className="w-44 invert  cover" />
                                 </div>
 
                                 <form onSubmit={handleSubmit(onSubmit)}
@@ -165,64 +94,36 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any)
                                 content-center items-center rounded 
                                  bg-[#2C3441]
                                   mx-auto p-4 py-4 mt-14 px-5'>
-                                    <div>
-                                        <label className="uppercase p-2 pb-3 font-semibold">Opções:</label>
-                                        <ul className="">
-                                            {itens.map((itens: any, index: any) => (
-                                                <li key={itens.id} className='flex flex-col-2 gap-4 mb-4'>
-                                                    <p>{itens.nome}</p>
+                                    <div className=' text-black'>
+                                        <div>
+                                            <label className="uppercase p-2 pb-3 font-semibold">Itens:</label>
 
-                                                    <div className='flex gap-2'>
-                                                        <button onClick={() => addFrigItem(itens.id)}
-                                                            className="hover:invert"
-                                                        >
-                                                            <FiPlusCircle />
-                                                        </button>
-
-                                                        <input
-                                                            className='w-10 h-6 text-black' type="number"
-                                                            value={quantidade[index]}
-                                                            onChange={handleQuantidadeChange}
-                                                            onBlur={() => setIdItem(itens.id)}
-                                                        // onMouseLeave={adicionarAoArray}
-                                                        />
-                                                        <button onClick={() => removeFrigItem(itens.id)}
-                                                            className="invert hover:invert-0">
-                                                            <GrSubtractCircle />
-                                                        </button>
-                                                    </div>
-                                                    <div>
-                                                        <input type="checkbox" onClick={adicionarAoArray}
-                                                            onBlur={adicionarIdAoArray}
-                                                            name="escolha" id="" />
-                                                    </div>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <div className="items-center flex justify-center">
-                                            <div className='
-                                        w-56 p-1 text-[12px] rounded
-                                        bg-red-600 text-slate-50 indent-2
-                                        flex items-center justify-center uppercase
-                                        '>
-                                                <h2>Itens adicionados:</h2>
-                                                <ul>
-                                                    {quantidadesAnteriores.map((q, index) => (
-                                                        <li key={index}>{q}</li>
-                                                    ))}
-                                                </ul>
-                                            </div>
+                                            <select  {...register('iten_id')}>
+                                                <option value=""></option>
+                                                {itens.map((item: any, index: any) => {
+                                                    return (
+                                                        <option value={item.id}>{item.nome}</option>
+                                                    )
+                                                })}
+                                            </select>
                                         </div>
-                                        <br />
+                                        <div>
+                                            <label className="uppercase p-2 pb-3 font-semibold">Adicionando ao frigobar:</label>
+                                            <input type="number" disabled {...register('frigobar_id', { value: frigobar.id })} />
+                                        </div>
 
-                                        {/* <div>{itensIntoFrig. }</div> */}
+                                        <div>
+
+                                            <label className="uppercase p-2 pb-3 font-semibold">Quantidade:</label>
+                                            <br />
+                                            <input type="number" {...register('quantidade')} />
+                                        </div>
 
                                     </div>
                                     <div className='flex flex-col-2 justify-around items-center p-2'>
 
                                         <button
                                             type='submit'
-                                            onClick={adicionarAoArray}
                                             className='bg-blue-700 font-semibold
                                         hover:bg-blue-900 cursor-pointer p-2
                                         items-center flex rounded-2xl text-gray-200
@@ -254,7 +155,7 @@ export default function ItensIntoFrigobar({ getItem, index, frigobar, id }: any)
                         </Modal.Body >
                     </Modal >
                 </div >
-            </div>
+            </div >
         </>
     )
 }
