@@ -5,6 +5,9 @@ import Cadastro from '../../../../public/assets/cadastro.png'
 import { useForm, SubmitHandler } from "react-hook-form"
 import api from '@/services/api';
 import EditItens from '@/functions/editItens';
+import editar from '../../../../public/assets/editar.png'
+import editarItem from '../../../../public/assets/editarItem.png'
+import InputMask from 'react-input-mask'
 
 type Inputs = {
     nome: string
@@ -34,35 +37,102 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
         reset();
     }
 
+    const NumberInput = () => {
+        const [value, setValue] = useState(0);
+
+        const handleChange = (event: any) => {
+            const inputValue = parseInt(event.target.value, 10);
+
+            if (!isNaN(inputValue) && inputValue >= 0) {
+                setValue(inputValue);
+            }
+        };
+    }
+
+    
+    const CurrencyInput = () => {
+        const [inputValue, setInputValue] = useState('');
+
+        const handleInputChange = (event: any) => {
+            const { value } = event.target;
+
+            const validInput = /^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/.test(value);
+
+            if (validInput) {
+                setInputValue(value);
+            }
+
+        }
+    }
+
+
     return (
         <>
             <div className=''>
-                <Button className="ml-10 p-2 bg-orange-500" onClick={() => props.setOpenModal('form-elements')}>Editar</Button>
+                <Button className="w-[72px]" onClick={() => props.setOpenModal('form-elements')}>
+                    <img src={editar.src} alt="editar" className="border-transparent" />
+                </Button>
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Cadastrar Itens</h3>
-                            <form onSubmit={handleSubmit(onSubmit)} className='text-slate-200 grid grid-cols-1 content-center items-center rounded backdrop-blur-sm bg-black/20 w-3/3 rounded-x shadow-lg shadow-slate-600 mx-auto p-4 py-4
-    mt-14 px-5'>
-
-                                <div>
-                                    <img src={Cadastro.src} alt="cadastro" className="w-1/5 h-full items-center" />
-                                </div>
-                                <div className='grid grid-cols-1  content-center items-center justify-center justify-self-center'>
+                            <div className="flex items-center justify-center">
+                                <img src={editarItem.src}
+                                    alt="editar-item"
+                                    className="w-44 invert"
+                                />
+                            </div>
+                            <form
+                                onSubmit={handleSubmit(onSubmit)}
+                                className='
+                            text-slate-200 grid grid-cols-1
+                            content-center items-center rounded-b-lg
+                            backdrop-blur-sm bg-black/20 w-3/3
+                            mx-auto p-4 py-4 mt-14 px-5
+                                '>
+                                <div
+                                    className='
+                                grid grid-cols-1 content-center
+                                items-center justify-center
+                                justify-self-center
+                                '>
 
                                     <div className='space-y-4 '>
                                         <div className='mb-4'>
-                                            <label htmlFor="nome" className='block mb-2 text-sm font-medium'>
-                                                Nome do Item                                             </label>
-                                            <input defaultValue='' placeholder='Digite o nome completo' id="nome" {...register('nome', { required: true })} className='border 
-                     text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                            <label
+                                                htmlFor="nome"
+                                                className='
+                                            block mb-2 text-sm font-medium
+                                            '>
+                                                Nome do Item
+                                            </label>
+                                            <input defaultValue=''
+                                                placeholder='Digite o nome do item'
+                                                id="nome" {...register('nome', { required: true })}
+                                                className='
+                                            border text-gray-900 
+                                            text-sm rounded-md 
+                                            border-slate-950 block
+                                            w-52 p-1 hover:border-slate-800
+                                            '/>
                                         </div>
                                     </div>
-                                    <div className='space-y-4 '>
+                                    <div>
+
+                                    <div className='space-y-4 flex items-center justify-center'>
+                                        <span className="flex mt-4 mr-1 leading-10">Você está editando o item</span>
                                         <div className='mb-4'>
-                                            <input defaultValue='' disabled placeholder={item.id} id="id" {...register('id', { value: item.id })} className='border 
-                     text-gray-900 text-sm rounded-md border-slate-950 block w-80 p-2 hover:border-slate-800'/>
+                                            <input defaultValue=''
+                                                disabled placeholder={item.id}
+                                                id="id" {...register('id', { value: item.id })}
+                                                className='
+                                                border text-gray-900
+                                                text-sm rounded-md
+                                            border-slate-950 items-center
+                                            flex justify-center w-8
+                                            p-1 hover:border-slate-800
+                                            '/>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -71,8 +141,18 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
                                             <label htmlFor="valor" className='block mb-2 text-sm font-medium'>
                                                 Valor
                                             </label>
-                                            <input defaultValue='' id="valor" placeholder="Digite o valor" {...register('valor')} className='border
-                         text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800'/>
+                                            <InputMask
+                                            mask="R$ 99.99"
+                                            placeholder="R$ 99.99"
+                                            defaultValue=''
+                                            id="valor"
+                                            {...register('valor')}
+                                            className='
+                                            border text-gray-900
+                                            text-sm border-slate-950
+                                            rounded-md block p-1 w-20
+                                            hover:border-slate-800
+                                            '/>
                                         </div>
                                     </div>
 
@@ -81,8 +161,19 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
                                             <label htmlFor="quantidade" className='block mb-2 text-sm font-medium'>
                                                 Quantidade
                                             </label>
-                                            <input defaultValue='' id="quantidade" placeholder="Digite o quantidade" {...register('quantidade')} className='border
-                         text-gray-900 text-sm border-slate-950 rounded-md block p-2 w-80 hover:border-slate-800'/>
+                                            <input 
+                                            type="number"
+                                            min="0"
+                                            defaultValue=''
+                                            id="quantidade"
+                                            placeholder="0"
+                                            {...register('quantidade')}
+                                            className='
+                                            border text-gray-900
+                                            text-sm border-slate-950
+                                            rounded-md block p-2 w-14
+                                            hover:border-slate-800'
+                                            />
                                         </div>
                                     </div>
                                 </div>

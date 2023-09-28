@@ -1,13 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
-import drink from '../../../../public/assets/drink.png'
-import Cadastro from '../../../../public/assets/cadastro.png'
 import { useForm, SubmitHandler } from "react-hook-form"
 import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import drinkFrigobar from '../../../../public/assets/drink-frigobar.png'
-import fundoModal from '../../../../public/assets/fundo-modal-frigobar.png'
 import { LuAlertOctagon } from 'react-icons/lu';
 
 type Inputs = {
@@ -66,20 +63,22 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
     return (
         <>
 
-            <div className='mt-10 mb-4'>
-                <Button
-                    className="
-                     ml-10 mb-6 bg-[#111827]
-                     text-gray-200 hover:bg-[#374151]
-                     hover:text-gray-300 shadow-black
-                     p-2 rounded-md cursor-pointer
-                     transition-transform transform 
-                     active:scale-95 py-2 px-4
-                     active:bg-[#000000] uppercase"
+            <div className='mb-4'>
+                <div className="ml-16">
+                    <Button
+                        className="
+                    ml-[4%] right-0 mb-6 bg-[#111827]
+                    text-gray-200 hover:bg-[#374151]
+                    hover:text-gray-300 shadow-black
+                    p-2 rounded-md cursor-pointer
+                    transition-transform transform 
+                    active:scale-95 py-2 px-4
+                    active:bg-[#000000] uppercase"
 
-                    onClick={() => props.setOpenModal('form-elements')}>
-                    Cadastrar
-                </Button>
+                        onClick={() => props.setOpenModal('form-elements')}>
+                        Cadastrar
+                    </Button>
+                </div>
 
                 <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />

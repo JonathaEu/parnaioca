@@ -75,7 +75,7 @@ export default function dashboard() {
             <img src={Dashboard.src} alt="dashboard" className="w-96 p-4"/>
           </div>
           <hr className="h-[100]" />
-          <div className="grid drop-shadow-md lg:grid-cols-3 p-14 relative content-between overflow-hidden bg-cover bg-no-repeat">
+          <div className="grid mr-20 ml-20 drop-shadow-md lg:grid-cols-3 p-14 relative content-between overflow-hidden bg-cover bg-no-repeat">
             <div className="transition duration-300 ease-in-out hover:scale-110 hover:drop-shadow-xl p-2 col-span-1 bg-white flex w-80 border rounded-lg">
               <div className="flex flex-col w-full items-center p-2">
                 <td className="text-2x1 font-bold">Quarto mais rentável:</td>

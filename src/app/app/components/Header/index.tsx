@@ -4,7 +4,6 @@ import acomodacoes from '../../../../../public/assets/acomodacoes.png';
 import { IoIosArrowDropdown } from 'react-icons/io'
 
 
-
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -28,7 +27,7 @@ const Header = () => {
         <div>
             <div className={`${isScrolled ? 'bg-[#abeb56]' : 'bg-white'}
                      transition-all duration-300 pt-2 ease-in-out w-[100%]
-                     shadow-2xl m-0 fixed z-50 flex
+                     shadow-2xl m-0 fixed z-40 flex
                        items-center justify-center hover:bg-[#688c7d]`}>
 
                 <div className={`${isScrolled ? 'grid' : 'text-[#abeb56]'} grid text-[12px] text-black`}>
@@ -53,7 +52,7 @@ const Header = () => {
                         <Link href={'#apartamentos'} className="transition-all duration-300 ease-in-out scroll-smooth pl-2 pr-2 font-medium hover:transition-transform hover:bg-green-800 hover:rounded-full hover:text-white text-center">
                             <h6>APARTAMENTOS</h6>
                         </Link>
-                        ·            
+                        ·
                         <Link href={'/app/quarto'} className="uppercase transition-all duration-300 ease-in-out scroll-smooth pl-2 pr-2 font-medium hover:transition-transform hover:bg-red-800 hover:rounded-full hover:text-white text-center">
                             <h6>Cadastrar de Acomodações</h6>
                         </Link>

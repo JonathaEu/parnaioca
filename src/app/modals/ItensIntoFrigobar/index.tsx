@@ -18,7 +18,7 @@ import { error } from 'console';
 
 interface IitemIntoFrig {
     iten_id: any
-    frigobar_id: number
+    frigobar_id: any
     quantidade: any
 }
 
@@ -45,6 +45,7 @@ export default function ItensIntoFrigobar({ frigobar, id }: any) {
         reset,
         control
     } = useForm()
+
 
 
     const onSubmit = (data: any) => {
