@@ -87,7 +87,8 @@ export default function Itens() {
                                                             <img
                                                                 src={excluir.src}
                                                                 alt="excluir"
-                                                                className="w-8"
+                                                                className="w-8
+                                                                hover:invert"
                                                             />
                                                         </button>
                                                     </td>
