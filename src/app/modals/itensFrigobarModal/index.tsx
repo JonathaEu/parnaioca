@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import listaItens from '../../../../public/assets/itensVisualizar.png';
 
-const FrigobarModal = ({ items, onClose }) => {
+const FrigobarModal = ({ items, onClose }: any) => {
     const [frigobarItems, setFrigobarItems] = useState([]);
     // const frigobarItemss = ['Item 1', 'Item 2', 'Item 3'];
 
@@ -38,8 +38,8 @@ const FrigobarModal = ({ items, onClose }) => {
                 <ul>
                     {frigobarItems.map((item, index) => (
                         <li
-                        className="text-white flex justify-evenly items-center" 
-                        key={index}>{item}</li>
+                            className="text-white flex justify-evenly items-center"
+                            key={index}>{item}</li>
                     ))}
                 </ul>
             </div>
