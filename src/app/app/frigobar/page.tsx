@@ -9,6 +9,7 @@ import headerFrigobar from '../../../../public/assets/frigobar.png'
 import SideBarFuncionario from '../components/SideBarFuncionario'
 import excluir from '../../../../public/assets/excluir.png'
 import FrigobarModal from '../components/FrigobarModal';
+import VisualizarItensModal from '@/app/modals/visualizarItensFrigobar';
 
 type Inputs = {
     itens_id: number
@@ -43,7 +44,7 @@ export default function Frigobar() {
     return (
         <>
             <SideBarFuncionario>
-                <div className="w-full h-screen bg-[#DCDCDC]">
+                <div className="w-full h-full bg-[#DCDCDC]">
                     <header className="flex">
                         <div className="bg-white p-4 m-0 flex shadow-lg w-full justify-center items-center h-auto">
                             <img src={headerFrigobar.src} alt="cadastro" className="w-24" />
@@ -100,7 +101,9 @@ export default function Frigobar() {
                                                             <button>
                                                                 <img src={excluir.src} alt="excluir" className="w-8" />
                                                             </button>
-                                                                    <FrigobarModal />
+                                                            <VisualizarItensModal />
+
+
 
                                                         </td>
 

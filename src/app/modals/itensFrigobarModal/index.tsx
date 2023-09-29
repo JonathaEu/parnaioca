@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import listaItens from '../../../../public/assets/itensVisualizar.png';
+import SearchBar from '@/app/app/components/searchBar/searchBar';
 
 const FrigobarModal = ({ items, onClose }) => {
     const [frigobarItems, setFrigobarItems] = useState([]);
@@ -23,7 +24,7 @@ const FrigobarModal = ({ items, onClose }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-blur-sm bg-opacity-60">
-            <div className="bg-[#374151] p-2 rounded-lg  ml-1 mr-1">
+            <div className="bg-[#374151] p-2 w-[70%] rounded-lg  ml-1 mr-1">
                 <button className="text-black absolute top-2 right-2 hover:bg-[#374151] hover:text-white hover:rounded-full
                 hover:text-bold p-2"
                     onClick={onClose}>
@@ -35,6 +36,7 @@ const FrigobarModal = ({ items, onClose }) => {
                 </div>
                 <br />
                 <br />
+                <SearchBar/>
                 <ul>
                     {frigobarItems.map((item, index) => (
                         <li
