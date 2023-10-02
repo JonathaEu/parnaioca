@@ -18,6 +18,7 @@ const searchBar = ({ onSearch }: any) => {
         }
     };
 
+    
     return (
         <div className="items-center flex justify-center w-full">
             <input
