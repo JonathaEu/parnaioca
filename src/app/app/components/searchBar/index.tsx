@@ -1,83 +1,42 @@
 'use client'
 import React, { useState } from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
+import axios from "axios";
 
-const searchBar = () => {
+const searchBar = ({ onSearch }: any) => {
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const [searchBar, setSearchBar] = useState([]);
+    const handleChange = async (event: any) => {
+        const searchTerm = event.target.value;
+        onSearch(searchTerm);
 
-    const handleSearch = (e :any) => {
-        if (e.target.value == '') {
-            setSearchBar([])
-            return false
+        try {
+            const response = await axios.get('/clientes');
+            const clientes = response.data;
+        } catch (error) {
+            console.error('Erro ao buscar clientes:', error);
         }
-        setSearchBar(words.filter(w => w.includes(e.target.value)).slice(0, 8))
-    }
-
+    };
 
     return (
-        <div
-            className="
-        items-center flex 
-        justify-center w-full
-        ">
-            <form className="
-        w-[440px] relative
-        ">
-                <div className="relative">
-                    <input
-
-                        type="search"
-                        placeholder='Pesquise aqui'
-                        className="
-                    w-full p-2 
-                    rounded-full bg-slate-800
-                    hover:bg-gray-500"
-                        onChange={(e) => handleSearch(e)}
-                    />
-                </div>
-            </form>
-
-            <div className="p-2">
-                <button
-                    className="
-                    p-[12px] w-30
-            rounded-full
-            bg-[#8BC53E]
-            hover:bg-[#2a341d]
-            hover:transition-all
-            text-2x1 text-black
-            hover:text-white
-            active:bg-[#24100D]
-            active:scale-75 py-3 px-3
-            uppercase
-            ">
-                    <BiSearchAlt />
-                </button>
-
-                {
-                    searchBar.length > 0 && (
-                        <div
-                            className="
-                            absolute top-20 p-4 bg-slate-800
-                            text-white w-full rounded-xl
-                            left-1/2 -translate-x-1/2 flex flex-col
-                            gap-2
-                            ">
-                            {
-                                searchBar.map(s => (
-                                    <span key={s}></span>
-                                ))
-                            }
-                        </div>
-                    )
-                }
-            </div>
+        <div className="items-center flex justify-center w-full">
+            <input
+                type="text"
+                placeholder="Pesquisar..."
+                // value={searchTerm}
+                onChange={handleChange}
+                className="
+                p-1 border rounded-full
+              border-gray-800 text-gray-900
+              hover:text-gray-900
+              focus:text-white w-[100%] focus:bg-[#374151]"
+            />
+            <button className="rounded-full ml-2 p-2 bg-[#8AC43D] hover:text-white
+            hover:bg-[#729d3a] hover:transition-all active:bg-[#0b170c] active:scale-75 active:text-[#c4c4c4]">
+                <BiSearchAlt size={22}/>
+            </button>
         </div>
-
-
-    )
-
-}
+    );
+};
 
 export default searchBar;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import listaItens from '../../../../public/assets/itensVisualizar.png';
-import SearchBar from '@/app/app/components/searchBar/searchBar';
+import SearchBar from '@/app/app/components/searchBar';
 
 const FrigobarModal = ({ items, onClose }) => {
     const [frigobarItems, setFrigobarItems] = useState([]);

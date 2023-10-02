@@ -111,7 +111,6 @@ export default function RegisterQuartoModal({ getFrigobar }: any) {
                                     </div>
                                     <br />
                                     <br />
-                                    <SearchBar />
                                     {/* <ul>
                                         {frigobarItems.map((item, index) => (
                                             <li

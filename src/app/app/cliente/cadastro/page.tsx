@@ -1,7 +1,6 @@
 "use client"
 import React from 'react'
 import cadastraCliente from '@/functions/postClientes'
-import Footer from '../../components/Footer'
 import { useState, useEffect } from 'react';
 import SideBarFuncionario from '../../components/SideBarFuncionario'
 import api from '@/services/api'
@@ -15,6 +14,8 @@ import editar from '../../../../../public/assets/editar.png'
 import avatar from '../../../../../public/assets/avatar-modal-cliente.png'
 import cadastro from '../../../../../public/assets/cadastro-de-clientes.png'
 import InputMask from 'react-input-mask';
+import CustomerSearchPage from '../../CustomerSearchPage/page';
+// import SearchBar from '../../components/searchBar';
 
 
 
@@ -306,6 +307,17 @@ export default function CadastroClientes() {
                             </div>
                         </div>
                     </header>
+
+
+                    <div
+                        className="
+                    items-center flex
+                    justify-center w-full
+                    mt-5
+                    ">
+                        <CustomerSearchPage/>
+                    </div>
+
 
                     <section className="flex flex-wrap content-between ">
                         <div className='w-full px-10 '>
