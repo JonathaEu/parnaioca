@@ -76,7 +76,7 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">
-                            <div className="flex items-center justify-center">
+                            <div className="flex items-center hover:invert justify-center">
                                 <img src={editarItem.src}
                                     alt="editar-item"
                                     className="w-44 invert"

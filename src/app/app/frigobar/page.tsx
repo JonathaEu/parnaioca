@@ -114,7 +114,7 @@ export default function Frigobar() {
                                                             <button>
                                                                 <img src={excluir.src} alt="excluir" className="w-8" />
                                                             </button>
-                                                                    <FrigobarModal />
+                                                            <FrigobarModal id={frigobar.id} />
 
                                                         </td>
 

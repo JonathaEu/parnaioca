@@ -57,8 +57,7 @@ export const AuthProvider = ({ children }: any) => {
                 .catch((err) => {
                     reject(err)
                 })
-        }
-        )
+        })
     }
 
 
