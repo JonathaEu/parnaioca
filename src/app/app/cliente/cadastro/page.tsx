@@ -24,6 +24,7 @@ export default function CadastroClientes() {
         BuscarCliente().then((sucess: any) => {
             setCliente(sucess.data);
             console.log(sucess);
+            console.log(sucess);
         }).catch((err) => { console.log(err) });
     }, []);
     // useEffect(() => {
@@ -71,7 +72,7 @@ export default function CadastroClientes() {
                                     </tr>
                                 </thead>
                                 <tbody className=''>
-                                    {cliente.map((cliente: any) => {
+                                    {cliente && cliente.map((cliente: any) => {
                                         // let status = cliente.ativo ? "Ativo" : "Inativo";
                                         // const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
                                         // const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"

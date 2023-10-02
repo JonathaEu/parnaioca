@@ -8,7 +8,6 @@ import ItensIntoFrigobar from '@/app/modals/ItensIntoFrigobar'
 import headerFrigobar from '../../../../public/assets/frigobar.png'
 import SideBarFuncionario from '../components/SideBarFuncionario'
 import excluir from '../../../../public/assets/excluir.png'
-import FrigobarModal from '../components/FrigobarModal';
 import getQuartos from '@/functions/getQuartos';
 
 
@@ -114,7 +113,7 @@ export default function Frigobar() {
                                                             <button>
                                                                 <img src={excluir.src} alt="excluir" className="w-8" />
                                                             </button>
-                                                            <FrigobarModal id={frigobar.id} />
+                                                            {/* <FrigobarModal id={frigobar.id} /> */}
 
                                                         </td>
 
