@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import ItensFrigobarModal from '@/app/modals/itensFrigobarModal';
 import visualizar from '../../../../../public/assets/visao.png';
 
+
 const FrigobarModal = () => {
   const [showModal, setShowModal] = useState(false);
   const frigobarItems = ['Item 1', 'Item 2', 'Item 3'];
+
 
   const handleOpenModal = () => {
     setShowModal(true);
