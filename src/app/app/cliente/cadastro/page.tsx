@@ -8,16 +8,28 @@ import api from '@/services/api'
 import RegisterClientesModal from '@/app/modals/registerCliente'
 import BuscarCliente from '@/functions/get-clientes'
 import getQuartos from '@/functions/getQuartos'
+import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import excluir from '../../../../../public/assets/excluir.png'
 import editar from '../../../../../public/assets/editar.png'
 import avatar from '../../../../../public/assets/avatar-modal-cliente.png'
 import cadastro from '../../../../../public/assets/cadastro-de-clientes.png'
+import BuscarClienteEspecifico from '@/functions/get-clientes-specify';
 
 
 export default function CadastroClientes() {
 
     const [cliente, setCliente] = useState([]);
     const [quarto, setQuarto] = useState([]);
+
+    const Fteste = (data: any) => {
+        BuscarClienteEspecifico(data)
+            .then((sucess: any) => {
+                setCliente(sucess.data);
+                console.log(sucess.data[0]);
+            }).catch((err) => {
+                console.log(err);
+            })
+    }
 
 
     useEffect(() => {
@@ -72,7 +84,7 @@ export default function CadastroClientes() {
                                     </tr>
                                 </thead>
                                 <tbody className=''>
-                                    {cliente && cliente.map((cliente: any) => {
+                                    {cliente && cliente.map((clientes: any, index: any) => {
                                         // let status = cliente.ativo ? "Ativo" : "Inativo";
                                         // const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
                                         // const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
@@ -80,12 +92,12 @@ export default function CadastroClientes() {
 
                                         return (
                                             <>
-                                                <tr key={cliente.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                                <tr key={index} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
                                                     <td className='py-4 px-6 indent-[20%]'>
-                                                        {cliente.nome}
+                                                        {clientes.nome}
                                                     </td>
                                                     <td className='py-4 px-6'>
-                                                        {cliente?.quarto?.nome}
+                                                        {clientes?.quarto?.nome}
                                                     </td>
                                                     <td className={`indent-[35%] `}>
                                                         {/* <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 ${statusStyle}`}>
@@ -94,7 +106,9 @@ export default function CadastroClientes() {
                                                     </td>
                                                     <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
 
-                                                        <button><img src={editar.src} alt="editar" className="w-9" /></button>
+                                                        <Button
+                                                            onClick={() => { Fteste(clientes.id) }}
+                                                        ><img src={editar.src} alt="editar" className="w-9" /></Button>
                                                         <button><img src={excluir.src} alt="excluir" className="w-8" /></button>
                                                     </td>
 
