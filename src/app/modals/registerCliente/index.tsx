@@ -70,7 +70,7 @@ export default function RegisterClientesModal() {
                 </div>
                 <div className=''>
                     <Modal
-                        className='flex pt-10 items-center justify-center x-50 fixed self-center h-full backdrop-blur-sm'
+                        className='flex pt-10 items-center px-[17%] justify-center x-50 fixed self-center h-full backdrop-blur-sm'
                         show={props.openModal === 'form-elements'} popup onClose={() => props.setOpenModal(undefined)}>
                         <Modal.Header />
                         <Modal.Body>

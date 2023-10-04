@@ -7,6 +7,7 @@ import SideBarFuncionario from '../components/SideBarFuncionario';
 import { useStateContext } from '@/context/AuthProvider';
 import RegisterReservaModal from '@/app/modals/resisterReservas';
 import reservasHeader from '../../../../public/assets/reservasHeader.png'
+import EditReservaModal from '@/app/modals/editarReserva';
 
 export default function Reserva() {
 
@@ -28,7 +29,7 @@ export default function Reserva() {
         <>
             <SideBarFuncionario>
                 <div className="w-full h-screen bg-[#DCDCDC]">
-                <header className="flex">
+                    <header className="flex">
                         <div className="bg-white p-4 m-0 flex shadow-lg w-full justify-center items-center h-auto">
                             <img src={reservasHeader.src} alt="reservasHeader" className="w-24" />
                         </div>
@@ -47,13 +48,13 @@ export default function Reserva() {
                                         Está no quarto:
                                     </th>
                                     <th scope="col" className="px-4 py-3">
-                                        check in:
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        check out:
+                                        Status:
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                     </th>
+                                    <th scope="col" className="px-6 py-3">
+                                    </th>
+
                                 </tr>
                             </thead>
 
@@ -73,7 +74,7 @@ export default function Reserva() {
                                                 </td>
 
                                                 <td className={``}>
-                                                    {reserva.check_in}
+                                                    {reserva.status}
                                                 </td>
 
 
@@ -83,9 +84,7 @@ export default function Reserva() {
 
 
                                                 <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
-
-                                                    <button className='bg-purple-100 text-purple-800 text-sm font-medium mr-2 rounded dark:bg-purple-900 dark:text-purple-300 p-2 border border-purple-400'>editar</button>
-                                                    <button className='bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>excluir</button>
+                                                    <EditReservaModal />
                                                 </td>
 
                                             </tr>
