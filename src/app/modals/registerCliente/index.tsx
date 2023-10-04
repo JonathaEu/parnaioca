@@ -56,13 +56,22 @@ export default function RegisterClientesModal() {
         <>
             <div className=''>
                 <div className='relative flex mt-10 ml-5 m-2'>
-                    <Button className="bg-black"
+                    <Button className="
+                    ml-[4%] right-0 mb-6 bg-[#111827]
+                    text-gray-200 hover:bg-[#374151]
+                    hover:text-gray-300 shadow-black
+                    p-2 rounded-md cursor-pointer
+                    transition-transform transform 
+                    active:scale-95 py-2 px-4
+                    active:bg-[#000000] uppercase"
                         onClick={() => props.setOpenModal('form-elements')}>
                         Cadastrar Cliente
                     </Button>
                 </div>
                 <div className=''>
-                    <Modal className='w-[100%] px-32 flex justify-center items-center' show={props.openModal === 'form-elements'} popup onClose={() => props.setOpenModal(undefined)}>
+                    <Modal
+                        className='flex pt-10 items-center justify-center x-50 fixed self-center h-full backdrop-blur-sm'
+                        show={props.openModal === 'form-elements'} popup onClose={() => props.setOpenModal(undefined)}>
                         <Modal.Header />
                         <Modal.Body>
                             <div className="space-y-6 w-full p-2">

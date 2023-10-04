@@ -9,6 +9,7 @@ import headerFrigobar from '../../../../public/assets/frigobar.png'
 import SideBarFuncionario from '../components/SideBarFuncionario'
 import excluir from '../../../../public/assets/excluir.png'
 import getQuartos from '@/functions/getQuartos';
+import VisualizarItens from '@/app/modals/visualizarItens';
 
 
 type Inputs = {
@@ -85,21 +86,21 @@ export default function Frigobar() {
 
 
                                     <tbody className=''>
-                                        {frigobar.map((frigobar: any, index) => {
-                                            let status = frigobar.ativo ? "Ativo" : "Inativo";
+                                        {frigobar.map((frig: any, index) => {
+                                            let status = frig.ativo ? "Ativo" : "Inativo";
                                             const classNameGreen = "bg-green-100 animate-pulse text-green-800 text-xs font-medium mr-2 px-1.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
                                             const classNameRed = "bg-red-100 animate-pulse text-red-800 text-xs font-medium mr-2 px-1.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
-                                            let statusStyle = frigobar.ativo ? classNameGreen : classNameRed;
+                                            let statusStyle = frig.ativo ? classNameGreen : classNameRed;
 
 
                                             return (
                                                 <>
-                                                    <tr key={frigobar.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                                    <tr key={frig.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
                                                         <td className='py-4 px-6 indent-[20%]'>
-                                                            {frigobar.numero}
+                                                            {frig.numero}
                                                         </td>
                                                         <td className='py-4 px-6'>
-                                                            {frigobar?.quarto?.nome}
+                                                            {frig?.quarto?.nome}
                                                         </td>
                                                         <td className={``}>
                                                             <div className={`w-full rounded-md  mr-2 text-center px-2.5 py-0.5 ${statusStyle}`}>
@@ -107,13 +108,13 @@ export default function Frigobar() {
                                                             </div>
                                                         </td>
                                                         <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
-                                                            <ItensIntoFrigobar key={frigobar.id} itens2={itens} index={index} frigobar={frigobar} id={frigobar.id} />
-                                                            <EditFrigobarModal key={frigobar?.id} frigobar={frigobar} id={frigobar?.id} quarto={quarto} />
+                                                            <ItensIntoFrigobar key={frig.id} itens2={itens} index={index} frigobar={frig} id={frig.id} />
+                                                            <EditFrigobarModal key={frig?.id} frigobar={frig} id={frig?.id} quarto={quarto} />
 
                                                             <button>
                                                                 <img src={excluir.src} alt="excluir" className="w-8" />
                                                             </button>
-                                                            {/* <FrigobarModal id={frigobar.id} /> */}
+                                                            <VisualizarItens id={frig.id} numero={frig.numero} />
 
                                                         </td>
 

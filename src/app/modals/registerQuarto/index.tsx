@@ -202,9 +202,9 @@ export default function RegisterQuartoModal({ getFrigobar }: any) {
                                                     className='
                                                 border border-gray-300
                                                 text-gray-900 text-sm rounded-md w-[50px]
-                                                block p-1 hover:border-slate-800'/> 
+                                                block p-1 hover:border-slate-800'/>
                                                 <span className="pl-2">
-                                                hóspede(s)
+                                                    hóspede(s)
                                                 </span>
                                             </div>
                                         </div>
@@ -220,7 +220,7 @@ export default function RegisterQuartoModal({ getFrigobar }: any) {
                                         Categoria da acomodação
                                     </label>
                                     <select {...register("tipo_quartos_id")}>
-                                        {tipoQuarto.map((item) => {
+                                        {tipoQuarto.map((item: any) => {
 
                                             return (
                                                 <>
