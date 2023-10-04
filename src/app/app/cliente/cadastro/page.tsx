@@ -337,7 +337,7 @@ export default function CadastroClientes() {
                                     Cadastrar
                                 </button>
                             </div>
-                            <table className="w-full pl-14 text-sm text-left text-white dark:text-gray-400">
+                            <table className="w-[90%] ml-20 pl-14 text-sm text-left text-white dark:text-gray-400">
                                 <thead
                                     className="
                                 text-xs uppercase
