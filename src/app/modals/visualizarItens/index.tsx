@@ -74,7 +74,9 @@ export default function visualizarItens(frig: any) {
                     />
                 </Button>
 
-                <Modal show={props.openModal === 'visualizarItens'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+                <Modal
+                    className="pt-[10%] backdrop-blur-sm"
+                    show={props.openModal === 'visualizarItens'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
 

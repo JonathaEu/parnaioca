@@ -58,7 +58,7 @@ export default function EditFrigobarModal({ frigobar, id, quarto }: any) {
         };
     }
 
-    
+
     const CurrencyInput = () => {
         const [inputValue, setInputValue] = useState('');
 
@@ -83,7 +83,9 @@ export default function EditFrigobarModal({ frigobar, id, quarto }: any) {
                     <img src={editar.src} alt="editar" className="w-9" />
                 </Button>
 
-                <Modal show={props.openModal === 'edit'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+                <Modal
+                    className="pt-[10%] backdrop-blur-sm"
+                    show={props.openModal === 'edit'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
                         <div className="">
@@ -170,13 +172,15 @@ export default function EditFrigobarModal({ frigobar, id, quarto }: any) {
                                         <input
                                             value={frigobar.id}
                                             disabled
+
                                             placeholder={frigobar.id}
                                             id="id"
                                             {...register('id', { value: frigobar.id })}
                                             className='
+                                            hidden
                                         border text-gray-900
                                         text-sm rounded-md
-                                        border-slate-950 block
+                                        border-slate-950
                                         w-8 p-1 hover:border-slate-800
                                         '/>
 

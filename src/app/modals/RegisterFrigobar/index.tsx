@@ -81,7 +81,7 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
                 </div>
                 <div>
                     <Modal
-                        className='flex pt-32 items-center justify-center x-50 fixed self-center h-full backdrop-blur-sm'
+                        className='flex pt-[7%] items-center justify-center x-50 fixed self-center h-full backdrop-blur-sm'
                         show={props.openModal === 'form-elements'} size="md"
                         popup onClose={() => props.setOpenModal(undefined)}>
                         <Modal.Header />

@@ -16,6 +16,7 @@ import Image from 'next/image';
 import getItens from '@/functions/getItens';
 import { error } from 'console';
 
+
 interface IitemIntoFrig {
     iten_id: any
     frigobar_id: any
@@ -76,17 +77,22 @@ export default function ItensIntoFrigobar({ frigobar, id }: any) {
                 </div>
                 <div className="">
 
-                    <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+                    <Modal
+                        className="
+                        flex items-center
+                        justify-center w-full
+                        h-screen pt-[12%] backdrop-blur-sm
+                         
+                         "
+                        show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                         <Modal.Header />
                         <Modal.Body>
                             <div className="space-y-6">
                                 <div className="flex items-center justify-center">
-                                    <Image
-                                        width={44}
-                                        height={44}
+                                    <img
                                         src={adicionarItens.src}
                                         alt="adicionarItens"
-                                        className="w-44 invert  cover" />
+                                        className="w-44 invert" />
                                 </div>
 
                                 <form onSubmit={handleSubmit(onSubmit)}
@@ -96,10 +102,11 @@ export default function ItensIntoFrigobar({ frigobar, id }: any) {
                                  bg-[#2C3441]
                                   mx-auto p-4 py-4 mt-14 px-5'>
                                     <div className=' text-black'>
-                                        <div>
-                                            <label className="uppercase p-2 pb-3 font-semibold">Itens:</label>
+                                        <div className="flex items-center justify-center ">
+                                            <label className="uppercase p-2 pb-3 font-semibold text-white">Itens:</label>
 
-                                            <select  {...register('iten_id')}>
+                                            <select  {...register('iten_id')}
+                                                className="w-48 rounded-sm">
                                                 <option value=""></option>
                                                 {itens.map((item: any, index: any) => {
                                                     return (
@@ -109,15 +116,30 @@ export default function ItensIntoFrigobar({ frigobar, id }: any) {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="uppercase p-2 pb-3 font-semibold">Adicionando ao frigobar:</label>
-                                            <input type="number" disabled {...register('frigobar_id', { value: frigobar.id })} />
+                                            <label className="uppercase hidden items-center text-white p-2 pb-3 font-semibold">Adicionando ao frigobar:</label>
+                                            <input
+                                                type="number"
+                                                disabled {...register('frigobar_id',
+                                                    { value: frigobar.id })}
+                                                className="w-8 hidden " />
                                         </div>
 
-                                        <div>
+                                        <div className=" flex justify-center items-center">
 
-                                            <label className="uppercase p-2 pb-3 font-semibold">Quantidade:</label>
+                                            <label
+                                                className="
+                                                uppercase p-2
+                                                pb-3 font-semibold
+                                                text-white 
+                                                ">
+                                                Quantidade:
+                                            </label>
                                             <br />
-                                            <input type="number" {...register('quantidade')} />
+                                            <input
+                                                min="0"
+                                                type="number"
+                                                {...register('quantidade')}
+                                                className="w-10 rounded-md" />
                                         </div>
 
                                     </div>
