@@ -42,11 +42,11 @@ const SearchBar = ({ onSearch }:any) => {
     //     setOptions([]);
     // };
 
-    // const fakeCustomers = [
-    //     { value: '78', label: 'Chocolate' },
-    //     { value: '12', label: 'Strawberry' },
-    //     { value: '1', label: 'Vanilla' }
-    // ];
+    const fakeCustomers = [
+        { value: '78', label: 'Chocolate' },
+        { value: '12', label: 'Strawberry' },
+        { value: '1', label: 'Vanilla' }
+    ];
 
 
 
@@ -61,12 +61,12 @@ const SearchBar = ({ onSearch }:any) => {
         className="basic-single"
         classNamePrefix="select"
         value={{ value: searchTerm, label: searchTerm }}
-        onChange={handleOptionClick}
-        onInputChange={handleChange}
+        onChange={fakeCustomers}
+        onInputChange={fakeCustomers[0]}
         options={options}
       />
       <button
-        onClick={() => onSearch(searchTerm)}
+        onClick={() => onSearch(fakeCustomers)}
         className="rounded-full ml-2 p-2 bg-[#8AC43D] hover:text-white
             hover:bg-[#729d3a] hover:transition-all active:bg-[#0b170c] active:scale-75 active:text-[#c4c4c4]"
       >

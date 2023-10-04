@@ -47,28 +47,6 @@ const CustomerSearchPage = () => {
   return (
     <div className="p-3">
       <SearchBar onSearch={handleSearch} searchTerm={searchTerm} />
-      {/* <div ref={searchContainerRef}>
-
-        <ul className="
-       bg-[#bfbebe]
-       w-[26%] border border-[#1118276e]
-       rounded-lg ml-3 fixed
-       text-black
-       ">
-          {searchResults.map((result, index) => (
-            <li
-              className="
-          cursor-pointer hover:bg-[#111827]
-          hover:rounded-md hover:text-white 
-          " key={index}
-              onClick={() => searchItem(searchTerm)}
-
-            >
-              {result}
-            </li>
-          ))}
-        </ul>
-      </div> */}
     </div>
   );
 };
