@@ -72,11 +72,14 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
                 <Button className="w-[72px]" onClick={() => props.setOpenModal('form-elements')}>
                     <img src={editar.src} alt="editar" className="border-transparent" />
                 </Button>
-                <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+                <Modal 
+                show={props.openModal === 'form-elements'}
+                 size="md" popup onClose={() => props.setOpenModal(undefined)}
+                 className="flex items-center px-[25%] justify-center x-50 fixed self-center h-full backdrop-blur-sm">
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">
-                            <div className="flex items-center hover:invert justify-center">
+                            <div className="flex items-center justify-center">
                                 <img src={editarItem.src}
                                     alt="editar-item"
                                     className="w-44 invert"

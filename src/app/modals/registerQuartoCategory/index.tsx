@@ -32,7 +32,7 @@ export default function RegisterQuartoCategory() {
     return (
 
 
-        <div className="">
+        <div className="ml-10 m-2">
             <Button
                 className="
                    
@@ -48,7 +48,15 @@ export default function RegisterQuartoCategory() {
                 Registrar Categoria
             </Button>
 
-            <Modal show={props.openModal === 'registerQuartoCategory'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+            <Modal 
+            className="
+            flex items-center px-[25%]
+            justify-center x-50 fixed
+            self-center h-full
+            backdrop-blur-sm
+            "
+            show={props.openModal === 'registerQuartoCategory'}
+            size="md" popup onClose={() => props.setOpenModal(undefined)}>
                 <Modal.Header />
                 <Modal.Body>
 

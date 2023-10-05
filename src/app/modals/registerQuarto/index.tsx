@@ -82,7 +82,7 @@ export default function RegisterQuartoModal({ getFrigobar }: any) {
     return (
         <>
 
-            <div className=''>
+            <div className='ml-10 m-2 '>
                 <Button
                     className="
                     bg-[#111827]
@@ -97,11 +97,23 @@ export default function RegisterQuartoModal({ getFrigobar }: any) {
                     Cadastrar Acomodação
                 </Button>
 
-                <Modal show={props.openModal === 'registerQuartoModal'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+                <Modal
+                    className="
+                    flex items-center px-[25%] 
+                    justify-center x-50 fixed 
+                    self-center h-full 
+                    backdrop-blur-sm
+                    "
+                    show={props.openModal === 'registerQuartoModal'}
+                    size="md" popup onClose={() => props.setOpenModal(undefined)}
+                >
                     <Modal.Header />
                     <Modal.Body>
 
-                        <div className="bg-[#6E737D] h-auto text-white bg-black/20">
+                        <div className="
+                        bg-[#6E737D] h-auto
+                        text-white bg-black/20
+                        ">
                             <form onSubmit={handleSubmit(onSubmit)}
                                 className='p- rounded-b-lg
                                 bg-[#2C3441]'>

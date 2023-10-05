@@ -93,9 +93,14 @@ function RegisterReservaModal() {
                 </Button>
 
 
-                <div className="flex items-center justify-center w-full inset-0 z-50 bg-black bg-opacity-50">
+                <div
+                    className="
+                flex items-center justify-center 
+                w-full inset-0 z-50 bg-black
+                 bg-opacity-50
+                 ">
                     <Modal
-                        className="w-[40%] ml-36 h-[100%] flex items-center justify-center text-center"
+                        className="flex items-center px-[25%] justify-center x-50 fixed self-center h-full backdrop-blur-sm"
                         show={props.openModal === 'form-elements'} popup
                         onClose={() => props.setOpenModal(undefined)}
                     >

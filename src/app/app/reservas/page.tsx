@@ -38,8 +38,8 @@ export default function Reserva() {
 
                     <div className='ml-20 px-10'>
                         <RegisterReservaModal />
-                        <table className="w-full text-sm text-left text-white">
-                            <thead className="text-xs text-white0 uppercase bg-gray-50 dark:bg-gray-700 w-full">
+                         <table className=" w-full text-sm text-left text-white">
+                            <thead className="text-xs text-white0 uppercase bg-gray-50 dark:bg-gray-700">
                                 <tr>
                                     <th scope="col" className="px-6 py-3">
                                         Cliente hospedado:

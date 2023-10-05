@@ -53,7 +53,12 @@ export default function RegisterItensModal({ getItem }: any) {
                     Cadastrar
                 </Button>
                 <Modal show={props.openModal === 'form-elements'}
-                    size="md" popup onClose={() => props.setOpenModal(undefined)}>
+                    size="md" popup onClose={() => props.setOpenModal(undefined)}
+                    className="
+                    flex items-center px-[25%]
+                    justify-center x-50 fixed
+                    self-center h-full backdrop-blur-sm
+                    ">
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">

@@ -51,7 +51,7 @@ export default function CadastroClientes() {
             <SideBarFuncionario>
 
 
-                <div className="w-full h-full bg-[#DCDCDC]">
+                <div className="w-full h-screen bg-[#DCDCDC]">
                     <header className="">
                         <div className="bg-white p-4 m-0 flex shadow-lg w-full h-auto">
                             <div className="flex items-center justify-center w-full">

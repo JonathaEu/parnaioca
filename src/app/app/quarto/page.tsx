@@ -55,9 +55,9 @@ export default function Quarto() {
 
     return (
         <SideBarFuncionario>
-            <div className="w-full bg-[#DCDCDC]">
+            <div className="w-full h-screen bg-[#DCDCDC]">
                 <header className="flex justify-between">
-                    <div className="bg-white p-4 m-0 flex shadow-lg w-full h-auto">
+                    <div className="bg-white p-4 m-0 flex shadow-lg w-full h-auto items-center justify-center">
                         <img src={cadastrarQuarto.src} alt="cadastro" className="w-52" />
                     </div>
                 </header>
@@ -83,6 +83,7 @@ export default function Quarto() {
                                     <th scope="col" className="px-4 py-3">
                                         Status:
                                     </th>
+                                    
                                 </tr>
                             </thead>
 
@@ -102,6 +103,8 @@ export default function Quarto() {
                                                 </td>
                                                 <td className='py-4 px-6'>
                                                     {quarto?.nome}
+                                                </td>
+                                                <td className='py-4 px-6'>
                                                 </td>
                                                 {/* <td className={``}>
                                                     <div className={`w-full rounded-md  mr-2 text-center px-2.5 py-0.5 ${statusStyle}`}>
