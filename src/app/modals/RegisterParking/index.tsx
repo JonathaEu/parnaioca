@@ -66,6 +66,13 @@ export default function RegisterEstacionamentoModal() {
                 <Modal
                     show={props.openModal === 'form-elements'}
                     size="md" popup onClose={() => props.setOpenModal(undefined)}
+                    className="
+                    flex items-center
+                     px-[25%] justify-center
+                      x-50 fixed self-center 
+                      h-full backdrop-blur-sm
+                      py-[5%]
+                      "
                 >
                     <Modal.Header />
                     <Modal.Body>

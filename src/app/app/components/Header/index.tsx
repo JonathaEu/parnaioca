@@ -33,7 +33,7 @@ const Header = () => {
                 <div className={`${isScrolled ? 'grid' : 'text-[#abeb56]'} grid text-[12px] text-black`}>
 
                     <div className="flex justify-center items-center">
-                        <img src={acomodacoes.src} alt="acomodações" className={`${isScrolled ? 'w-32 pt-3' : 'transition-all duration-300 ease-out'} w-[300px] pt-3 transition-all duration-300 ease-in-out`} />
+                        <img src={acomodacoes.src} alt="acomodações" className={`${isScrolled ? 'w-[180px] pt-3' : 'transition-all duration-300 ease-out'} w-[300px] pt-3 transition-all duration-300 ease-in-out`} />
                     </div>
 
                     <div className="flex pb-2">
