@@ -70,15 +70,15 @@ export default function RegisterClientesModal() {
                 </div>
                 <div className=''>
                     <Modal
-                        className='flex pt-10 items-center px-[17%] justify-center x-50 fixed self-center h-full backdrop-blur-sm'
+                        className='flex items-center px-[17%] justify-center x-50 fixed self-center h-full backdrop-blur-sm'
                         show={props.openModal === 'form-elements'} popup onClose={() => props.setOpenModal(undefined)}>
                         <Modal.Header />
                         <Modal.Body>
-                            <div className="space-y-6 w-full p-2">
+                            <div className="">
                                 <div className="flex justify-center items-center w-full bg-[#5a6c89]">
                                     <img src={avatar.src} alt="cadastro" className="w-64" />
                                 </div>
-                                <div className="mb-3 flex m-0 justify-center">
+                                <div className="flex justify-center text-gray-300">
                                     <form onSubmit={handleSubmit(onSubmit)} >
                                         <div className='grid grid-cols-2 gap-20'>
 
