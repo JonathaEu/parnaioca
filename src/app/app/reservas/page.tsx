@@ -8,7 +8,8 @@ import { useStateContext } from '@/context/AuthProvider';
 import RegisterReservaModal from '@/app/modals/registerReservas';
 import reservasHeader from '../../../../public/assets/reservasHeader.png'
 import EditReservaModal from '@/app/modals/editarReserva';
-import CheckButton from '../components/checkButton';
+import CheckButton from '../components/CheckButton';
+
 
 export default function Reserva() {
 
@@ -115,9 +116,10 @@ export default function Reserva() {
                                                 <td className={``}>
                                                     {reservas.status}
                                                 </td>
-
+                                                <CheckButton/>
 
                                                 <td>
+
                                                 </td>
 
 

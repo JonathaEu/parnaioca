@@ -14,6 +14,7 @@ import editar from '../../../../../public/assets/editar.png'
 import avatar from '../../../../../public/assets/avatar-modal-cliente.png'
 import cadastro from '../../../../../public/assets/cadastro-de-clientes.png'
 import BuscarClienteEspecifico from '@/functions/get-clientes-specify';
+import CheckButton from '../../components/CheckButton';
 
 
 export default function CadastroClientes() {
@@ -103,6 +104,9 @@ export default function CadastroClientes() {
                                                         {/* <div className={` w-full rounded-md h-full mr-2 px-2.5 py-0.5 ${statusStyle}`}>
                                                         {status}
                                                     </div> */}
+                                                    </td>
+                                                    <td>
+                                                        <CheckButton />
                                                     </td>
                                                     <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
 
