@@ -12,14 +12,15 @@ import { BsCashCoin } from 'react-icons/bs';
 import logout from "@/functions/logout";
 import LogoTipo from '../../../../../public/assets/logo.png';
 import { TbHemispherePlus } from 'react-icons/tb';
+import { MdMeetingRoom } from 'react-icons/md';
 
 function SideBarFuncionario({ children }: any) {
   const menus = [
     { name: "Dashboard", href: '/app/dashboard', icon: MdOutlineDashboard },
     { name: "Clientes", href: "/app/cliente/cadastro", icon: FiUserCheck },
     { name: "Acomodações", href: '/app/acomodacao', icon: BiBed },
+    { name: "Cadastro de Acomodações", href: "/quarto", icon: MdMeetingRoom },
     { name: "Reservas", href: '/app/reservas', icon: RiReservedLine, margin: "" },
-    { name: "Check in / Check out", href: "/", icon: AiFillCheckCircle },
     { name: "Pagamento", href: '/app/pagamento', icon: BsCashCoin },
     { name: "Frigobar", href: '/app/frigobar', icon: BiDrink },
     { name: "Itens", href: '/app/itens', icon: TbHemispherePlus },
@@ -93,7 +94,7 @@ function SideBarFuncionario({ children }: any) {
 
             <button onClick={logout}>
               <div
-              className={"text-lg pl-1 over:bg-slate-900 hover:rounded-full hover:bg-[#8BC53E] hover:text-[#000] flex flex-row"}>
+                className={"text-lg pl-1 over:bg-slate-900 hover:rounded-full hover:bg-[#8BC53E] hover:text-[#000] flex flex-row"}>
                 <AiOutlineLogin />
               </div>
             </button>

@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import api from '@/services/api';
 import SideBarFuncionario from '../components/SideBarFuncionario';
 import { useStateContext } from '@/context/AuthProvider';
-import RegisterReservaModal from '@/app/modals/resisterReservas';
+import RegisterReservaModal from '@/app/modals/registerReservas';
 import reservasHeader from '../../../../public/assets/reservasHeader.png'
 import EditReservaModal from '@/app/modals/editarReserva';
+import CheckButton from '../components/checkButton';
 
 export default function Reserva() {
 
@@ -25,6 +26,39 @@ export default function Reserva() {
     }, []);
 
 
+    const [quarto, setQuarto] = useState([]);
+    useEffect(() => {
+        const getQuarto = async () => {
+            const response = await api.get('/quarto');
+            setQuarto(response.data.data);
+            // console.log(response.data.data);
+        };
+        getQuarto();
+    }, []);
+
+    const [clientes, setClientes] = useState([]);
+    useEffect(() => {
+        const getClientes = async () => {
+            const response = await api.get('/cliente');
+            setClientes(response.data.data);
+            console.log(response);
+        };
+        getClientes();
+    }, []);
+
+    const [funcionario, setFuncionario] = useState([]);
+    useEffect(() => {
+        const getFuncionario = async () => {
+            const response = await api.get('/me');
+            setFuncionario(response.data);
+            console.log(response)
+            console.log(funcionario)
+        };
+        getFuncionario();
+    }, []);
+
+
+
     return (
         <>
             <SideBarFuncionario>
@@ -37,8 +71,13 @@ export default function Reserva() {
 
 
                     <div className='ml-20 px-10'>
-                        <RegisterReservaModal />
-                         <table className=" w-full text-sm text-left text-white">
+                        <RegisterReservaModal
+                            quarto={quarto}
+                            clientes={clientes}
+                            funcionario={funcionario}
+
+                        />
+                        <table className=" w-full text-sm text-left text-white">
                             <thead className="text-xs text-white0 uppercase bg-gray-50 dark:bg-gray-700">
                                 <tr>
                                     <th scope="col" className="px-6 py-3">
@@ -60,31 +99,35 @@ export default function Reserva() {
 
 
                             <tbody className=''>
-                                {reserva.map((reserva: any, index) => {
+                                {reserva.map((reservas: any, index) => {
 
                                     return (
                                         <>
-                                            <tr key={reserva.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
+                                            <tr key={reservas.id} className=' bg-cyan-800 border-b dark:bg-gray-900 dark:text-white'>
                                                 <td className='py-4 px-6 indent-[20%]'>
-                                                    {reserva.clientes?.nome}
+                                                    {reservas.clientes?.nome}
 
                                                 </td>
                                                 <td className='py-4 px-6'>
-                                                    {reserva.quartos?.nome}
+                                                    {reservas.quartos?.nome}
                                                 </td>
 
                                                 <td className={``}>
-                                                    {reserva.status}
+                                                    {reservas.status}
                                                 </td>
 
 
-                                                <td className={``}>
-                                                    {reserva.check_out}
+                                                <td>
                                                 </td>
 
 
                                                 <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
-                                                    <EditReservaModal />
+                                                    <EditReservaModal
+                                                        quarto={quarto}
+                                                        clientes={clientes}
+                                                        funcionario={funcionario}
+                                                        id={reservas.id}
+                                                    />
                                                 </td>
 
                                             </tr>
