@@ -1,73 +1,30 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import api from '@/services/api';
+import React, { useState } from "react";
 
 
-const CheckButton = () => {
-    const [open, setOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [status, setStatus] = useState(true);
+const CkeckButton = () => {
 
-    const Menus = ['', 'CHECK IN', 'CHECK OUT'];
+    const [checkin, setCheckin] = useState(false);
+    const [checkout, setCheckout] = useState(false);
 
-    // useEffect(() => {
-    //     const getStatus = async () => {
-    //         const response = await api.get('/');
-    //         setStatus(response.data.data);
-    //         console.log(response);
-    //     };
-    //     getStatus();
-    // }, []);
+    console.log('isCheckedIn', checkin)
+    console.log('isCheckedOut', checkout)
 
+    const handleCheckin = () => {
+        setCheckin(true);
 
-    const handleMenuClick = (menu) => {
-        // if(selectedOption == 'CHECK IN'){
-        //     api.
-        // }
-        // console.log(selectedOption);
-        setSelectedOption(menu);
-    };
+    }
+
+    const handleCheckout = () => {
+        setCheckout(true);
+    }
 
     return (
-        <button className="relative">
-            <div onClick={() => setOpen(!open)} className="flex">
-                <h5
-                    className={`font-bold ${Menus ? '' : 'bg-red-500'}`}>
-                    {selectedOption || 'SITUAÇÃO'}
-                </h5>
-                <span className=" pl-2">
-                    ▼
-                </span>
-            </div>
-            {
-                open &&
-                <div
-                    className="
-                    bg-slate-300 text-black
-                    p-1 w-32 shadow-lg rounded-sm
-                    absolute -left-2 border-slate-500 border
-                "
-                >
-                    <ul>
-                        {Menus.map((menu) => (
-                            <li
-                                className="
-                                p-1 text-sm cursor-pointer
-                                rounded-2 hover:bg-[#11182767]
-                                hover:text-[#CBD5E1] rounded-sm
-                                font-semibold uppercase
-                            "
-                                key={menu}
-                                onClick={() => handleMenuClick(menu)}
-                            >
-                                {menu}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            }
-        </button>
-    );
-};
+        <div className="">
+            <button onClick={handleCheckin}>Check in</button>
+            <button onClick={handleCheckout}>Check out</button>
 
-export default CheckButton;
+        </div>
+    )
+}
+
+export default CkeckButton;
