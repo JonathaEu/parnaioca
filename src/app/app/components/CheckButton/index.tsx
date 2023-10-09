@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import api from '@/services/api';
 import { AiFillLike, AiFillDislike } from 'react-icons/ai';
 
-
-
 const CheckButton = (id: any) => {
     const [checkinClicked, setCheckinCliked] = useState(false);
     const [checkoutClicked, setCheckoutCliked] = useState(false);
@@ -15,24 +13,22 @@ const CheckButton = (id: any) => {
         setCheckoutCliked(false);
 
     }
-
+    
     const handleCheckoutCliked = () => {
         setCheckinCliked(false);
         setCheckoutCliked(true);
     }
-
     const reserva_id = id.id;
     const date = new Date();
     const time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     const today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     const dateTime = today + ' ' + time;
-
+  
     const check_in: any = {};
     const check_out: any = {};
 
     check_in.check_in = dateTime;
     check_in.check_out = dateTime;
-
 
     const checkIN = () => {
         console.log('checkIn')
@@ -43,13 +39,11 @@ const CheckButton = (id: any) => {
                 console.log(err);
             })
     }
-    
-
-    console.log(check_in);
 
     const checkOut = () => {
         setIsDisable(true)
         console.log('aaaaaaaaaaaa')
+
         api.put(`/check-out/${reserva_id}`, check_in)
             .then((sucess) => {
                 console.log(sucess)
@@ -57,6 +51,7 @@ const CheckButton = (id: any) => {
                 console.log(err);
             })
     }
+    // console.log(selectedOption);
 
     return (
 

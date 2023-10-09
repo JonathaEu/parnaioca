@@ -116,11 +116,9 @@ export default function Reserva() {
                                                 <td className={``}>
                                                     {reservas.status}
                                                 </td>
-
-                                                <td>
-                                                    <CheckButton />
-                                                </td>
-
+<td>
+                                                <CheckButton id={reservas.id} />
+                                              </td>
 
                                                 <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
                                                     <EditReservaModal
