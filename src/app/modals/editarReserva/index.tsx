@@ -2,7 +2,8 @@
 import { useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm, SubmitHandler, Control, Controller } from "react-hook-form";
+import Select from 'react-select';
 import api from '@/services/api';
 import EditItens from '@/functions/editItens';
 import editar from '../../../../public/assets/editar.png'
@@ -10,69 +11,84 @@ import editarItem from '../../../../public/assets/editarItem.png'
 import InputMask from 'react-input-mask'
 
 type Inputs = {
-    nome: string
-    valor: string
-    quantidade: number;
-    id: number
+    clientes_id: number;
+    quartos_id: number;
+    users_id: number;
+    consumos_id: number;
+    status: string;
+    dt_inicial: Date;
+    dt_final: Date;
+    check_in: string;
+    check_out: string;
+
 }
 
-export default function EditReservaModal({ getItem, index, data, item }: any) {
+export default function EditReservaModal({ quarto, clientes, funcionario, id }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
+    const [clitenHosted, setClientHosted] = useState<any>([]);
+    const [quartoHosted, setQuartoHosted] = useState<any>([]);
+    const [listaQuarto, setListaQuarto] = useState([]);
+    const [listaClientes, setListaClientes] = useState([]);
     const {
         register,
         handleSubmit,
+        control,
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        EditItens({ data })
-            .then((response) => {
-                // window.alert('Item cadastrado com sucesso')
-            }).catch((err) => {
-                console.log(err)
-                console.error(err)
-            });
-        getItem()
-        setOpenModal(false as any)
-        reset();
+        console.log(data)
+        // EditItens({ data })
+        //     .then((response) => {
+        //         // window.alert('Item cadastrado com sucesso')
+        //     }).catch((err) => {
+        //         console.log(err)
+        //         console.error(err)
+        //     });
+        // setOpenModal(false as any)
+        // reset();
     }
-
-    const NumberInput = () => {
-        const [value, setValue] = useState(0);
-
-        const handleChange = (event: any) => {
-            const inputValue = parseInt(event.target.value, 10);
-
-            if (!isNaN(inputValue) && inputValue >= 0) {
-                setValue(inputValue);
-            }
-        };
-    }
-
-
-    const CurrencyInput = () => {
-        const [inputValue, setInputValue] = useState('');
-
-        const handleInputChange = (event: any) => {
-            const { value } = event.target;
-
-            const validInput = /^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/.test(value);
-
-            if (validInput) {
-                setInputValue(value);
-            }
-
-        }
-    }
-
+    let dataInicio: any;
 
     return (
         <>
             <div className=''>
-                <Button className="w-[72px]" onClick={() => props.setOpenModal('form-elements')}>
+                <Button className="w-[72px]" onClick={() => {
+                    props.setOpenModal('edit_reserva'),
+                        console.log(id);
+                    api.get(`/reserva/${id}`)
+                        .then((sucess: any) => {
+                            console.log(sucess)
+                            // console.log(sucess.data.data[0].clientes_id)
+                            setQuartoHosted(() => {
+                                const quartoClienteValue = [
+                                    {
+                                        value: sucess.data.data[0].quartos.id,
+                                        label: sucess.data.data[0].quartos.nome,
+                                    }
+                                ]
+                                return quartoClienteValue
+                            });
+
+                            setClientHosted(() => {
+                                const clientHostedValue = [
+                                    {
+                                        value: sucess.data.data[0].clientes_id,
+                                        label: sucess.data.data[0].nome
+                                    }
+                                ]
+                                return clientHostedValue
+                            });
+                            setListaClientes(sucess?.data.clientes);
+                            setListaQuarto(sucess?.data.quartos);
+                            dataInicio = sucess.data.data[0].dt_inicial
+                            console.log(dataInicio)
+                        });
+                }}>
                     <img src={editar.src} alt="editar" className="border-transparent" />
                 </Button>
-                <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+
+                <Modal show={props.openModal === 'edit_reserva'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">
@@ -83,24 +99,221 @@ export default function EditReservaModal({ getItem, index, data, item }: any) {
                                 />
                             </div>
                             <div>
-                                <form
-                                    onSubmit={handleSubmit(onSubmit)}
-                                    className='
-                               text-slate-200 grid grid-cols-1
-                               content-center items-center rounded-b-lg
-                               backdrop-blur-sm bg-black/20 w-3/3
-                               mx-auto p-4 py-4 mt-14 px-5
-                                   '>
-                                    {/* cliente id */}
-                                    {/* quarto id */}
-                                    {/* user id */}
-                                    {/* status */}
-                                    {/* data inicial */}
-                                    {/* data final */}
-                                    {/* check in */}
-                                    {/* check out */}
+                                <Button className="w-[72px]" onClick={() => {
+                                    console.log(clitenHosted);
+                                    console.log(listaClientes);
+                                    console.log(quartoHosted);
+                                    console.log(dataInicio);
+                                }}>reserva</Button>
 
+                                <form onSubmit={handleSubmit(onSubmit)}
+                                    className='
+                                text-slate-200 grid grid-cols-1 
+                            content-center items-center rounded
+                             backdrop-blur-sm bg-black/20 w-3/3
+                             rounded-x shadow-lg shadow-slate-600
+                             mx-auto p-4 py-4 mt-14 px-5'>
+
+                                    <div>
+                                        <div className='flex items-center justify-evenly'>
+                                            <div>
+                                                <label
+                                                    className="flex items-center text-center
+                                                    text-white">
+                                                    Cliente
+                                                </label>
+                                                <div className='flex gap-10 mb-8 text-black mt-2'>
+                                                    <Controller
+                                                        name='clientes_id'
+                                                        control={control}
+                                                        // defaultValue={teste && teste[0]}
+                                                        // value={12}
+                                                        rules={{ required: true }}
+                                                        render={({ field: { onChange, value, name, ref } }) => (
+                                                            <Select
+                                                                ref={ref}
+                                                                defaultValue={clitenHosted[0]}
+                                                                name={name}
+                                                                options={listaClientes}
+                                                                onChange={val => { onChange(val.value) }}
+                                                            />
+                                                        )}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className=''>
+                                                <label
+                                                    className="
+                                                        flex items-center
+                                                        text-center text-white"
+                                                >
+                                                    Acomodações
+                                                </label>
+                                                <div className='flex gap-10 mb-8 text-black mt-2'>
+                                                    <Controller
+                                                        name='quartos_id'
+                                                        control={control}
+                                                        // defaultValue={teste && teste[0]}
+                                                        // value={12}
+                                                        rules={{ required: true }}
+                                                        render={({ field: { onChange, value, name, ref } }) => (
+                                                            <Select
+                                                                ref={ref}
+                                                                defaultValue={quartoHosted[0]}
+                                                                name={name}
+                                                                options={listaQuarto}
+                                                                onChange={val => { onChange(val.value) }}
+                                                            />
+                                                        )}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className='flex items-center justify-evenly'>
+                                            <div className='space-y-4'>
+                                                <div className='mb-4'>
+                                                    <label htmlFor="cidade"
+                                                        className='
+                                                block mb-2 text-sm 
+                                                font-medium'
+                                                    >
+                                                        Check In
+                                                    </label>
+                                                    <input defaultValue=''
+                                                        type="datetime-local"
+                                                        id="CheckIn"
+                                                        placeholder="Check In"
+                                                        {...register('check_in')}
+                                                        className='
+                                                border text-gray-900 border-slate-950
+                                                text-sm rounded-md block w-40 p-1
+                                                hover:border-slate-800'
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className='space-y-4'>
+                                                <div className='mb-4'>
+                                                    <label htmlFor="estado"
+                                                        className='
+                                                block mb-2 text-sm 
+                                                font-medium'
+                                                    >
+                                                        Nome do Funcionário
+                                                    </label>
+
+                                                    <input
+                                                        defaultValue=''
+                                                        value={funcionario?.name} disabled
+                                                        placeholder={funcionario?.name}
+                                                        {...register('users_id')}
+                                                        className='
+                                                border text-gray-900 text-sm
+                                                rounded-md border-slate-950
+                                                block w-40 p-1 hover:border-slate-800'
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center justify-evenly">
+                                            <div className='space-y-4'>
+                                                <div className='mb-4'>
+                                                    <label
+                                                        htmlFor="cidade"
+                                                        className='
+                                                block mb-2 text-sm
+                                                font-medium
+                                                '>
+                                                        Data de Início
+                                                    </label>
+                                                    <input
+                                                        defaultValue={dataInicio}
+                                                        type="date"
+                                                        id="dt_inicial"
+                                                        placeholder="Check In"
+                                                        {...register('dt_inicial')}
+                                                        className='
+                                                    border text-gray-900
+                                                border-slate-950 text-sm
+                                                rounded-md block w-40
+                                                p-1 hover:border-slate-800
+                                                '/>
+                                                </div>
+                                            </div>
+
+                                            <div className='space-y-4'>
+                                                <div className='space-y-4'>
+                                                    <div className='mb-4'>
+                                                        <label htmlFor="estado"
+                                                            className='
+                                                        mb-2 text-sm
+                                                        font-medium flex
+                                                    '>
+                                                            Data final
+                                                        </label>
+                                                        <input
+                                                            defaultValue=''
+                                                            type="date"
+                                                            id="dt_final"
+                                                            placeholder="Check Out"
+                                                            {...register('dt_final')}
+                                                            className='
+                                                        border text-gray-900
+                                                        border-slate-950 text-sm
+                                                        rounded-md block w-40
+                                                        p-1 hover:border-slate-800
+                                                    '/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className='flex items-center justify-center'>
+                                            <div
+                                                className='
+                                        flex gap-10 mb-8
+                                        text-black mt-10
+                                        '>
+                                                <label
+                                                    htmlFor=""
+                                                    className="
+                                            text-white
+                                            ">
+                                                    Status da reserva:
+                                                </label>
+                                                <select {...register("status")}>
+                                                    <option>Iniciada</option>
+                                                    <option>Pendente</option>
+                                                    <option>Finalizada</option>
+                                                    <option>Cancelado</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div
+                                            className='
+                                    flex flex-col
+                                    items-center p-2
+                                    '>
+
+                                            <input
+                                                type='submit' className='
+                                            ml-10 mb-2 bg-[#111827]
+                                            text-gray-200 hover:bg-[#374151]
+                                         hover:text-gray-300 shadow-black
+                                         p-3 rounded-md cursor-pointer
+                                         transition-transform transform 
+                                         active:scale-95
+                                         active:bg-[#000000] uppercase' />
+
+                                        </div>
+                                    </div>
                                 </form>
+
                             </div>
 
 

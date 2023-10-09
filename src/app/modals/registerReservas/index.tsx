@@ -23,7 +23,7 @@ type Inputs = {
 
 }
 
-function RegisterReservaModal() {
+function RegisterReservaModal({ quarto, clientes, funcionario }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -43,36 +43,6 @@ function RegisterReservaModal() {
         console.log(data);
         // console.log(data)
     }
-    const [quarto, setQuarto] = useState([]);
-    useEffect(() => {
-        const getQuarto = async () => {
-            const response = await api.get('/quarto');
-            setQuarto(response.data.data);
-            // console.log(response.data.data);
-        };
-        getQuarto();
-    }, []);
-
-    const [clientes, setClientes] = useState([]);
-    useEffect(() => {
-        const getClientes = async () => {
-            const response = await api.get('/cliente');
-            setClientes(response.data.data);
-            console.log(response);
-        };
-        getClientes();
-    }, []);
-
-    const [funcionario, setFuncionario] = useState([]);
-    useEffect(() => {
-        const getFuncionario = async () => {
-            const response = await api.get('/me');
-            setFuncionario(response.data);
-            console.log(response)
-            console.log(funcionario)
-        };
-        getFuncionario();
-    }, []);
 
 
     return (
@@ -125,7 +95,12 @@ function RegisterReservaModal() {
                                     <div>
                                         <div className='flex items-center justify-evenly'>
                                             <div>
-                                                <div className='flex gap-10 mb-8 text-black mt-10'>
+                                                <label
+                                                    className="flex items-center text-center
+                                                    text-white">
+                                                    Cliente
+                                                </label>
+                                                <div className='flex gap-10 mb-8 text-black mt-2'>
                                                     <select {...register("clientes_id",
                                                         { required: "Necessário selecionar cliente" })}>
                                                         <option value=""></option>
@@ -141,7 +116,14 @@ function RegisterReservaModal() {
                                             </div>
 
                                             <div className=''>
-                                                <div className='flex gap-10 mb-8 text-black mt-10'>
+                                                <label
+                                                    className="
+                                                        flex items-center
+                                                        text-center text-white"
+                                                >
+                                                    Acomodações
+                                                </label>
+                                                <div className='flex gap-10 mb-8 text-black mt-2'>
                                                     <select {...register("quartos_id", { required: "Necessário selecionar quarto" })}>
                                                         <option value=""></option>
                                                         {quarto.map((quartos: any) => {
