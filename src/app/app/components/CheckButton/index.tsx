@@ -3,13 +3,7 @@ import React, { useEffect, useState } from 'react';
 import api from '@/services/api';
 
 
-const CheckButton = () => {
-    const [open, setOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [status, setStatus] = useState(true);
-
-    const Menus = ['', 'CHECK IN', 'CHECK OUT'];
-
+const CheckButton = (id: any) => {
     // useEffect(() => {
     //     const getStatus = async () => {
     //         const response = await api.get('/');
@@ -18,55 +12,50 @@ const CheckButton = () => {
     //     };
     //     getStatus();
     // }, []);
+    const reserva_id = id.id;
+    const date = new Date();
+    const time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    const today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    const dateTime = today + ' ' + time;
+    const check_in: any = {};
+    const check_out: any = {};
+    check_in.check_in = dateTime;
+    check_in.check_out = dateTime;
 
-
-    const handleMenuClick = (menu) => {
-        // if(selectedOption == 'CHECK IN'){
-        //     api.
-        // }
-        // console.log(selectedOption);
-        setSelectedOption(menu);
-    };
+    const checkIN = () => {
+        api.put(`/check-in/${reserva_id}`, check_in)
+            .then((sucess) => {
+                console.log(sucess)
+            }).catch((err) => {
+                console.log(err);
+            })
+    }
+    console.log(check_in);
+    const checkOut = () => {
+        api.put(`/check-out/${reserva_id}`, check_in)
+            .then((sucess) => {
+                console.log(sucess)
+            }).catch((err) => {
+                console.log(err);
+            })
+    }
+    // console.log(selectedOption);
 
     return (
-        <button className="relative">
-            <div onClick={() => setOpen(!open)} className="flex">
-                <h5
-                    className={`font-bold ${Menus ? '' : 'bg-red-500'}`}>
-                    {selectedOption || 'SITUAÇÃO'}
-                </h5>
-                <span className=" pl-2">
-                    ▼
-                </span>
-            </div>
-            {
-                open &&
-                <div
-                    className="
-                    bg-slate-300 text-black
-                    p-1 w-32 shadow-lg rounded-sm
-                    absolute -left-2 border-slate-500 border
-                "
-                >
-                    <ul>
-                        {Menus.map((menu) => (
-                            <li
-                                className="
-                                p-1 text-sm cursor-pointer
-                                rounded-2 hover:bg-[#11182767]
-                                hover:text-[#CBD5E1] rounded-sm
-                                font-semibold uppercase
-                            "
-                                key={menu}
-                                onClick={() => handleMenuClick(menu)}
-                            >
-                                {menu}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            }
-        </button>
+        <div className="flex flex-col-1 justify-center">
+
+            <button className='bg-green-400'
+                onClick={checkIN}
+            >
+                Check in
+            </button>
+            <button className='bg-red-400'
+                onClick={checkOut}
+            >
+                Check out
+            </button>
+
+        </div>
     );
 };
 

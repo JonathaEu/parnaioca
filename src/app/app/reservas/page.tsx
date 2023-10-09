@@ -116,7 +116,7 @@ export default function Reserva() {
                                                 <td className={``}>
                                                     {reservas.status}
                                                 </td>
-                                                <CheckButton/>
+                                                <CheckButton id={reservas.id} />
 
                                                 <td>
 
