@@ -19,7 +19,7 @@ function SideBarFuncionario({ children }: any) {
     { name: "Dashboard", href: '/app/dashboard', icon: MdOutlineDashboard },
     { name: "Clientes", href: "/app/cliente/cadastro", icon: FiUserCheck },
     { name: "Acomodações", href: '/app/acomodacao', icon: BiBed },
-    { name: "Cadastro de Acomodações", href: "/quarto", icon: MdMeetingRoom },
+    { name: "Cadastro de Acomodações", href: "/app/quarto", icon: MdMeetingRoom },
     { name: "Reservas", href: '/app/reservas', icon: RiReservedLine, margin: "" },
     { name: "Pagamento", href: '/app/pagamento', icon: BsCashCoin },
     { name: "Frigobar", href: '/app/frigobar', icon: BiDrink },
@@ -27,7 +27,6 @@ function SideBarFuncionario({ children }: any) {
     { name: "Estacionamento", href: '/app/estacionamento', icon: AiFillCar },
 
   ];
-
   const [open, setOpen] = useState(true);
 
   return (
