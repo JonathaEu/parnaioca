@@ -116,10 +116,9 @@ export default function Reserva() {
                                                 <td className={``}>
                                                     {reservas.status}
                                                 </td>
-                                                <CheckButton/>
 
                                                 <td>
-
+                                                    <CheckButton />
                                                 </td>
 
 
