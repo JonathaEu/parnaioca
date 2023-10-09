@@ -25,9 +25,8 @@ function SideBarFuncionario({ children }: any) {
     { name: "Frigobar", href: '/app/frigobar', icon: BiDrink },
     { name: "Itens", href: '/app/itens', icon: TbHemispherePlus },
     { name: "Estacionamento", href: '/app/estacionamento', icon: AiFillCar },
-
+    
   ];
-
   const [open, setOpen] = useState(true);
 
   return (
