@@ -10,12 +10,7 @@ import drinkFrigobar from '../../../../public/assets/drink-frigobar.png'
 import fundoModal from '../../../../public/assets/fundo-modal-frigobar.png'
 import { LuAlertOctagon } from 'react-icons/lu';
 import adicionarItens from '../../../../public/assets/adicionarItens.png'
-import { BsTrashFill } from 'react-icons/bs';
-import { MdAddCircle } from 'react-icons/md';
-import { GrSubtractCircle } from 'react-icons/gr';
-import { FiPlusCircle } from 'react-icons/fi';
-
-
+import getItens from '@/functions/getItens';
 
 type Inputs = {
     iten_id: number
@@ -25,18 +20,8 @@ type Inputs = {
 }
 
 
-export default function registerFrigobarModal({ getFrigobar }: any) {
-
-    const icons = [
-        { icon: LuAlertOctagon },
-    ]
+export default function registerFrigobarModal() {
     const [itens, setItens] = useState([]);
-    const [itensIntoFrig, setItensIntoFrig] = useState([]);
-    // const [arrayInicial, setArrayInicial] = useState([]);
-    const [quantidade, setQuantidade] = useState<number>(0);
-    const [valor_total, setValor_total] = useState<number>();
-    const [reservas_id, setReservas_id] = useState([]);
-
     const {
         register,
         handleSubmit,
@@ -54,24 +39,14 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
             });
         reset();
     }
-    const getItens = async () => {
-        const response = await api.get('/itens');
-        setItens(response.data.data);
-        // console.log(response);
-        // console.log(itens);
-    };
+
     useEffect(() => {
-        getItens();
-    }, []);
-    const [reserva, setReserva] = useState([]);
-    useEffect(() => {
-        const getReserva = async () => {
-            const response = await api.get('/reserva_rel');
-            setReserva(response.data.data);
-            // console.log(response.data.data);
-        };
-        getReserva();
-    }, []);
+        getItens()
+            .then((response: any) => {
+                console.log(response);
+                setItens(response.data);
+            })
+    }, [])
 
 
     return (
@@ -87,13 +62,15 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
                             className="w-44 invert" />
                     </div>
 
-                    <form onSubmit={handleSubmit(onSubmit)}
+                    <div>
+                        <form onSubmit={handleSubmit(onSubmit)}
 
-                        className='text-slate-200 grid grid-cols-1
+                            className='text-slate-200 grid grid-cols-1
                                 content-center items-center rounded 
                                  bg-[#2C3441]
                                   mx-auto p-4 py-4 mt-14 px-5'>
-                    </form>
+                        </form>
+                    </div>
                 </div >
             </div >
         </>
