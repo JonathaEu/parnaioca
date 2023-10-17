@@ -187,7 +187,7 @@ export default function RegisterQuartoModal({ getFrigobar }: any) {
                                                 Valor
                                             </label>
                                             <InputMask
-                                                mask="R$ 999.99"
+                                                mask="999.99"
                                                 type="text"
                                                 placeholder="R$ 0,00"
                                                 defaultValue=''

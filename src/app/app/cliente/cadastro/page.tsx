@@ -78,6 +78,8 @@ export default function CadastroClientes() {
                                             Está no quarto:
                                         </th>
                                         <th scope="col" className="px-4 py-3">
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
                                             Situação:
                                         </th>
                                         <th scope="col" className="px-6 py-3">
