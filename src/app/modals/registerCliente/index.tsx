@@ -33,12 +33,14 @@ export default function RegisterClientesModal() {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
+        console.log(data)
+
         cadastraCliente({ data })
             .then((response) => {
                 reset();
 
             }).catch((err) => {
-                window.alert(err)
+                console.log(err)
             });
         // console.log(data)
     }

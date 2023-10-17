@@ -24,6 +24,8 @@ type Inputs = {
 }
 
 function RegisterReservaModal({ quarto, clientes, funcionario }: any) {
+    const funcionario_id = funcionario.id
+    
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -32,6 +34,8 @@ function RegisterReservaModal({ quarto, clientes, funcionario }: any) {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
+        console.log(funcionario_id)
+        console.log(data)
         RegisterReserva({ data })
             .then((response) => {
                 window.alert('Cadastrado com sucesso')
@@ -173,7 +177,6 @@ function RegisterReservaModal({ quarto, clientes, funcionario }: any) {
                                                     </label>
 
                                                     <input
-                                                        disabled
                                                         placeholder={funcionario?.name}
                                                         {...register('users_id', { value: funcionario.id })}
                                                         className='
