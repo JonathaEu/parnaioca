@@ -46,20 +46,20 @@ const GraficoQuartoMenosRentaveis = (maisRentavel: any) => {
 
 
     useEffect(() => {
-        console.log(porcentagem);
+        // console.log(porcentagem);
         getMaisRentavel()
             .then((response: any) => {
                 setQuartosMaisFrequentes(response.quartoMaisFrequente);
             })
-        console.log(porcentagem);
+        // console.log(porcentagem);
     }, [])
 
 
     useEffect(() => {
         if (porcentagem.length >= 1) {
-            console.log(porcentagem);
+            // console.log(porcentagem);
             const porcentagemReverse = porcentagem.reverse();
-            console.log(porcentagemReverse);
+            // console.log(porcentagemReverse);
         }
     }, [porcentagem]);
 

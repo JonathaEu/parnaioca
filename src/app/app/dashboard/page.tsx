@@ -63,7 +63,7 @@ export default function dashboard() {
 
   useEffect(() => {
     getPorcentagem().then((response: any) => {
-      console.log(response.porcentagens)
+      // console.log(response.porcentagens)
       setPorcentagem(response.porcentagens)
     })
     getMaisRentavel().then((response: any) => {
@@ -71,9 +71,9 @@ export default function dashboard() {
       setMaisRentavel(response.quartoMaisFrequente)
     });
     getItensMaisSaidas().then((response: any) => {
-      // console.log(response)
       setSaidaItens(response.ItemMaisFrequente)
       setPorcentagemItem(response.porcentagens)
+      console.log(response.porcentagens);
     })
 
 
@@ -91,7 +91,6 @@ export default function dashboard() {
     <>
       <SideBarFuncionario>
         <div className="bg-gray-100 h-full w-screen">
-
           <div className="flex justify-center items-center bg-black p-2 text-white">
             <h2 className="text-sm">Bem-vindo <b>{user?.name}</b>, o que deseja fazer?</h2>
           </div>
@@ -100,6 +99,10 @@ export default function dashboard() {
           <div className="flex items-center text-cente justify-center w-full h-auto">
             <img src={Dashboard.src} alt="dashboard" className="w-96 p-4" />
           </div>
+          <button
+            className="bg-red-600 font-bold text-white"
+            onClick={() => { console.log(porcentagemItem) }}>AAAAAAAAAAAAAAA</button>
+
           <hr className="h-[100]" />
           <div className="grid mr-20 ml-20 drop-shadow-md lg:grid-cols-3 p-14 relative content-between overflow-hidden bg-cover bg-no-repeat">
             <div className="transition duration-300 ease-in-out hover:scale-110 hover:drop-shadow-xl p-2 col-span-1 bg-white flex w-80 border rounded-lg">
@@ -124,7 +127,7 @@ export default function dashboard() {
               </div>
 
               <p className='bg-green-200 text-green-700 flex justify-center items-center p-2 rounded-lg animate-pulse'>
-              {porcentagemItem[0]}%
+                {porcentagemItem[0]}%
               </p>
             </div>
             <div className="transition duration-300 ease-in-out hover:scale-110 hover:drop-shadow-xl p-2 col-span-1 bg-white flex w-80 border rounded-lg">
@@ -154,7 +157,7 @@ export default function dashboard() {
                 <GraficoQuartoMaisRentaveis porcentagem={porcentagem} quarto={maisRentavel} />
               </span>
             </div>
-            <GraficoItensMaiorSaida />
+            <GraficoItensMaiorSaida itemMaiorSaida={porcentagemItem} />
             <div className="flex items-center justify-center">
               <span className="uppercase text-xs font-semibold">
                 Quartos menos rentáveis

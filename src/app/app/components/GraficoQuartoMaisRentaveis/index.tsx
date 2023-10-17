@@ -33,12 +33,12 @@ const GraficoQuartoMaisRentaveis = (porcentagem: any) => {
 
 
     useEffect(() => {
-        console.log(porcentagem);
+        // console.log(porcentagem);
         getMaisRentavel()
             .then((response: any) => {
                 setQuartosMaisFrequentes(response.quartoMaisFrequente);
             })
-        console.log(porcentagem);
+        // console.log(porcentagem);
     }, [])
 
 
