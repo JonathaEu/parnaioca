@@ -173,10 +173,9 @@ function RegisterReservaModal({ quarto, clientes, funcionario }: any) {
                                                     </label>
 
                                                     <input
-                                                        defaultValue=''
-                                                        value={funcionario?.name} disabled
+                                                        disabled
                                                         placeholder={funcionario?.name}
-                                                        {...register('users_id')}
+                                                        {...register('users_id', { value: funcionario.id })}
                                                         className='
                                                 border text-gray-900 text-sm
                                                 rounded-md border-slate-950

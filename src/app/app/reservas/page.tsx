@@ -3,6 +3,7 @@ import React from 'react'
 import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import api from '@/services/api';
+import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import SideBarFuncionario from '../components/SideBarFuncionario';
 import { useStateContext } from '@/context/AuthProvider';
 import RegisterReservaModal from '@/app/modals/registerReservas';
@@ -59,6 +60,38 @@ export default function Reserva() {
         getFuncionario();
     }, []);
 
+    const RedirectToPagamento = () => {
+        const [openModal, setOpenModal] = useState<string | undefined>();
+        const props = { openModal, setOpenModal };
+
+        return (
+            <>
+
+                <div className='p-0 m-0 -ml-10'>
+                    <Button
+                        onClick={() => { props.setOpenModal('visualizarItens') }}>
+                    </Button>
+
+                    <Modal
+                        className="pt-[10%] backdrop-blur-sm"
+                        show={props.openModal === 'visualizarItens'} size="sm" popup onClose={() => props.setOpenModal(undefined)}>
+                        <Modal.Header />
+                        <Modal.Body>
+                            <div>
+                                <h1>Check out realizado com sucesso.</h1>
+                                <h1>Gostaria de ir para o pagamento?</h1>
+                            </div>
+                            <div className='flex justify-evenly'>
+                                <button className='bg-green-500 rounded-md uppercase font-bold'>Sim</button>
+                                <button className='bg-red-500 rounded-md uppercase font-bold'>Não</button>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+                </div >
+            </>
+
+        )
+    }
 
 
     return (
@@ -119,7 +152,7 @@ export default function Reserva() {
                                                         {reservas.status}
                                                     </td>
                                                     <td>
-                                                        <CheckButton id={reservas.id} />
+                                                        <CheckButton id={reservas.id} reserva_checkin={reservas.check_in} reserva_checkout={reservas.check_out} />
                                                     </td>
 
                                                     <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
