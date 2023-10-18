@@ -15,6 +15,7 @@ import {
 } from 'chart.js';
 import getPorcentagem from '@/functions/getPorcentagem';
 import getMaisRentavel from '@/functions/getMaisRentavel';
+import getItensMaisSaidas from '@/functions/getItensMaisSaidas';
 
 ChartJS.register(
     CategoryScale,
@@ -27,27 +28,26 @@ ChartJS.register(
 );
 
 
-const GraficoQuartoMaisRentaveis = (porcentagem: any) => {
-    const [quartosMaisFrequentes, setQuartosMaisFrequentes] = useState([]);
-    const porcentagens = porcentagem.porcentagem;
-
-
+const GraficoItensMaisRentaveis = (itemMaiorSaida: any) => {
+    const [itensMaiorSaida, setItensMaiorSaida] = useState([]);
+    // let porcentagem: [];
+    const [porcentagemItem, setPorcentagemItem] = useState([]);
     useEffect(() => {
-        console.log(porcentagem);
-        getMaisRentavel()
+        getItensMaisSaidas()
             .then((response: any) => {
-                setQuartosMaisFrequentes(response.quartoMaisFrequente);
+                setItensMaiorSaida(response.ItemMaisFrequente);
+                setPorcentagemItem(itemMaiorSaida.itemMaiorSaida)
             })
-        console.log(porcentagem);
+        console.log(itemMaiorSaida)
     }, [])
 
 
     const data = {
-        labels: quartosMaisFrequentes,
+        labels: itensMaiorSaida,
         datasets: [
             {
                 label: 'Porcentagens %',
-                data: porcentagens,
+                data: porcentagemItem,
                 borderColor: [
                     'rgba(0, 0, 255, 1.0)',
                     'rgba(65, 105, 225, 1.0)',
@@ -91,6 +91,6 @@ const GraficoQuartoMaisRentaveis = (porcentagem: any) => {
     )
 }
 
-export default GraficoQuartoMaisRentaveis;
+export default GraficoItensMaisRentaveis;
 
 
