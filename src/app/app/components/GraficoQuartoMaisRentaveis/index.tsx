@@ -33,12 +33,10 @@ const GraficoQuartoMaisRentaveis = (porcentagem: any) => {
 
 
     useEffect(() => {
-        // console.log(porcentagem);
-        getMaisRentavel()
+         getMaisRentavel()
             .then((response: any) => {
                 setQuartosMaisFrequentes(response.quartoMaisFrequente);
             })
-        // console.log(porcentagem);
     }, [])
 
 
@@ -49,20 +47,15 @@ const GraficoQuartoMaisRentaveis = (porcentagem: any) => {
                 label: 'Porcentagens %',
                 data: porcentagens,
                 borderColor: [
-                    'rgba(0, 0, 255, 1.0)',
-                    'rgba(65, 105, 225, 1.0)',
-                    'rgba(0, 0, 139, 1.0)',
-                    'rgba(173, 216, 230, 1.0)',
-                    'rgba(175, 238, 238, 1.0)',
-                    'rgba(135, 206, 235, 1.0)',
+                    'rgba(255, 255, 255, 1.0)'
                 ],
                 backgroundColor: [
-                    'rgba(0, 0, 255, 1.0)',
-                    'rgba(65, 105, 225, 1.0)',
-                    'rgba(0, 0, 139, 1.0)',
-                    'rgba(173, 216, 230, 1.0)',
-                    'rgba(175, 238, 238, 1.0)',
-                    'rgba(135, 206, 235, 1.0)',
+                    '#4682B4',
+                    '#66CDAA',
+                    '#8FBC8F',
+                    '#7B68EE',
+                    '#008080',
+                    '#191970',
                 ]
             },
         ],

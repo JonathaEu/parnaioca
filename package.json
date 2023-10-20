@@ -61,7 +61,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2",
+    "@faker-js/faker": "^8.2.0",
     "@types/react-input-mask": "^3.0.3",
     "@types/react-scroll": "^1.8.7",
     "@types/react-slick": "^0.23.10",

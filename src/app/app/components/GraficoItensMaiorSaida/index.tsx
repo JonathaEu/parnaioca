@@ -17,6 +17,7 @@ import getPorcentagem from '@/functions/getPorcentagem';
 import getMaisRentavel from '@/functions/getMaisRentavel';
 import getItensMaisSaidas from '@/functions/getItensMaisSaidas';
 
+
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -27,42 +28,42 @@ ChartJS.register(
     Legend,
 );
 
-
 const GraficoItensMaisRentaveis = (itemMaiorSaida: any) => {
     const [itensMaiorSaida, setItensMaiorSaida] = useState([]);
+    const items = ['fanta', 'coca', 'pepsi', 'grapetti', 'brahma', 'vinho tinto']
+    const porcentagem = [25, 30, 20, 10, 10, 5]
+
     // let porcentagem: [];
     const [porcentagemItem, setPorcentagemItem] = useState([]);
     useEffect(() => {
-        getItensMaisSaidas()
-            .then((response: any) => {
-                setItensMaiorSaida(response.ItemMaisFrequente);
-                setPorcentagemItem(itemMaiorSaida.itemMaiorSaida)
-            })
-        console.log(itemMaiorSaida)
+        // getItensMaisSaidas()
+        //     .then((response: any) => {
+        //         setItensMaiorSaida(response.ItemMaisFrequente);
+        //         setPorcentagemItem(itemMaiorSaida.itemMaiorSaida)
+        //     })
+        // console.log(itemMaiorSaida)
+
     }, [])
 
 
     const data = {
-        labels: itensMaiorSaida,
+        labels: items,
+        //  itensMaiorSaida,
         datasets: [
             {
                 label: 'Porcentagens %',
-                data: porcentagemItem,
+                data: porcentagem,
+                // porcentagemItem,
                 borderColor: [
-                    'rgba(0, 0, 255, 1.0)',
-                    'rgba(65, 105, 225, 1.0)',
-                    'rgba(0, 0, 139, 1.0)',
-                    'rgba(173, 216, 230, 1.0)',
-                    'rgba(175, 238, 238, 1.0)',
-                    'rgba(135, 206, 235, 1.0)',
+                    'rgba(255, 255, 255, 1.0)'
                 ],
                 backgroundColor: [
-                    'rgba(0, 0, 255, 1.0)',
-                    'rgba(65, 105, 225, 1.0)',
-                    'rgba(0, 0, 139, 1.0)',
-                    'rgba(173, 216, 230, 1.0)',
-                    'rgba(175, 238, 238, 1.0)',
-                    'rgba(135, 206, 235, 1.0)',
+                    '#83BC4A',
+                    '#9FC842',
+                    '#EBE318',
+                    '#F08628',
+                    '#C62A30',
+                    '#722A36',
                 ]
             },
         ],

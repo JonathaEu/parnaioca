@@ -1,9 +1,9 @@
 import api from '@/services/api'
 
-export default function getFrigobar() {
+export default function postReceita() {
     return new Promise((resolve, reject) => {
 
-        api.get('/frigobar_quarto')
+        api.get('')
             .then((sucess) => {
                 resolve(sucess.data)
             })
@@ -11,6 +11,5 @@ export default function getFrigobar() {
                 console.log(err)
                 reject(err)
             })
-    }
-    )
+    })
 }
