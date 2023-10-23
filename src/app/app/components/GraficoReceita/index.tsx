@@ -49,52 +49,18 @@ const labels =
         'Nov',
         'Dez'
     ];
-const valor =
-    [
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 }),
-        faker.datatype.number({ min: 0, max: 100000 })
-    ];
 
-
-
-const GraficoReceita = () => {
-    const [dataReceita, setDataReceita] = useState([]);
-
-const handleFetch = async() => {
-    try {
-        const response = await axios.get('');
-
-        setDataReceita(response.data)
-    } catch(error){
-        console.log(error)
-    }
-} 
-
-
-    useEffect(() => {
-        handleFetch()
-    }, [])
-
+const GraficoReceita = ({ dadosParaGrafico }: any) => {
 
     const data = {
         labels,
         datasets: [
             {
                 label: 'Barra de Lucro',
-                data: valor,
+                data: dadosParaGrafico,
                 borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: valor.map((profit: any) => {
-                    if (profit <= 20000) {
+                backgroundColor: dadosParaGrafico.map((profit: any) => {
+                    if (profit <= 300) {
                         return '#E99E9E';
                     } else {
                         return '#6FBE8B';

@@ -13,10 +13,6 @@ import {
     Legend,
     ArcElement,
 } from 'chart.js';
-import getPorcentagem from '@/functions/getPorcentagem';
-import getMaisRentavel from '@/functions/getMaisRentavel';
-import getItensMaisSaidas from '@/functions/getItensMaisSaidas';
-
 
 ChartJS.register(
     CategoryScale,
@@ -28,26 +24,12 @@ ChartJS.register(
     Legend,
 );
 
-const GraficoItensMaisRentaveis = (itemMaiorSaida: any) => {
-    const [itensMaiorSaida, setItensMaiorSaida] = useState([]);
-    const items = ['fanta', 'coca', 'pepsi', 'grapetti', 'brahma', 'vinho tinto']
-    const porcentagem = [25, 30, 20, 10, 10, 5]
-
-    // let porcentagem: [];
-    const [porcentagemItem, setPorcentagemItem] = useState([]);
-    useEffect(() => {
-        // getItensMaisSaidas()
-        //     .then((response: any) => {
-        //         setItensMaiorSaida(response.ItemMaisFrequente);
-        //         setPorcentagemItem(itemMaiorSaida.itemMaiorSaida)
-        //     })
-        // console.log(itemMaiorSaida)
-
-    }, [])
-
+const GraficoItensMaisRentaveis = (itemMaiorSaidaValores: any, itemMaiorSaidaNome: any) => {
+    const itens = itemMaiorSaidaValores.itemMaiorSaidaNome;
+    const porcentagem = itemMaiorSaidaValores.itemMaiorSaidaValores;
 
     const data = {
-        labels: items,
+        labels: itens,
         //  itensMaiorSaida,
         datasets: [
             {

@@ -1,15 +1,16 @@
 import api from '@/services/api'
 
-export default function postReceita(ano: any) {
+export default function getPendencias(clientes_id: any) {
     return new Promise((resolve, reject) => {
-        api.post('/receita-anual', ano)
+
+        api.post('/pendencias', clientes_id)
             .then((sucess) => {
-                resolve(sucess.data)
-                console.log(ano)
+                resolve(sucess.data);
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
                 reject(err)
             })
-    })
+    }
+    )
 }

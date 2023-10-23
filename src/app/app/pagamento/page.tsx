@@ -2,38 +2,71 @@
 import api from '@/services/api';
 import React, { useState, useEffect } from 'react';
 import SideBarFuncionario from '../components/SideBarFuncionario';
+import Select from 'react-select';
 import { useForm } from 'react-hook-form';
+import { compareAsc, format } from 'date-fns'
 import pagamentoAvatar from '../../../../public/assets/PagamentoAvatar.png'
 import { GiDividedSquare } from 'react-icons/gi';
 import pagamentoHeader from '../../../../public/assets/PagamentoHeader.png';
+import BuscarClienteSearch from '@/functions/get-clientes-search';
+import getPendencias from '@/functions/getPendencias';
+import RegisterPagamento from '@/app/modals/RegisterPagamento';
 
 function Pagamento() {
-    const [reserva, setReserva] = useState([]);
 
-    const { register, handleSubmit } = useForm({
-        mode: 'all'
-    });
+    const [selectedOption, setSelectedOption] = useState<any>({});
+    const [clientes, setClientes] = useState([]);
+    const [reservas_id, setReservas_id] = useState<number>();
+    const [pagamento, setPagamento] = useState([]);
+    const [pendencia, setPendencia] = useState([]);
+    const [pagamentoBool, setPagamentoBool] = useState([]);
+    const [consumo, setConsumo] = useState([]);
 
-    const handleSubmitData = (data: any) => {
-        console.log('submit', data);
-    };
+
+    const confirmaCliente = () => {
+        const clientes_id = {
+            "clientes_id": selectedOption.value
+        };
+        api.post('/showConsumo', clientes_id)
+            .then((response: any) => {
+                console.log(response)
+                setConsumo(response.data.data)
+            });
+        getPendencias(clientes_id)
+            .then((response: any) => {
+                console.log(response)
+                setPendencia(response.pendencia)
+                setPagamentoBool(response.pagou_bool)
+                setReservas_id(response.reservas_id)
+            })
+    }
 
     useEffect(() => {
-        const getReserva = async () => {
-            const response = await api.get('/reserva_rel');
-            console.log(response)
-            setReserva(response.data)
+        BuscarClienteSearch()
+            .then((response: any) => {
+                setClientes(response.listaClientes)
+            }).catch((err: any) => {
+                console.log(err);
+            });
 
-        };
-        getReserva();
-    }, []);
+    }, [])
 
+    const pagBoolTrue = `line-through text-green-600 font-bold
+    outline-4 outline-black justify-start flex self-center`;
 
+    const pagBoolFalse = `text-red-700 text-center font-bold
+     outline-4 outline-black justify-start flex self-center`
+
+    let pagBoolStyle = pagamentoBool ? pagBoolTrue : pagBoolFalse;
+    // function checkPagamento() {
+    //     if (pagamentoBool[0] == 1) {
+    //         return <h1>Pago</h1>
+    //     }
+    // }
     return (
-
         <>
             <SideBarFuncionario>
-                <div className="w-full h-screen bg-[#d0d0d0]">
+                <div className="w-full h-full bg-[#d0d0d0] ">
 
                     <header
                         className='
@@ -66,63 +99,66 @@ function Pagamento() {
 
                                 <label htmlFor="clienteNome" className="font-semibold p-2 ">Clientes: </label>
 
-                                <ul>
-                                    {
-                                        reserva && reserva.length > 0 ? (
-                                            reserva.map((reserva) => (
-                                                <li key={reserva.id}>
-                                                    {reserva.clientes?.nome}
-                                                </li>
-                                            ))
-
-                                        ) : (
-                                            ' '
-                                        )
-                                    }
-                                </ul>
-                                <form onSubmit={handleSubmit(handleSubmitData)} id="meuFormulario">
-
-                                    <input id='1' type='text' {...register('buscarClientes')} placeholder='Procurar' className="w-80 pt-[0.8%] pb-[0.8%] border border-gray-300 rounded" />
-                                    <button type='submit' className="ml-2 bg-gray-700 pl-4 pr-4 pt-1 pb-1 text-white rounded hover:bg-gray-900">enviar</button>
-                                </form>
                             </div>
 
                             <div className=" pl-14 items-center content-center flex space-between">
+                                <Select
+                                    value={selectedOption}
+                                    options={clientes}
+                                    isSearchable={true}
+                                    onChange={(selectedValue) => {
+                                        setSelectedOption(selectedValue);
+                                    }}
+                                    className='w-48'
+                                />
+                                <button className='bg-slate-800 ml-5 p-2 rounded-md text-white'
+                                    onClick={() => {
+                                        confirmaCliente()
+                                        // checkPagamento()
+                                    }}
+                                >
+                                    Confirmar</button>
 
                             </div>
 
 
-                            <div>
-                                <h2 className="items-center content-center flex justify-center font-semibold">
-                                    Produtos consumidos por <h2 className="text-bold text-red-900">{reserva?.clientes?.nome}</h2>:
-
+                            <div className=''>
+                                <h2 className='font-bold text-center mb-8 mt-8'>
+                                    Consumos registrados para: {selectedOption.label}
                                 </h2>
-                                <br />
-                                <table>
-                                    <thead className="flex ml-44 space-x-36 pr-36 items-center content-center justify-center">
-                                        <th>Produtos:</th>
-                                        <tr>
-                                            <th>Valor:</th>
-                                        </tr>
-                                    </thead>
+                                {consumo && consumo.map((consumos: any) => {
+                                    return (
+                                        <div>
+                                            <ul className='grid grid-cols-2 font-semibold p-4 border-b-2 border-black mx-2'>
+                                                <li>
+                                                    Produto: {consumos.nome}
+                                                </li>
+                                                <li>
+                                                    Quantidade: {consumos.quantidade}
+                                                </li>
+                                                <li>
+                                                    Valor: R$ {consumos.valor_total}
+                                                </li>
+                                                <li>
+                                                    Data e Horário:{format(new Date(consumos.created_at), 'dd/MM/yyyy - HH:mm:ss')}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    )
+                                })}
+                                <div className='grid grid-cols-2 text-center'>
+                                    <h2 className='font-bold  mb-8 mt-8'>
+                                        Pendências:
+                                    </h2>
+                                    <h2 className={`${pagBoolStyle}`}>
+                                        R$: {pendencia}
+                                    </h2>
+                                </div>
 
-                                    <tbody>
-                                        {reserva && reserva.length > 0 ? (
-                                            reserva.map((consumo: any, index: any) => (
-                                                <tr key={consumo.id}>
-                                                    <td>{consumo?.consumo?.items_id}</td>
-                                                    <td>R$ {consumo?.consumo?.valor_total}</td>
+                                <div>
+                                    <RegisterPagamento id_da_reserva={reservas_id} debito={pendencia} />
+                                </div>
 
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            <tr>
-                                                <td colSpan="2"></td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                                <h1 className="font-bold items-center content-center justify-center flex p-20">Total: <h2 className=" pl-2 font-bold text-red-900">R$</h2> {reserva?.consumo?.consumo?.items_id?.valor_total}</h1>
                             </div>
                         </div>
                     </div>

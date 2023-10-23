@@ -1,14 +1,14 @@
 import api from '@/services/api'
 
-export default function postReceita(ano: any) {
+export default function CadastraPagamento({ data }: any) {
+
     return new Promise((resolve, reject) => {
-        api.post('/receita-anual', ano)
+
+        api.post('/pagamento', data)
             .then((sucess) => {
-                resolve(sucess.data)
-                console.log(ano)
+                resolve(sucess);
             })
             .catch((err) => {
-                console.log(err)
                 reject(err)
             })
     })

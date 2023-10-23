@@ -108,7 +108,7 @@ export default function CadastroClientes() {
                                                     </div> */}
                                                     </td>
                                                     <td>
-                                                        <CheckButton />
+
                                                     </td>
                                                     <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
 

@@ -106,7 +106,7 @@ export default function RegisterItensModal({ getItem }: any) {
                                                 placeholder='Digite o nome do item'
                                                 id="nome" {...register('nome', { required: true })}
                                                 className='
-                                            border text-white text-sm
+                                            border text-black text-sm
                                             rounded-md border-slate-950
                                             block w-80 p-1 hover:border-slate-800
                                             '/>
@@ -124,7 +124,7 @@ export default function RegisterItensModal({ getItem }: any) {
                                                 Valor
                                             </label>
                                             <InputMask
-                                                mask='R$ 99.99'
+                                                mask='99.99'
                                                 placeholder='R$ 99.99'
                                                 defaultValue=''
                                                 id="valor"
@@ -133,7 +133,7 @@ export default function RegisterItensModal({ getItem }: any) {
                                             border
                                             text-sm border-slate-950
                                             rounded-md block p-1 w-[70px]
-                                            hover:border-slate-800
+                                            text-black
                                             '/>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@ export default function RegisterItensModal({ getItem }: any) {
                                             border
                                             text-sm border-slate-950
                                             rounded-md block p-1
-                                            w-12 hover:border-slate-800
+                                            w-12 text-black
                                             '/>
                                         </div>
                                     </div>
