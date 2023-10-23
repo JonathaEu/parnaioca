@@ -20,18 +20,6 @@ import CheckButton from '../../components/CheckButton';
 export default function CadastroClientes() {
 
     const [cliente, setCliente] = useState([]);
-    const [quarto, setQuarto] = useState([]);
-
-    const Fteste = (data: any) => {
-        BuscarClienteEspecifico(data)
-            .then((sucess: any) => {
-                setCliente(sucess.data);
-                console.log(sucess.data[0]);
-            }).catch((err) => {
-                console.log(err);
-            })
-    }
-
 
     useEffect(() => {
         BuscarCliente().then((sucess: any) => {
@@ -40,12 +28,6 @@ export default function CadastroClientes() {
             console.log(sucess);
         }).catch((err) => { console.log(err) });
     }, []);
-    // useEffect(() => {
-    //     getQuartos().then((sucess: any) => {
-    //         setQuarto(sucess.data);
-    //         console.log(sucess);
-    //     }).catch((err) => { console.log(err) });
-    // }, []);
 
     return (
         <>
@@ -113,8 +95,9 @@ export default function CadastroClientes() {
                                                     <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
 
                                                         <Button
-                                                            onClick={() => { Fteste(clientes.id) }}
-                                                        ><img src={editar.src} alt="editar" className="w-9" /></Button>
+                                                        ><img src={editar.src} alt="editar" className="w-9" />
+                                                        </Button>
+
                                                         <button><img src={excluir.src} alt="excluir" className="w-8" /></button>
                                                     </td>
 

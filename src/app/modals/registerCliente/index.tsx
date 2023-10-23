@@ -37,6 +37,7 @@ export default function RegisterClientesModal() {
 
         cadastraCliente({ data })
             .then((response) => {
+                setOpenModal(undefined);
                 reset();
 
             }).catch((err) => {
@@ -44,15 +45,6 @@ export default function RegisterClientesModal() {
             });
         // console.log(data)
     }
-    const [frigobar, setFrigobar] = useState([]);
-    useEffect(() => {
-        const getFrigobar = async () => {
-            const response = await api.get('/frigobar');
-            setFrigobar(response.data.data);
-            // console.log(response.data.data);
-        };
-        getFrigobar();
-    }, []);
 
     return (
         <>

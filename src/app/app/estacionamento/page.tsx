@@ -69,7 +69,7 @@ export default function Itens() {
 
 
                                     <tbody className=''>
-                                        {quarto.map((quarto) => {
+                                        {quarto.map((quarto: any) => {
                                             // let status = frigobar.ativo ? "Ativo" : "Inativo";
                                             // const classNameGreen = "bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400"
                                             // const classNameRed = "bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400"
