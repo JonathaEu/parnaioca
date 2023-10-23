@@ -18,6 +18,7 @@ import postReceitaAnoAtual from "@/functions/postReceitaAnoAtual";
 import getClienteHospedado from "@/functions/getClienteHospedado";
 import { format } from "date-fns";
 
+
 type Clientes = {
   id: number;
   quarto: string;
@@ -227,6 +228,21 @@ export default function dashboard() {
                 <button onClick={() => { console.log(dadosRenda), controlaGraficoRendaAno() }}>FILTRAR</button>
               </div>
               <GraficoReceita dadosParaGrafico={dadosRenda} />
+            </div>
+          </div>
+
+          <div className="flex justify-center align-center">
+            <div
+              className="
+            m-2 ml-16
+          relative w-[100%] lg-h[70vh]
+          p-3 pl-2 border rounded-lg shadow-lg
+          bg-[#FFFFFF]
+          transition duration-300
+          ease-in-out hover:scale-10
+          hover:drop-shadow-xl mr-3
+          ">
+              <LucroTotal />
             </div>
           </div>
 
