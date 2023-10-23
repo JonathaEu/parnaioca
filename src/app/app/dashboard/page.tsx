@@ -13,6 +13,10 @@ import getItensMaisSaidas from "@/functions/getItensMaisSaidas";
 import GraficoQuartoMaisRentaveis from "../components/GraficoQuartoMaisRentaveis";
 import GraficoItensMaiorSaida from "../components/GraficoItensMaiorSaida";
 import GraficoReceita from '../components/GraficoReceita';
+import postReceita from "@/functions/postReceita";
+import postReceitaAnoAtual from "@/functions/postReceitaAnoAtual";
+import getClienteHospedado from "@/functions/getClienteHospedado";
+import { format } from "date-fns";
 
 type Clientes = {
   id: number;
@@ -54,36 +58,62 @@ export default function dashboard() {
   const [maisRentavel, setMaisRentavel] = useState([]);
   const [porcentagem, setPorcentagem] = useState([]);
   const [porcentagemItem, setPorcentagemItem] = useState([]);
-  const [clientes, setClientes] = useState<any[]>([]);
-  const [saidaItens, setSaidaItens] = useState([]);
+  const [clientesHospedados, setClientesHospedados] = useState<any[]>([]);
+  const [itensMaiorSaida, setItensMaiorSaida] = useState([]);
+  const [anoOptions, setAnoOptions] = useState([]);
+  const [ano, setAno] = useState({});
+  const [dadosRenda, setDadosRenda] = useState([]);
+
   let piorQuarto = maisRentavel[maisRentavel.length - 1];
   let piorPorcentagem = porcentagem[porcentagem.length - 1];
   const RouteClientes = () => { router.push('app/cliente/cadastro') };
 
+  let dataAtual = new Date();
+  let anoAtual = dataAtual.getFullYear();
+  let menos5Anos = anoAtual - 5;
+  const arrayParaOptionAnos: any = [];
+
+  function ControlaRangeDatasMenores() {
+    while (menos5Anos < anoAtual) {
+      menos5Anos++
+      arrayParaOptionAnos.push(menos5Anos);
+    }
+    setAnoOptions(arrayParaOptionAnos);
+  }
+
+  function controlaGraficoRendaAno() {
+    postReceita({ ano })
+      .then((response: any) => {
+        console.log(response)
+        setDadosRenda(response.relatorio)
+      })
+  }
 
   useEffect(() => {
     getPorcentagem().then((response: any) => {
-      // console.log(response.porcentagens)
       setPorcentagem(response.porcentagens)
-    })
+    });
+
     getMaisRentavel().then((response: any) => {
-      // console.log(response)
       setMaisRentavel(response.quartoMaisFrequente)
     });
-    // getItensMaisSaidas().then((response: any) => {
-    //   setSaidaItens(response.ItemMaisFrequente)
-    //   setPorcentagemItem(response.porcentagens)
-    //   console.log(response.porcentagens);
-    // })
 
+    getItensMaisSaidas().then((response: any) => {
+      setItensMaiorSaida(response.ItemMaisFrequente)
+      setPorcentagemItem(response.porcentagens)
+      console.log(response);
+    });
 
+    getClienteHospedado()
+      .then((response: any) => {
+        setClientesHospedados(response.cliente);
+      })
 
-    setClientes(dados);
-    BuscarCliente().then((sucess) => {
-      // setClientes(sucess);
-    })
-      .catch((err) => {
-        console.log(err)
+    ControlaRangeDatasMenores();
+
+    postReceitaAnoAtual()
+      .then((response: any) => {
+        setDadosRenda(response.relatorio)
       })
   }, []);
 
@@ -119,7 +149,7 @@ export default function dashboard() {
               <div className="flex flex-col w-full items-center">
                 <td className="text-2x1 font-bold">Item com maior saída:</td>
                 <td className="text-xs animate-bounce hover:font-semibold">
-                  {saidaItens[0]}
+                  {itensMaiorSaida[0]}
                 </td>
               </div>
 
@@ -165,7 +195,7 @@ export default function dashboard() {
                       Itens com maior saída
                     </span>
                   </div>
-                  <GraficoItensMaiorSaida itemMaiorSaida={porcentagemItem} />
+                  <GraficoItensMaiorSaida itemMaiorSaidaValores={porcentagemItem} itemMaiorSaidaNome={itensMaiorSaida} />
                 </div>
               </div>
             </div>
@@ -182,8 +212,21 @@ export default function dashboard() {
                 <span className="uppercase text-xs font-semibold">
                   RECEITA MENSAL
                 </span>
+
+                <select
+                  defaultValue={anoAtual}
+                  onChange={(e) => {
+                    setAno(e.target.value)
+                  }}>
+
+                  {anoOptions.map((anos: any, index: any) => {
+                    return <option key={index}>{anos}</option>
+                  })}
+                </select>
+
+                <button onClick={() => { console.log(dadosRenda), controlaGraficoRendaAno() }}>FILTRAR</button>
               </div>
-              <GraficoReceita />
+              <GraficoReceita dadosParaGrafico={dadosRenda} />
             </div>
           </div>
 
@@ -209,18 +252,16 @@ export default function dashboard() {
                   <th className="w-screen">Quartos</th>
                   <th className="w-screen">Hóspedes</th>
                   <th className="w-screen">Check-in</th>
-                  <th className="w-screen">Check-out</th>
                 </tr>
               </thead>
               <br />
               <tbody>
-                {clientes.map((clientes) => {
+                {clientesHospedados.map((clientes: any) => {
                   return (
                     <tr key={clientes.id} className="bottom-20">
-                      <td>{clientes.quarto}</td>
-                      <td>{clientes.nome}</td>
-                      <td>{clientes.data_inicio}</td>
-                      <td>{clientes.data_fim}</td>
+                      <td>{clientes.nome_quarto}</td>
+                      <td>{clientes.nome_cliente}</td>
+                      <td>{format(new Date(clientes.check_in), 'dd/MM/yyyy HH/mm/ss')}</td>
                       <hr className="h-[100]" />
                     </tr>
                   );

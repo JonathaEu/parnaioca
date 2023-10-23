@@ -1,15 +1,16 @@
 import api from '@/services/api'
 
-export default function postReceita(ano: any) {
+export default function getClienteHospedado() {
     return new Promise((resolve, reject) => {
-        api.post('/receita-anual', ano)
+
+        api.get('/cliente-hospedado')
             .then((sucess) => {
                 resolve(sucess.data)
-                console.log(ano)
             })
             .catch((err) => {
                 console.log(err)
                 reject(err)
             })
-    })
+    }
+    )
 }
