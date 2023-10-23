@@ -11,8 +11,8 @@ import getMaisRentavel from "@/functions/getMaisRentavel";
 import getPorcentagem from "@/functions/getPorcentagem";
 import getItensMaisSaidas from "@/functions/getItensMaisSaidas";
 import GraficoQuartoMaisRentaveis from "../components/GraficoQuartoMaisRentaveis";
-import GraficoQuartoMenosRentaveis from "../components/GraficoQuartoMenosRentaveis";
 import GraficoItensMaiorSaida from "../components/GraficoItensMaiorSaida";
+import GraficoReceita from '../components/GraficoReceita';
 
 type Clientes = {
   id: number;
@@ -70,11 +70,11 @@ export default function dashboard() {
       // console.log(response)
       setMaisRentavel(response.quartoMaisFrequente)
     });
-    getItensMaisSaidas().then((response: any) => {
-      setSaidaItens(response.ItemMaisFrequente)
-      setPorcentagemItem(response.porcentagens)
-      console.log(response.porcentagens);
-    })
+    // getItensMaisSaidas().then((response: any) => {
+    //   setSaidaItens(response.ItemMaisFrequente)
+    //   setPorcentagemItem(response.porcentagens)
+    //   console.log(response.porcentagens);
+    // })
 
 
 
@@ -90,7 +90,7 @@ export default function dashboard() {
   return (
     <>
       <SideBarFuncionario>
-        <div className="bg-gray-100 h-full w-screen">
+        <div className="bg-gray-300 h-full w-screen">
           <div className="flex justify-center items-center bg-black p-2 text-white">
             <h2 className="text-sm">Bem-vindo <b>{user?.name}</b>, o que deseja fazer?</h2>
           </div>
@@ -99,12 +99,9 @@ export default function dashboard() {
           <div className="flex items-center text-cente justify-center w-full h-auto">
             <img src={Dashboard.src} alt="dashboard" className="w-96 p-4" />
           </div>
-          <button
-            className="bg-red-600 font-bold text-white"
-            onClick={() => { console.log(porcentagemItem) }}>AAAAAAAAAAAAAAA</button>
 
           <hr className="h-[100]" />
-          <div className="grid mr-20 ml-20 drop-shadow-md lg:grid-cols-3 p-14 relative content-between overflow-hidden bg-cover bg-no-repeat">
+          <div className="grid mr-20 ml-20 drop-shadow-md lg:grid-cols-3 p-3 relative content-between overflow-hidden bg-cover bg-no-repeat">
             <div className="transition duration-300 ease-in-out hover:scale-110 hover:drop-shadow-xl p-2 col-span-1 bg-white flex w-80 border rounded-lg">
               <div className="flex flex-col w-full items-center p-2">
                 <td className="text-2x1 font-bold">Quarto mais rentável:</td>
@@ -141,48 +138,76 @@ export default function dashboard() {
             </div>
           </div>
 
-
-          <div
-            className="
-          flex 
-    w-[80%] md:col-span-2
+          <div className="flex">
+            <div
+              className="
+    w-[60%] md:col-span-2
     relative lg-h[70vh]
-    h-[50vh] m-auto p-9
-    border rounded-lg
-    bg-[#DDDEE0] mr-40
+    h-[60%] ml-16 p-3
+    border rounded-lg shadow-lg
+    bg-[#FFFFFF] transition duration-300
+    ease-in-out hover:scale-10
+    hover:drop-shadow-xl
           ">
-            <div className="flex items-center justify-evenly w-[70%]">
-              <span className="uppercase text-xs font-semibold">
-                Quartos mais rentáveis
-                <GraficoQuartoMaisRentaveis porcentagem={porcentagem} quarto={maisRentavel} />
-              </span>
+              <div className="flex justify-evenly items-center ">
+                <div className="w-72">
+                  <div className="flex items-center justify-center">
+                    <span className="uppercase text-xs font-semibold">
+                      Quartos mais rentáveis
+                    </span>
+                  </div>
+                  <GraficoQuartoMaisRentaveis porcentagem={porcentagem} quarto={maisRentavel} />
+                </div>
+                <br />
+                <div className="w-72">
+                  <div className="items-center flex justify-center">
+                    <span className="uppercase text-xs font-semibold">
+                      Itens com maior saída
+                    </span>
+                  </div>
+                  <GraficoItensMaiorSaida itemMaiorSaida={porcentagemItem} />
+                </div>
+              </div>
             </div>
-            <GraficoItensMaiorSaida itemMaiorSaida={porcentagemItem} />
-            <div className="flex items-center justify-center">
-              <span className="uppercase text-xs font-semibold">
-                Quartos menos rentáveis
-                <GraficoQuartoMenosRentaveis piorPorcentagem={porcentagem} piorQuarto={maisRentavel} />
-              </span>
+            <div
+              className="
+          relative w-[40%] lg-h[70vh]
+          p-3 pl-2 border rounded-lg shadow-lg
+          bg-[#FFFFFF]
+          transition duration-300
+           ease-in-out hover:scale-10
+            hover:drop-shadow-xl mr-3 ml-2
+           ">
+              <div className="items-center flex justify-center">
+                <span className="uppercase text-xs font-semibold">
+                  RECEITA MENSAL
+                </span>
+              </div>
+              <GraficoReceita />
             </div>
           </div>
 
-
-          <hr />
           <br />
           <hr />
           <br />
           <div>
-            <h2 className="flex justify-center items-center font-semibold text-2xl text-slate-950">
+            <h2 className="flex uppercase justify-center items-center font-semibold text-2xl text-slate-950">
               Relatório de Hospedagem
             </h2>
           </div>
           <br />
-          <div className="flex items-center text-center p-5 bg-slate-400 w-90 mr-20 ml-20 border shadow-lg rounded">
+          <div className="
+          border rounded-lg shadow-lg
+          bg-[#ffffff] transition duration-300
+          ease-in-out hover:scale-10 
+          hover:drop-shadow-xl flex items-center
+          text-center p-5 w-[90%] mr-20 ml-20 
+          ">
             <Table>
-              <thead className="table-auto">
+              <thead className="table-auto uppercase">
                 <tr className="bottom-20">
-                  <th className="w-screen">Quarto</th>
-                  <th className="w-screen">Hóspede</th>
+                  <th className="w-screen">Quartos</th>
+                  <th className="w-screen">Hóspedes</th>
                   <th className="w-screen">Check-in</th>
                   <th className="w-screen">Check-out</th>
                 </tr>
