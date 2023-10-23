@@ -13,6 +13,7 @@ import getItensMaisSaidas from "@/functions/getItensMaisSaidas";
 import GraficoQuartoMaisRentaveis from "../components/GraficoQuartoMaisRentaveis";
 import GraficoItensMaiorSaida from "../components/GraficoItensMaiorSaida";
 import GraficoReceita from '../components/GraficoReceita';
+import LucroTotal from "../components/lucroTotal";
 
 type Clientes = {
   id: number;
@@ -184,6 +185,21 @@ export default function dashboard() {
                 </span>
               </div>
               <GraficoReceita />
+            </div>
+          </div>
+
+          <div className="flex justify-center align-center">
+            <div
+              className="
+            m-2 ml-16
+          relative w-[100%] lg-h[70vh]
+          p-3 pl-2 border rounded-lg shadow-lg
+          bg-[#FFFFFF]
+          transition duration-300
+          ease-in-out hover:scale-10
+          hover:drop-shadow-xl mr-3
+          ">
+              <LucroTotal />
             </div>
           </div>
 
