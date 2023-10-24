@@ -4,9 +4,6 @@ import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import Cadastro from '../../../../public/assets/cadastro.png'
 import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
-import RegistraFrigobar from '@/functions/PostFrigobar';
-import api from '@/services/api';
-import cadastraCliente from '@/functions/postClientes';
 import ReservaModal from '../../../../public/assets/reservasModal.png'
 import RegisterReserva from '@/functions/RegisterReserva';
 
@@ -23,8 +20,7 @@ type Inputs = {
 
 }
 
-function RegisterReservaModal({ quarto, clientes, funcionario }: any) {
-    const funcionario_id = funcionario.id
+function RegisterReservaModal({ quarto, clientes, funcionario, getReserva }: any) {
 
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
@@ -34,18 +30,16 @@ function RegisterReservaModal({ quarto, clientes, funcionario }: any) {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(funcionario_id)
         console.log(data)
         RegisterReserva({ data })
             .then((response) => {
-                window.alert('Cadastrado com sucesso')
                 reset();
+                getReserva();
 
             }).catch((err) => {
                 console.log(err)
             });
-        console.log(data);
-        // console.log(data)
+        setOpenModal(undefined);
     }
 
 

@@ -1,56 +1,31 @@
 'use client'
-import cadastraQuarto from '@/functions/postQuartos';
 import React from 'react'
-import { useForm, SubmitHandler } from "react-hook-form"
 import { useState, useEffect } from 'react';
 import api from '@/services/api';
-import { RiSideBarFill } from 'react-icons/ri';
 import SideBarFuncionario from '../components/SideBarFuncionario';
 import RegisterQuartoModal from '../../modals/registerQuarto';
 import RegisterQuartoCategory from '@/app/modals/registerQuartoCategory';
 import cadastrarQuarto from '../../../../public/assets/cadastrar-quartos.png';
-
-type Inputs = {
-    nome: string;
-    numero: number;
-    valor: number;
-    max_cap: number;
-    tipo_quartos_id: number;
-}
+import getQuartos from '@/functions/getQuartos';
 
 
 export default function Quarto() {
-    const {
-        register,
-        handleSubmit,
-        // reset
-    } = useForm<Inputs>()
-    const onSubmit: SubmitHandler<Inputs> = data => {
-        cadastraQuarto({ data });
-        console.log(data);
-        // reset();
-    }
-
-    // const [tipoQuarto, setTipoQuarto] = useState([]);
-
-    // useEffect(() => {
-    //     const getTipoQuarto = async () => {
-    //         const response = await api.get('/tipo_quarto');
-    //         setTipoQuarto(response.data.data);
-    //         console.log(response.data.data);
-    //     };
-    //     getTipoQuarto();
-    // }, []);
-
     const [quarto, setQuarto] = useState([]);
+    const [tipoQuarto, setTipoQuarto] = useState([]);
 
+    const getTipoQuarto = async () => {
+        const response = await api.get('/tipo_quarto');
+        setTipoQuarto(response.data.data);
+        console.log(response.data.data);
+    }
     useEffect(() => {
-        const getQuarto = async () => {
-            const response = await api.get('/quarto');
-            setQuarto(response.data.data);
-            console.log(response);
-        };
-        getQuarto();
+        getQuartos()
+            .then((response: any) => {
+                setQuarto(response.data);
+            });
+
+        getTipoQuarto();
+
     }, []);
 
     return (
@@ -64,11 +39,11 @@ export default function Quarto() {
 
 
                 <div className="w-[100%]">
-                        <div className="mt-10 ml-10 mb-6
+                    <div className="mt-10 ml-10 mb-6
                         ">
-                            <RegisterQuartoCategory />
-                            <RegisterQuartoModal />
-                        </div>
+                        <RegisterQuartoCategory getTipoQuarto={getTipoQuarto} />
+                        <RegisterQuartoModal tipoQuarto={tipoQuarto} setQuarto={setQuarto} />
+                    </div>
 
                     <section className="flex flex-wrap content-between justify-center">
                         <table className="w-[80%] text-sm text-left text-white">
@@ -83,7 +58,7 @@ export default function Quarto() {
                                     <th scope="col" className="px-4 py-3">
                                         Status:
                                     </th>
-                                    
+
                                 </tr>
                             </thead>
 

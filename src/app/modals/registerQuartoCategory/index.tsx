@@ -9,7 +9,7 @@ type Inputs = {
     tipo: string;
 }
 
-export default function RegisterQuartoCategory() {
+export default function RegisterQuartoCategory({ getTipoQuarto }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
 
@@ -21,13 +21,14 @@ export default function RegisterQuartoCategory() {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         cadastraTipoQuarto({ data })
             .then((sucess) => {
-                window.alert('categoria cadastrada com sucesso');
                 reset();
+
+                getTipoQuarto();
             })
             .catch((err) => {
                 console.log(err);
-                window.alert(err);
             });
+        setOpenModal(undefined);
     }
     return (
 
@@ -48,15 +49,15 @@ export default function RegisterQuartoCategory() {
                 Registrar Categoria
             </Button>
 
-            <Modal 
-            className="
+            <Modal
+                className="
             flex items-center px-[25%]
             justify-center x-50 fixed
             self-center h-full
             backdrop-blur-sm
             "
-            show={props.openModal === 'registerQuartoCategory'}
-            size="md" popup onClose={() => props.setOpenModal(undefined)}>
+                show={props.openModal === 'registerQuartoCategory'}
+                size="md" popup onClose={() => props.setOpenModal(undefined)}>
                 <Modal.Header />
                 <Modal.Body>
 

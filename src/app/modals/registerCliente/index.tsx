@@ -24,7 +24,7 @@ type Inputs = {
     genero: string;
 }
 
-export default function RegisterClientesModal() {
+export default function RegisterClientesModal({ setCliente }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -39,7 +39,10 @@ export default function RegisterClientesModal() {
             .then((response) => {
                 setOpenModal(undefined);
                 reset();
-
+                BuscarCliente()
+                    .then((response: any) => {
+                        setCliente(response.data)
+                    });
             }).catch((err) => {
                 console.log(err)
             });

@@ -45,7 +45,7 @@ export default function CadastroClientes() {
 
                     <section className="flex flex-wrap content-between ">
                         <div className='w-full px-10 '>
-                            <RegisterClientesModal />
+                            <RegisterClientesModal setCliente={setCliente} />
                             <table className="w-[80%] ml-[10%]  pl-14 text-sm  text-white dark:text-gray-400">
                                 <thead
                                     className="

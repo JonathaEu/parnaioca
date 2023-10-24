@@ -1,98 +1,50 @@
 'use client'
 import React from 'react'
-import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import api from '@/services/api';
-import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import SideBarFuncionario from '../components/SideBarFuncionario';
-import { useStateContext } from '@/context/AuthProvider';
 import RegisterReservaModal from '@/app/modals/registerReservas';
 import reservasHeader from '../../../../public/assets/reservasHeader.png'
 import EditReservaModal from '@/app/modals/editarReserva';
 import CheckButton from '../components/CheckButton';
 import VisualizarReservaModal from '@/app/modals/visualizarReserva';
+import getQuartos from '@/functions/getQuartos';
+import BuscarCliente from '@/functions/get-clientes';
+import getAuthenticatedUser from '@/functions/getAuthenticatedUser';
 
 
 export default function Reserva() {
 
     const [reserva, setReserva] = useState([]);
-
-    useEffect(() => {
-        const getReserva = async () => {
-            const response = await api.get('/reserva_rel')
-            setReserva(response.data.data);
-            console.log(response.data);
-            console.log(response);
-
-        };
-        getReserva();
-    }, []);
-
-
     const [quarto, setQuarto] = useState([]);
-    useEffect(() => {
-        const getQuarto = async () => {
-            const response = await api.get('/quarto');
-            setQuarto(response.data.data);
-            // console.log(response.data.data);
-        };
-        getQuarto();
-    }, []);
-
     const [clientes, setClientes] = useState([]);
-    useEffect(() => {
-        const getClientes = async () => {
-            const response = await api.get('/cliente');
-            setClientes(response.data.data);
-            console.log(response);
-        };
-        getClientes();
-    }, []);
-
     const [funcionario, setFuncionario] = useState([]);
+
+    const getReserva = async () => {
+        const response = await api.get('/reserva_rel')
+        setReserva(response.data.data);
+        console.log(response.data);
+        console.log(response);
+    };
     useEffect(() => {
-        const getFuncionario = async () => {
-            const response = await api.get('/me');
-            setFuncionario(response.data);
-            console.log(response)
-            console.log(funcionario)
-        };
-        getFuncionario();
+        getReserva();
+
+        getQuartos()
+            .then((response: any) => {
+                setQuarto(response.data)
+            });
+
+        BuscarCliente()
+            .then((response: any) => {
+                setClientes(response.data)
+            });
+
+        getAuthenticatedUser()
+            .then((response: any) => {
+                setFuncionario(response.data)
+            });
+
     }, []);
-
-    const RedirectToPagamento = () => {
-        const [openModal, setOpenModal] = useState<string | undefined>();
-        const props = { openModal, setOpenModal };
-
-        return (
-            <>
-
-                <div className='p-0 m-0 -ml-10'>
-                    <Button
-                        onClick={() => { props.setOpenModal('visualizarItens') }}>
-                    </Button>
-
-                    <Modal
-                        className="pt-[10%] backdrop-blur-sm"
-                        show={props.openModal === 'visualizarItens'} size="sm" popup onClose={() => props.setOpenModal(undefined)}>
-                        <Modal.Header />
-                        <Modal.Body>
-                            <div>
-                                <h1>Check out realizado com sucesso.</h1>
-                                <h1>Gostaria de ir para o pagamento?</h1>
-                            </div>
-                            <div className='flex justify-evenly'>
-                                <button className='bg-green-500 rounded-md uppercase font-bold'>Sim</button>
-                                <button className='bg-red-500 rounded-md uppercase font-bold'>Não</button>
-                            </div>
-                        </Modal.Body>
-                    </Modal>
-                </div >
-            </>
-
-        )
-    }
-
 
     return (
         <>
@@ -111,7 +63,7 @@ export default function Reserva() {
                                 quarto={quarto}
                                 clientes={clientes}
                                 funcionario={funcionario}
-
+                                getReserva={getReserva}
                             />
                             <table className=" w-full text-sm text-left text-white">
                                 <thead className="text-xs text-white0 uppercase bg-gray-50 dark:bg-gray-700">
@@ -161,6 +113,7 @@ export default function Reserva() {
                                                             clientes={clientes}
                                                             funcionario={funcionario}
                                                             id={reservas.id}
+                                                            getReserva={getReserva}
                                                         />
                                                         <VisualizarReservaModal reserva={reservas} />
                                                     </td>

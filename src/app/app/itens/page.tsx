@@ -12,7 +12,6 @@ export default function Itens() {
     const getItem = async () => {
         const response = await api.get('/itens');
         setItem(response.data.data);
-        console.log(response);
     };
 
     useEffect(() => {
@@ -35,7 +34,7 @@ export default function Itens() {
 
                     <section className="flex flex-wrap content-between ">
 
-                        <RegisterItensModal getItem={getItem}></RegisterItensModal>
+                        <RegisterItensModal getItem={getItem} />
                         <div className='w-full ml-[4%] mr-[4%] px-10'>
                             <table className="w-full text-sm text-left text-white dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 w-full">
