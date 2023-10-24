@@ -4,22 +4,15 @@ import api from '@/services/api';
 import MesMaisLucrativo from '../GraficoReceita';
 
 
-
-
-const lucroTotal = () => {
-    const [lucro, setLucro] = useState([]);
-    const [melhorMes, setMelhorMes] = useState(null);
-
-
-    // LUCRO TOTAL
-
-
-    // MELHOR MÊS
-
-
+const lucroTotal = (melhorMes: any) => {
+    // const [lucro, setLucro] = useState([]);
+    // const [melhorMes, setMelhorMes] = useState(null);
     const currentDate = new Date();
     const anoAtual = currentDate.getFullYear();
 
+    useEffect(() => {
+        console.log(melhorMes);
+    }, []);
 
     return (
         <>
@@ -39,8 +32,9 @@ const lucroTotal = () => {
                     flex justify-center items-center
                     p-2 rounded-[5px] mt-2
                     ">
-                     TESTE
+                        TESTE
                     </div>
+                    <button onClick={() => { console.log(melhorMes) }}>TSTE</button>
                 </div>
 
                 <div>

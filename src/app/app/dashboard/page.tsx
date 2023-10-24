@@ -17,6 +17,7 @@ import postReceita from "@/functions/postReceita";
 import postReceitaAnoAtual from "@/functions/postReceitaAnoAtual";
 import getClienteHospedado from "@/functions/getClienteHospedado";
 import { format } from "date-fns";
+import LucroTotal from "../components/lucroTotal";
 
 
 type Clientes = {
@@ -64,7 +65,6 @@ export default function dashboard() {
   const [anoOptions, setAnoOptions] = useState([]);
   const [ano, setAno] = useState({});
   const [dadosRenda, setDadosRenda] = useState([]);
-
   let piorQuarto = maisRentavel[maisRentavel.length - 1];
   let piorPorcentagem = porcentagem[porcentagem.length - 1];
   const RouteClientes = () => { router.push('app/cliente/cadastro') };
@@ -242,7 +242,7 @@ export default function dashboard() {
           ease-in-out hover:scale-10
           hover:drop-shadow-xl mr-3
           ">
-              <LucroTotal />
+              <LucroTotal melhorMes={dadosRenda} />
             </div>
           </div>
 
