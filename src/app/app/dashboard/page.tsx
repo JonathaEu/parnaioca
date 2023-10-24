@@ -91,12 +91,10 @@ export default function dashboard() {
   }
 
   useEffect(() => {
-    getPorcentagem().then((response: any) => {
-      setPorcentagem(response.porcentagens)
-    });
-
     getMaisRentavel().then((response: any) => {
       setMaisRentavel(response.quartoMaisFrequente)
+      setPorcentagem(response.porcentagens)
+
     });
 
     getItensMaisSaidas().then((response: any) => {
@@ -187,7 +185,7 @@ export default function dashboard() {
                       Quartos mais rentáveis
                     </span>
                   </div>
-                  <GraficoQuartoMaisRentaveis porcentagem={porcentagem} quarto={maisRentavel} />
+                  <GraficoQuartoMaisRentaveis porcentagem={porcentagem} quartoMaisFrequente={maisRentavel} />
                 </div>
                 <br />
                 <div className="w-72">
@@ -219,7 +217,8 @@ export default function dashboard() {
                   onChange={(e) => {
                     setAno(e.target.value)
                   }}>
-
+                  <option value="
+">{anoAtual}</option>
                   {anoOptions.map((anos: any, index: any) => {
                     return <option key={index}>{anos}</option>
                   })}

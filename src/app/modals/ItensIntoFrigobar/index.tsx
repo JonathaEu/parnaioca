@@ -23,22 +23,9 @@ interface IitemIntoFrig {
     quantidade: any
 }
 
-export default function ItensIntoFrigobar({ frigobar, id }: any) {
+export default function ItensIntoFrigobar({ frigobar, id, itens }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
-    const [itens, setItens] = useState([]);
-
-    useEffect(() => {
-        getItens()
-            .then((sucess: any) => {
-                console.log(sucess)
-                setItens(sucess.data)
-            }).catch((error) => {
-                console.log(error);
-            });
-
-    }, [getItens])
-
 
     const {
         register,

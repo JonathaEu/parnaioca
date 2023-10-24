@@ -7,7 +7,6 @@ import RegistraFrigobar from '@/functions/PostFrigobar';
 import api from '@/services/api';
 import editFrigobar from '@/functions/EditFrigobar';
 import editar from '../../../../public/assets/editar.png'
-import getFrigobar from '@/functions/getFrigobar';
 import getQuartos from '@/functions/getQuartos';
 
 type Inputs = {
@@ -18,7 +17,7 @@ type Inputs = {
     status: string
 }
 
-export default function EditFrigobarModal({ frigobar, id, quarto }: any) {
+export default function EditFrigobarModal({ frigobar, id, quarto, getFrigobar }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -41,10 +40,6 @@ export default function EditFrigobarModal({ frigobar, id, quarto }: any) {
             reset();
         }
     }
-    useEffect(() => {
-
-    }, [quarto])
-
 
     const NumberInput = () => {
         const [value, setValue] = useState(0);
@@ -73,8 +68,6 @@ export default function EditFrigobarModal({ frigobar, id, quarto }: any) {
 
         }
     }
-
-
 
     return (
         <>

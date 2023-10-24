@@ -9,6 +9,7 @@ import EditItens from '@/functions/editItens';
 import editar from '../../../../public/assets/editar.png'
 import editarItem from '../../../../public/assets/editarItem.png'
 import InputMask from 'react-input-mask'
+import EditReserva from '@/functions/editReserva';
 
 type Inputs = {
     clientes_id: number;
@@ -23,7 +24,7 @@ type Inputs = {
 
 }
 
-export default function EditReservaModal({ quarto, clientes, funcionario, id }: any) {
+export default function EditReservaModal({ funcionario, id, getReserva }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const [clitenHosted, setClientHosted] = useState<any>([]);
@@ -38,52 +39,54 @@ export default function EditReservaModal({ quarto, clientes, funcionario, id }: 
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data)
-        // EditItens({ data })
-        //     .then((response) => {
-        //         // window.alert('Item cadastrado com sucesso')
-        //     }).catch((err) => {
-        //         console.log(err)
-        //         console.error(err)
-        //     });
-        // setOpenModal(false as any)
-        // reset();
+        EditReserva({ data, id })
+            .then((response) => {
+                getReserva();
+                // window.alert('Item cadastrado com sucesso')
+            }).catch((err) => {
+                console.log(err)
+                console.error(err)
+            });
+        setOpenModal(false as any)
+        reset();
     }
-    let dataInicio: any;
+    // let dataInicio: any;
+
+    function getReservaEspecifica() {
+        api.get(`/reserva/${id}`)
+            .then((sucess: any) => {
+                console.log(sucess)
+                // console.log(sucess.data.data[0].clientes_id)
+                setQuartoHosted(() => {
+                    const quartoClienteValue = [
+                        {
+                            value: sucess.data.data[0].quartos.id,
+                            label: sucess.data.data[0].quartos.nome,
+                        }
+                    ]
+                    return quartoClienteValue
+                });
+
+                setClientHosted(() => {
+                    const clientHostedValue = [
+                        {
+                            value: sucess.data.data[0].clientes_id,
+                            label: sucess.data.data[0].nome
+                        }
+                    ]
+                    return clientHostedValue
+                });
+                setListaClientes(sucess?.data.clientes);
+                setListaQuarto(sucess?.data.quartos);
+            });
+    }
 
     return (
         <>
             <div className=''>
                 <Button className="w-[72px]" onClick={() => {
                     props.setOpenModal('edit_reserva'),
-                        console.log(id);
-                    api.get(`/reserva/${id}`)
-                        .then((sucess: any) => {
-                            console.log(sucess)
-                            // console.log(sucess.data.data[0].clientes_id)
-                            setQuartoHosted(() => {
-                                const quartoClienteValue = [
-                                    {
-                                        value: sucess.data.data[0].quartos.id,
-                                        label: sucess.data.data[0].quartos.nome,
-                                    }
-                                ]
-                                return quartoClienteValue
-                            });
-
-                            setClientHosted(() => {
-                                const clientHostedValue = [
-                                    {
-                                        value: sucess.data.data[0].clientes_id,
-                                        label: sucess.data.data[0].nome
-                                    }
-                                ]
-                                return clientHostedValue
-                            });
-                            setListaClientes(sucess?.data.clientes);
-                            setListaQuarto(sucess?.data.quartos);
-                            dataInicio = sucess.data.data[0].dt_inicial
-                            console.log(dataInicio)
-                        });
+                        getReservaEspecifica();
                 }}>
                     <img src={editar.src} alt="editar" className="border-transparent" />
                 </Button>
@@ -100,8 +103,8 @@ export default function EditReservaModal({ quarto, clientes, funcionario, id }: 
                             </div>
                             <div>
                                 <Button className="w-[72px]" onClick={() => {
-                                    console.log(quartoHosted);
-                                    console.log(dataInicio);
+                                    console.log(quartoHosted[0]);
+                                    console.log(clitenHosted[0]);
                                 }}>reserva</Button>
 
                                 <form onSubmit={handleSubmit(onSubmit)}
@@ -228,7 +231,6 @@ export default function EditReservaModal({ quarto, clientes, funcionario, id }: 
                                                         Data de Início
                                                     </label>
                                                     <input
-                                                        defaultValue={dataInicio}
                                                         type="date"
                                                         id="dt_inicial"
                                                         placeholder="Check In"
@@ -283,9 +285,9 @@ export default function EditReservaModal({ quarto, clientes, funcionario, id }: 
                                                     Status da reserva:
                                                 </label>
                                                 <select {...register("status")}>
-                                                    <option>Iniciada</option>
+                                                    <option>Iniciado</option>
                                                     <option>Pendente</option>
-                                                    <option>Finalizada</option>
+                                                    <option>Finalizado</option>
                                                     <option>Cancelado</option>
                                                 </select>
                                             </div>

@@ -24,7 +24,7 @@ type Inputs = {
     genero: string;
 }
 
-export default function RegisterClientesModal() {
+export default function RegisterClientesModal({ setCliente }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -37,22 +37,17 @@ export default function RegisterClientesModal() {
 
         cadastraCliente({ data })
             .then((response) => {
+                setOpenModal(undefined);
                 reset();
-
+                BuscarCliente()
+                    .then((response: any) => {
+                        setCliente(response.data)
+                    });
             }).catch((err) => {
                 console.log(err)
             });
         // console.log(data)
     }
-    const [frigobar, setFrigobar] = useState([]);
-    useEffect(() => {
-        const getFrigobar = async () => {
-            const response = await api.get('/frigobar');
-            setFrigobar(response.data.data);
-            // console.log(response.data.data);
-        };
-        getFrigobar();
-    }, []);
 
     return (
         <>

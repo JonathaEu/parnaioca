@@ -27,17 +27,9 @@ ChartJS.register(
 );
 
 
-const GraficoQuartoMaisRentaveis = (porcentagem: any) => {
-    const [quartosMaisFrequentes, setQuartosMaisFrequentes] = useState([]);
+const GraficoQuartoMaisRentaveis = (porcentagem: any, quartoMaisFrequente: any) => {
     const porcentagens = porcentagem.porcentagem;
-
-
-    useEffect(() => {
-         getMaisRentavel()
-            .then((response: any) => {
-                setQuartosMaisFrequentes(response.quartoMaisFrequente);
-            })
-    }, [])
+    const quartosMaisFrequentes = porcentagem.quartoMaisFrequente;
 
 
     const data = {

@@ -10,6 +10,7 @@ import SideBarFuncionario from '../components/SideBarFuncionario'
 import excluir from '../../../../public/assets/excluir.png'
 import getQuartos from '@/functions/getQuartos';
 import VisualizarItens from '@/app/modals/visualizarItens';
+import getItens from '@/functions/getItens';
 
 
 type Inputs = {
@@ -21,32 +22,27 @@ type Inputs = {
 
 export default function Frigobar() {
     const [frigobar, setFrigobar] = useState([]);
+    const [quarto, setQuarto] = useState([]);
+    const [itens, setItens] = useState([]);
+
     const getFrigobar = async () => {
         const response = await api.get('/frigobar_quarto');
         setFrigobar(response.data);
         console.log(response);
     };
 
-    const [itens, setItens] = useState([]);
-    const getItem = async () => {
-        const response = await api.get('/itens');
-        setItens(response.data);
-        console.log(response);
-    };
-
-    const [quarto, setQuarto] = useState([]);
-
     useEffect(() => {
         getFrigobar();
-        getItem();
-        getQuartos()
-            .then((sucess: any) => {
-                console.log(sucess);
-                setQuarto(sucess.data)
-            }).catch((err) => {
-                console.log(err)
+
+        getItens()
+            .then((response: any) => {
+                setItens(response.data);
             });
-        // console.log(response.data.data);
+
+        getQuartos()
+            .then((response: any) => {
+                setQuarto(response.data);
+            })
     }, []);
 
     // console.log(frigobar);
@@ -64,7 +60,7 @@ export default function Frigobar() {
                     </header>
                     <div className="w-90% m-10">
                         <section className="flex flex-wrap content-between ">
-                            <FormElements getFrigobar={getFrigobar} />
+                            <FormElements getFrigobar={getFrigobar} quarto={quarto} />
                             <div className='w-full px-10'>
                                 <table className="w-full text-sm text-left text-white">
                                     <thead className="text-xs text-white uppercase  bg-[#374151] w-full">
@@ -108,8 +104,8 @@ export default function Frigobar() {
                                                             </div>
                                                         </td>
                                                         <td className='flex justify-end gap-4 mt-2 mb-2 pb-0.5 mr-3'>
-                                                            <ItensIntoFrigobar key={frig.id} itens2={itens} index={index} frigobar={frig} id={frig.id} />
-                                                            <EditFrigobarModal key={frig?.id} frigobar={frig} id={frig?.id} quarto={quarto} />
+                                                            <ItensIntoFrigobar key={frig.id} itens={itens} index={index} frigobar={frig} id={frig.id} />
+                                                            <EditFrigobarModal key={frig?.id} frigobar={frig} id={frig?.id} quarto={quarto} getFrigobar={getFrigobar} />
 
                                                             <button>
                                                                 <img src={excluir.src} alt="excluir" className="w-8" />

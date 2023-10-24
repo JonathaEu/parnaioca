@@ -9,6 +9,7 @@ import cadastraQuarto from '@/functions/postQuartos';
 import cadastrarQuartos from '../../../../public/assets/cadastrar-quartos.png';
 import InputMask from 'react-input-mask';
 import avatarCadastroAcomodacoes from '../../../../public/assets/avatarCadastroAcomodacoes.png'
+import getQuartos from '@/functions/getQuartos';
 
 
 type Inputs = {
@@ -21,7 +22,7 @@ type Inputs = {
 
 
 
-export default function RegisterQuartoModal({ getFrigobar }: any) {
+export default function RegisterQuartoModal({ tipoQuarto, setQuarto }: any) {
 
     const icons = [
         { icon: LuAlertOctagon },
@@ -36,48 +37,24 @@ export default function RegisterQuartoModal({ getFrigobar }: any) {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = data => {
-        cadastraQuarto({ data });
-        console.log(data);
-        // reset();
-    }
+        cadastraQuarto({ data })
+            .then((sucess: any) => {
+                reset();
+                getQuartos()
+                    .then((response: any) => {
+                        setQuarto(response.data);
+                    })
+                    .catch((err: any) => {
+                        console.log(err)
+                    })
+            })
+            .catch((err: any) => {
+                console.log(err)
+            });
 
-    const [tipoQuarto, setTipoQuarto] = useState([]);
+        setOpenModal(undefined);
+    };
 
-    useEffect(() => {
-        const getTipoQuarto = async () => {
-            const response = await api.get('/tipo_quarto');
-            setTipoQuarto(response.data.data);
-            console.log(response.data.data);
-        };
-        getTipoQuarto();
-    }, []);
-
-    const NumberInput = () => {
-        const [value, setValue] = useState(0);
-
-        const handleChange = (event: any) => {
-            const inputValue = parseInt(event.target.value, 10);
-
-            if (!isNaN(inputValue) && inputValue >= 0) {
-                setValue(inputValue);
-            }
-        };
-    }
-
-    const CurrencyInput = () => {
-        const [inputValue, setInputValue] = useState('');
-
-        const handleInputChange = (event: any) => {
-            const { value } = event.target;
-
-            const validInput = /^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/.test(value);
-
-            if (validInput) {
-                setInputValue(value);
-            }
-
-        }
-    }
 
     return (
         <>

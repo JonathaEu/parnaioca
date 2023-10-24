@@ -16,7 +16,7 @@ type Inputs = {
     id: number
 }
 
-export default function EditItensModal({ getItem, index, data, item }: any) {
+export default function EditItensModal({ getItem, item }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     const {
@@ -25,6 +25,7 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
+        console.log(data)
         EditItens({ data })
             .then((response) => {
                 // window.alert('Item cadastrado com sucesso')
@@ -37,45 +38,16 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
         reset();
     }
 
-    const NumberInput = () => {
-        const [value, setValue] = useState(0);
-
-        const handleChange = (event: any) => {
-            const inputValue = parseInt(event.target.value, 10);
-
-            if (!isNaN(inputValue) && inputValue >= 0) {
-                setValue(inputValue);
-            }
-        };
-    }
-
-    
-    const CurrencyInput = () => {
-        const [inputValue, setInputValue] = useState('');
-
-        const handleInputChange = (event: any) => {
-            const { value } = event.target;
-
-            const validInput = /^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/.test(value);
-
-            if (validInput) {
-                setInputValue(value);
-            }
-
-        }
-    }
-
-
     return (
         <>
             <div className=''>
                 <Button className="w-[72px]" onClick={() => props.setOpenModal('form-elements')}>
                     <img src={editar.src} alt="editar" className="border-transparent" />
                 </Button>
-                <Modal 
-                show={props.openModal === 'form-elements'}
-                 size="md" popup onClose={() => props.setOpenModal(undefined)}
-                 className="flex items-center px-[25%] justify-center x-50 fixed self-center h-full backdrop-blur-sm">
+                <Modal
+                    show={props.openModal === 'form-elements'}
+                    size="md" popup onClose={() => props.setOpenModal(undefined)}
+                    className="flex items-center px-[25%] justify-center x-50 fixed self-center h-full backdrop-blur-sm">
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">
@@ -122,13 +94,13 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
                                     </div>
                                     <div>
 
-                                    <div className='space-y-4 flex items-center justify-center'>
-                                        <span className="flex mt-4 mr-1 leading-10">Você está editando o item</span>
-                                        <div className='mb-4'>
-                                            <input defaultValue=''
-                                                disabled placeholder={item.id}
-                                                id="id" {...register('id', { value: item.id })}
-                                                className='
+                                        <div className='space-y-4 flex items-center justify-center'>
+                                            <span className="flex mt-4 mr-1 leading-10">Você está editando o item</span>
+                                            <div className='mb-4'>
+                                                <input defaultValue=''
+                                                    disabled placeholder={item.id}
+                                                    id="id" {...register('id', { value: item.id })}
+                                                    className='
                                                 border text-gray-900
                                                 text-sm rounded-md
                                             border-slate-950 items-center
@@ -145,12 +117,12 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
                                                 Valor
                                             </label>
                                             <InputMask
-                                            mask="R$ 99.99"
-                                            placeholder="R$ 99.99"
-                                            defaultValue=''
-                                            id="valor"
-                                            {...register('valor')}
-                                            className='
+                                                mask="99.99"
+                                                placeholder="R$ 99.99"
+                                                defaultValue=''
+                                                id="valor"
+                                                {...register('valor')}
+                                                className='
                                             border text-gray-900
                                             text-sm border-slate-950
                                             rounded-md block p-1 w-20
@@ -164,14 +136,14 @@ export default function EditItensModal({ getItem, index, data, item }: any) {
                                             <label htmlFor="quantidade" className='block mb-2 text-sm font-medium'>
                                                 Quantidade
                                             </label>
-                                            <input 
-                                            type="number"
-                                            min="0"
-                                            defaultValue=''
-                                            id="quantidade"
-                                            placeholder="0"
-                                            {...register('quantidade')}
-                                            className='
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                defaultValue=''
+                                                id="quantidade"
+                                                placeholder="0"
+                                                {...register('quantidade')}
+                                                className='
                                             border text-gray-900
                                             text-sm border-slate-950
                                             rounded-md block p-2 w-14

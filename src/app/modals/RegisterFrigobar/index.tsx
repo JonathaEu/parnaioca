@@ -14,7 +14,7 @@ type Inputs = {
 }
 
 
-export default function registerFrigobarModal({ getFrigobar }: any) {
+export default function registerFrigobarModal({ getFrigobar, quarto }: any) {
 
     const icons = [
         { icon: LuAlertOctagon },
@@ -29,36 +29,17 @@ export default function registerFrigobarModal({ getFrigobar }: any) {
         reset
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data);
         RegistraFrigobar({ data })
             .then((response) => {
+                getFrigobar();
                 console.log(response)
             }).catch((err) => {
                 console.log(err)
                 console.error(err)
             });
-        getFrigobar();
         setOpenModal(false as any)
         reset();
     }
-    const [quarto, setQuarto] = useState([]);
-    useEffect(() => {
-        const getQuarto = async () => {
-            const response = await api.get('/quarto');
-            setQuarto(response.data.data);
-            // console.log(response.data.data);
-        };
-        getQuarto();
-    }, []);
-    const [frigobar, setFrigobar] = useState([]);
-    useEffect(() => {
-        const getFrigobar = async () => {
-            const response = await api.get('/frigobar');
-            setFrigobar(response.data.data);
-            // console.log(response.data.data);
-        };
-        getFrigobar();
-    }, []);
 
     return (
         <>

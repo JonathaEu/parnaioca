@@ -11,7 +11,7 @@ type Inputs = {
 }
 
 
-export default function RegisterEstacionamentoModal() {
+export default function RegisterEstacionamentoModal({ quartos, getEstacionamento_quarto }: any) {
     const [estacionamento, setEstacionamento] = useState([]);
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
@@ -24,22 +24,15 @@ export default function RegisterEstacionamentoModal() {
         console.log(data);
         RegistraEstacionamento({ data })
             .then((response) => {
-                window.alert('Estacionamento Relacionado com sucesso')
+                getEstacionamento_quarto();
             }).catch((err) => {
                 window.alert(err);
             });
+
+        setOpenModal(undefined);
         reset();
     }
-    const [quarto, setQuarto] = useState([]);
 
-    useEffect(() => {
-        const getQuarto = async () => {
-            const response = await api.get('/quarto');
-            setQuarto(response.data.data);
-            // console.log(response.data.data);
-        };
-        getQuarto();
-    }, []);
     return (
         <>
             <div
@@ -110,11 +103,11 @@ export default function RegisterEstacionamentoModal() {
                                         <select {...register("quartos_id")}>
                                             <option></option>
 
-                                            {quarto.map((item) => {
+                                            {quartos.map((quarto: any) => {
 
                                                 return (
                                                     <>
-                                                        <option value={item.id}>{item?.nome}</option>
+                                                        <option value={quarto.id}>{quarto?.nome}</option>
                                                     </>
                                                 );
                                             })}
