@@ -10,6 +10,8 @@ import cadastrarQuartos from '../../../../public/assets/cadastrar-quartos.png';
 import InputMask from 'react-input-mask';
 import avatarCadastroAcomodacoes from '../../../../public/assets/avatarCadastroAcomodacoes.png'
 import getQuartos from '@/functions/getQuartos';
+import SucessAlert from '@/app/app/components/SucessAlert';
+import FailAlert from '@/app/app/components/FailAlert';
 
 
 type Inputs = {
@@ -38,18 +40,20 @@ export default function RegisterQuartoModal({ tipoQuarto, setQuarto }: any) {
     } = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = data => {
         cadastraQuarto({ data })
-            .then((sucess: any) => {
+            .then((response: any) => {
                 reset();
                 getQuartos()
                     .then((response: any) => {
                         setQuarto(response.data);
                     })
                     .catch((err: any) => {
-                        console.log(err)
-                    })
+                        console.log(err);
+                    });
+                SucessAlert(response)
             })
             .catch((err: any) => {
                 console.log(err)
+                FailAlert(err);
             });
 
         setOpenModal(undefined);

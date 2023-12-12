@@ -15,11 +15,14 @@ import avatar from '../../../../../public/assets/avatar-modal-cliente.png'
 import cadastro from '../../../../../public/assets/cadastro-de-clientes.png'
 import BuscarClienteEspecifico from '@/functions/get-clientes-specify';
 import CheckButton from '../../components/CheckButton';
+import BarraDePesquisa from '../../components/BarraDePesquisa';
+import BuscarClienteSearch from '@/functions/get-clientes-search';
 
 
 export default function CadastroClientes() {
 
     const [cliente, setCliente] = useState([]);
+    const [clienteList, setClienteList] = useState([]);
 
     useEffect(() => {
         BuscarCliente().then((sucess: any) => {
@@ -27,6 +30,14 @@ export default function CadastroClientes() {
             console.log(sucess);
             console.log(sucess);
         }).catch((err) => { console.log(err) });
+
+        BuscarClienteSearch()
+            .then((response: any) => {
+                setClienteList(response.listaClientes)
+            })
+            .catch((err: any) => {
+                console.log(err)
+            })
     }, []);
 
     return (
@@ -46,6 +57,7 @@ export default function CadastroClientes() {
                     <section className="flex flex-wrap content-between ">
                         <div className='w-full px-10 '>
                             <RegisterClientesModal setCliente={setCliente} />
+                            <BarraDePesquisa listaClientes={clienteList} setCliente={setCliente} />
                             <table className="w-[80%] ml-[10%]  pl-14 text-sm  text-white dark:text-gray-400">
                                 <thead
                                     className="

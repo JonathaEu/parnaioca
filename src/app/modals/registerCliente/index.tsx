@@ -10,6 +10,7 @@ import BuscarCliente from '@/functions/get-clientes';
 import { useStateContext } from '@/context/AuthProvider';
 import ReactInputMask from 'react-input-mask';
 import avatar from '../../../../public/assets/avatar-modal-cliente.png'
+import SucessAlert from '@/app/app/components/SucessAlert';
 
 
 type Inputs = {
@@ -43,8 +44,10 @@ export default function RegisterClientesModal({ setCliente }: any) {
                     .then((response: any) => {
                         setCliente(response.data)
                     });
+                SucessAlert(response);
             }).catch((err) => {
                 console.log(err)
+
             });
         // console.log(data)
     }

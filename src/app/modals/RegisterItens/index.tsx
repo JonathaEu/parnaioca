@@ -3,17 +3,23 @@ import { useState } from 'react'
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import CadastrarItens from '../../../../public/assets/cadastrarItens.png'
 import { useForm, SubmitHandler } from "react-hook-form"
-import RegistraFrigobar from '@/functions/PostFrigobar';
-import api from '@/services/api';
 import cadastraItens from '@/functions/postItens';
 import InputMask from 'react-input-mask';
+import SucessAlert from '@/app/app/components/SucessAlert';
+import FailAlert from '@/app/app/components/FailAlert';
 
 
 type Inputs = {
     nome: string
     valor: string
-    quantidade: number;
+    estoque: number;
 }
+
+const colors = [
+    '#5788DE',
+    '#57DEDE',
+    '57DE82'
+]
 
 export default function RegisterItensModal({ getItem }: any) {
     const [openModal, setOpenModal] = useState<string | undefined>();
@@ -26,10 +32,10 @@ export default function RegisterItensModal({ getItem }: any) {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data)
         cadastraItens({ data })
-            .then((response) => {
-                // window.alert('Item cadastrado com sucesso')
+            .then((response: any) => {
+                SucessAlert(response);
             }).catch((err) => {
-                console.log(err);
+                FailAlert(err);
             });
         getItem()
         setOpenModal(false as any)
@@ -141,7 +147,7 @@ export default function RegisterItensModal({ getItem }: any) {
                                     <div className='space-y-4 '>
                                         <div className='mb-4'>
                                             <label
-                                                htmlFor="quantidade"
+                                                htmlFor="estoque"
                                                 className='
                                             block mb-2 text-sm
                                              font-medium
@@ -151,9 +157,9 @@ export default function RegisterItensModal({ getItem }: any) {
                                             <input
                                                 type="number"
                                                 defaultValue=''
-                                                id="quantidade"
+                                                id="estoque"
                                                 placeholder="00"
-                                                {...register('quantidade')}
+                                                {...register('estoque')}
                                                 className='
                                             border
                                             text-sm border-slate-950

@@ -1,7 +1,7 @@
-import { getTokenLocal } from "../get-token";
+import { parseCookies } from "nookies";
 
 export const checkUserAuth = () => {
-    const userToken = localStorage.getItem('ACCESS_TOKEN');
-
+    const cookies = parseCookies();
+    const userToken = cookies.token
     return !!userToken;
 };

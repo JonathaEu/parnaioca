@@ -6,16 +6,34 @@ import MesMaisLucrativo from '../GraficoReceita';
 
 
 
-const lucroTotal = () => {
+const lucroTotal = ({ dados, lucroGeralAno }: any) => {
     const [lucro, setLucro] = useState([]);
-    const [melhorMes, setMelhorMes] = useState(null);
+    const valorMaisAlto = Math.max(...dados);
+    const posicaoDoValorMaisAlto = dados.indexOf(valorMaisAlto)
 
 
-    // LUCRO TOTAL
+    const meses =
+        [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+            'Junho',
+            'Julho',
+            'Agosto',
+            'Setembro',
+            'Outubro',
+            'Novembro',
+            'Dezembro'
+        ];
 
+    const melhorMes = meses[posicaoDoValorMaisAlto];
+    // const melhorMes = meses.findIndex(posicaoMaisAlta(posicaoDoValorMaisAlto))
 
-    // MELHOR MÊS
-
+    useEffect(() => {
+        console.log(dados)
+    }, [])
 
     const currentDate = new Date();
     const anoAtual = currentDate.getFullYear();
@@ -39,7 +57,7 @@ const lucroTotal = () => {
                     flex justify-center items-center
                     p-2 rounded-[5px] mt-2
                     ">
-                     TESTE
+                        {melhorMes}
                     </div>
                 </div>
 
@@ -55,11 +73,8 @@ const lucroTotal = () => {
                     p-2 rounded-[5px]
                     
                     ">
-                        {/* {lucro.map((item, index) => {
-                            <div key={index}>
-                                <p>{item}</p>
-                            </div>
-                        })} */}
+                        <span>R$ </span> {lucroGeralAno}
+
                     </div>
                 </div>
 

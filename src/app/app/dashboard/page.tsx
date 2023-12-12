@@ -1,14 +1,11 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import router, { useRouter } from "next/router";
-import api from '@/services/api';
 import SideBarFuncionario from '../components/SideBarFuncionario';
 import { useStateContext } from '@/context/AuthProvider';
-import BuscarCliente from "@/functions/get-clientes";
 import { Table } from 'react-bootstrap';
 import Dashboard from '../../../../public/assets/dashboard.png';
 import getMaisRentavel from "@/functions/getMaisRentavel";
-import getPorcentagem from "@/functions/getPorcentagem";
 import getItensMaisSaidas from "@/functions/getItensMaisSaidas";
 import GraficoQuartoMaisRentaveis from "../components/GraficoQuartoMaisRentaveis";
 import GraficoItensMaiorSaida from "../components/GraficoItensMaiorSaida";
@@ -17,6 +14,7 @@ import postReceita from "@/functions/postReceita";
 import postReceitaAnoAtual from "@/functions/postReceitaAnoAtual";
 import getClienteHospedado from "@/functions/getClienteHospedado";
 import { format } from "date-fns";
+import LucroTotal from "../components/lucroTotal";
 
 
 type Clientes = {
@@ -64,6 +62,7 @@ export default function dashboard() {
   const [anoOptions, setAnoOptions] = useState([]);
   const [ano, setAno] = useState({});
   const [dadosRenda, setDadosRenda] = useState([]);
+  const [lucroGeralAno, setLucroGeralAno] = useState([]);
 
   let piorQuarto = maisRentavel[maisRentavel.length - 1];
   let piorPorcentagem = porcentagem[porcentagem.length - 1];
@@ -112,7 +111,9 @@ export default function dashboard() {
 
     postReceitaAnoAtual()
       .then((response: any) => {
+        console.log(response)
         setDadosRenda(response.relatorio)
+        setLucroGeralAno(response.rendaTotal)
       })
   }, []);
 
@@ -241,7 +242,7 @@ export default function dashboard() {
           ease-in-out hover:scale-10
           hover:drop-shadow-xl mr-3
           ">
-              <LucroTotal />
+              <LucroTotal dados={dadosRenda} lucroGeralAno={lucroGeralAno} />
             </div>
           </div>
 
